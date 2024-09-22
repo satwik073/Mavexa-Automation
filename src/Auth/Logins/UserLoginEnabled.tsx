@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useMutation, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios from 'axios';
 import { LOGIN_SESSION } from '@/Pipe/Auth/auth';
@@ -29,6 +29,7 @@ const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
 const UserLoginEnabled: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const initialValues: LoginCredentialProps = {
     registered_user_email: '',
@@ -37,25 +38,28 @@ const UserLoginEnabled: FC = () => {
 
   const validationSchema = Yup.object({
     registered_user_email: Yup.string().email('Invalid email').required('Email is required'),
-    registered_user_password: Yup.string().min(1, 'Password must be at least 6 characters').required('Password is required'),
+    registered_user_password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   });
 
   const mutation = useMutation({
     mutationFn: (userData: LoginCredentialProps) => LOGIN_CALLER(userData),
+    onMutate: () => {
+      setLoading(true);
+    },
     onSuccess: (data) => {
       MESSAGE_HANDLER(TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN), MessageConfiguration.SC_M, {
         hideProgressBar: true,
         autoClose: 5000,
-        position:'bottom-right',
+        position: 'bottom-right',
         theme: ThemeProviderOptions.DARK_TH,
       });
-     
       dispatch(set_token({
         token: data.token,
         user_info: data.userInfo,
       }));
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
-      localStorage.setItem('User-Settings', data.token)
+      localStorage.setItem('User-Settings', data.token);
+      setLoading(false);
     },
     onError: () => {
       const errorMessage = 'Login Unsuccessful. User does not exist.';
@@ -64,6 +68,7 @@ const UserLoginEnabled: FC = () => {
         autoClose: 1000,
         theme: ThemeProviderOptions.DARK_TH,
       });
+      setLoading(false);
     },
   });
 
@@ -73,17 +78,16 @@ const UserLoginEnabled: FC = () => {
 
   return (
     <React.Fragment>
-        <h1>Login </h1>
-      <div className='w-full flex justify-center items-center h-[100dvh]'>
-      <div className=' w-[40%] flex justify-center items-center'>
-
-      <DynamicForm
-        form_allocated_data={initialValues}
-        schema_declaration={validationSchema}
-        onSubmit={handleSubmit}
-         className=' p-80'
-      />
-      </div>
+      <h1>Login</h1>
+      <div className="w-full flex justify-center items-center h-[100dvh]">
+        <div className="bg-white w-[40%] flex justify-center items-center">
+          <DynamicForm
+            form_allocated_data={initialValues}
+            schema_declaration={validationSchema}
+            onSubmit={handleSubmit}
+            buttonLoading={loading}
+          />
+        </div>
       </div>
     </React.Fragment>
   );

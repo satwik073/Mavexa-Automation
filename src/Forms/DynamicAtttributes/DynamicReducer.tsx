@@ -1,4 +1,4 @@
-import { TextField, Button, Box, Grid, Typography, useTheme } from '@mui/material';
+import { TextField, Button, Box, Grid, Typography, useTheme, CircularProgress } from '@mui/material';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { DataTypeFormIdentifier } from '@/Constants/structure';
@@ -8,6 +8,7 @@ interface DynamicFormProps<T> {
   schema_declaration: Yup.ObjectSchema<any>;
   onSubmit: (values: T) => void;
   className?: string;
+  buttonLoading?: boolean;
 }
 
 const getInputType = (key: string): string => {
@@ -21,6 +22,7 @@ const DynamicForm = <T extends Record<string, any>>({
   form_allocated_data,
   schema_declaration,
   onSubmit,
+  buttonLoading = false, // Default to false
 }: DynamicFormProps<T>) => {
   const form_controller = useFormik({
     initialValues: form_allocated_data,
@@ -45,7 +47,7 @@ const DynamicForm = <T extends Record<string, any>>({
         boxShadow: 3,
         borderRadius: 2,
         mt: 4,
-        border: 'solid 1px red'
+        border: 'solid 1px red',
       }}
     >
       <Typography
@@ -75,10 +77,9 @@ const DynamicForm = <T extends Record<string, any>>({
               fullWidth
               sx={{
                 '& .MuiOutlinedInput-root': {
-                  bgcolor: 'transparent',
+                  bgcolor: 'white',
                   borderRadius: '10px',
-                  border:'solid 1px red',
-                  color :'white'
+                  border: 'solid 1px red',
                 },
                 '& label.Mui-focused': {
                   color: 'primary.main',
@@ -114,8 +115,9 @@ const DynamicForm = <T extends Record<string, any>>({
           textTransform: 'none',
           borderRadius: 2,
         }}
+        disabled={buttonLoading}
       >
-        Submit
+        {buttonLoading ? <CircularProgress size={24} /> : 'Submit'}
       </Button>
     </Box>
   );
