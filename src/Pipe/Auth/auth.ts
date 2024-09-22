@@ -10,10 +10,10 @@ const SERVER_BASE = {
 
 
 const LOGIN_URL = {
-    production: import.meta.env.VITE_APP_USER_LOGIN_PROD,
+    production: import.meta.env.VITE_APP_USER_LOGIN,
     staging: import.meta.env.VITE_APP_USER_LOGIN,
-    development: import.meta.env.VITE_APP_USER_LOGIN_DEV
-}[ENV_MODE] || import.meta.env.VITE_APP_USER_LOGIN_DEV;
+    development: import.meta.env.VITE_APP_USER_LOGIN
+}[ENV_MODE] || import.meta.env.VITE_APP_USER_LOGIN;
 
 const REGISTRATION_URL = {
     production: import.meta.env.VITE_APP_USER_REGISTER_PROD,
