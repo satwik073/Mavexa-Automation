@@ -3,7 +3,7 @@ const version: any = 'v1'
 const SERVER_BASE = ENV_VALIDATOR
     ? import.meta.env.VITE_APP_HOSTED_SERVER
     : import.meta.env.VITE_APP_HOSTED_SERVER;
-
+console.log(SERVER_BASE)
 const LOGIN_URL = ENV_VALIDATOR
     ? import.meta.env.VITE_APP_USER_LOGIN
     : import.meta.env.VITE_APP_USER_LOGIN
