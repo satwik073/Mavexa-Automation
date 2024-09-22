@@ -1,28 +1,43 @@
-export const ENV_VALIDATOR: boolean = import.meta.env.DEV;
-const version: any = 'v1'
-const SERVER_BASE = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_HOSTED_SERVER
-    : import.meta.env.VITE_APP_HOSTED_SERVER;
-console.log(SERVER_BASE)
-const LOGIN_URL = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_USER_LOGIN
-    : import.meta.env.VITE_APP_USER_LOGIN
+export const ENV_MODE = import.meta.env.MODE;
 
-const REGISTRATION_URL = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_USER_REGISTER
-    : import.meta.env.VITE_APP_USER_REGISTER
+const version: string = 'v1';
 
-const RESEND_OTP_REQUEST = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_USER_REVERIFICATION
-    : import.meta.env.VITE_APP_USER_REVERIFICATION
+const SERVER_BASE = {
+    production: import.meta.env.VITE_APP_HOSTED_SERVER,
+    staging: import.meta.env.VITE_APP_LOCAL_SERVER_BASE_URL,
+    development: import.meta.env.VITE_APP_HOSTED_SERVER_DEV
+}[ENV_MODE] || import.meta.env.VITE_APP_HOSTED_SERVER_DEV;
 
-const OTP_AUTHENTICATION = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_USER_OTP
-    : import.meta.env.VITE_APP_USER_OTP
 
-const RESET_PASSWORD = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_RESET_SECURITY_CODE
-    : import.meta.env.VITE_APP_RESET_SECURITY_CODE
+const LOGIN_URL = {
+    production: import.meta.env.VITE_APP_USER_LOGIN_PROD,
+    staging: import.meta.env.VITE_APP_USER_LOGIN,
+    development: import.meta.env.VITE_APP_USER_LOGIN_DEV
+}[ENV_MODE] || import.meta.env.VITE_APP_USER_LOGIN_DEV;
+
+const REGISTRATION_URL = {
+    production: import.meta.env.VITE_APP_USER_REGISTER_PROD,
+    staging: import.meta.env.VITE_APP_USER_REGISTER,
+    development: import.meta.env.VITE_APP_USER_REGISTER_DEV
+}[ENV_MODE] || import.meta.env.VITE_APP_USER_REGISTER_DEV;
+
+const RESEND_OTP_REQUEST = {
+    production: import.meta.env.VITE_APP_USER_REVERIFICATION_PROD,
+    staging: import.meta.env.VITE_APP_USER_REVERIFICATION,
+    development: import.meta.env.VITE_APP_USER_REVERIFICATION_DEV
+}[ENV_MODE] || import.meta.env.VITE_APP_USER_REVERIFICATION_DEV;
+
+const OTP_AUTHENTICATION = {
+    production: import.meta.env.VITE_APP_USER_OTP_PROD,
+    staging: import.meta.env.VITE_APP_USER_OTP,
+    development: import.meta.env.VITE_APP_USER_OTP_DEV
+}[ENV_MODE] || import.meta.env.VITE_APP_USER_OTP_DEV;
+
+const RESET_PASSWORD = {
+    production: import.meta.env.VITE_APP_RESET_SECURITY_CODE_PROD,
+    staging: import.meta.env.VITE_APP_RESET_SECURITY_CODE,
+    development: import.meta.env.VITE_APP_RESET_SECURITY_CODE_DEV
+}[ENV_MODE] || import.meta.env.VITE_APP_RESET_SECURITY_CODE_DEV;
 
 
 export const LOGIN_SESSION = async(data_binding: any) : Promise<any> => ({

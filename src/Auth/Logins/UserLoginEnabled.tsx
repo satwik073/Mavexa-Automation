@@ -73,13 +73,18 @@ const UserLoginEnabled: FC = () => {
 
   return (
     <React.Fragment>
-      <h1>User Login</h1>
+        <h1>Login </h1>
+      <div className='w-full flex justify-center items-center h-[100dvh]'>
+      <div className=' w-[40%] flex justify-center items-center'>
+
       <DynamicForm
         form_allocated_data={initialValues}
         schema_declaration={validationSchema}
         onSubmit={handleSubmit}
-        
+         className=' p-80'
       />
+      </div>
+      </div>
     </React.Fragment>
   );
 };
