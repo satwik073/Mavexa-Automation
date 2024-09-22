@@ -1,8 +1,8 @@
 export const ENV_VALIDATOR: boolean = import.meta.env.DEV;
 const version: any = 'v1'
 const SERVER_BASE = ENV_VALIDATOR
-    ? import.meta.env.VITE_APP_LOCAL_SERVER_BASE_URL
-    : import.meta.env.VITE_APP_PROD_SERVER_BASE_URL;
+    ? import.meta.env.VITE_APP_HOSTED_SERVER
+    : import.meta.env.VITE_APP_HOSTED_SERVER;
 
 const LOGIN_URL = ENV_VALIDATOR
     ? import.meta.env.VITE_APP_USER_LOGIN
