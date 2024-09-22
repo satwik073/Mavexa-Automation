@@ -46,6 +46,7 @@ const UserLoginEnabled: FC = () => {
       MESSAGE_HANDLER(TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN), MessageConfiguration.SC_M, {
         hideProgressBar: true,
         autoClose: 5000,
+        position:'bottom-right',
         theme: ThemeProviderOptions.DARK_TH,
       });
      
