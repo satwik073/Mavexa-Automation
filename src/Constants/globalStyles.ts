@@ -1,0 +1,15 @@
+export const REUSABLE_CONFIG ={
+ flexCenterCommon : "flex items-center justify-center",
+ darkModeText : "dark:text-white",
+ transitionCommon : "transition duration-200",
+ roundedxlCommon : "rounded-xl",
+ commonTextSm : "text-sm",
+ commonPadding : "px-4 py-2",
+ commonShadow : "shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]",
+ commonFontBold: "font-bold",
+ absoluteCenter: "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2",
+ commonRingEffect: "focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50",
+ fullRounded: "rounded-full",
+ flexItemsCenter: "flex items-center",
+ commonGradient: "bg-gradient-to-r from-black via-emerald-500/90 to-slate-950",
+}
