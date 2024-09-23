@@ -6,18 +6,12 @@ export const TENANT_AUTHENTICATION = (
     user_type_specified: RolesIdentifier,
     auth_type_specified: AuthFlowIdentifier
   ) => {
-    if (user_type_specified === RolesIdentifier.USER) {
-      if (auth_type_specified === AuthFlowIdentifier.REGISTER_VAR) {
-        return `${RolesIdentifier.USER} ${AuthFlowIdentifier.REGISTER_VAR}ed Successfully`;
-      } else if (auth_type_specified === AuthFlowIdentifier.SIGN_IN) {
-        return `${RolesIdentifier.USER} ${AuthFlowIdentifier.SIGN_IN} Successful`;
-      }
-    } else if (user_type_specified === RolesIdentifier.ADMIN) {
-      if (auth_type_specified === AuthFlowIdentifier.REGISTER_VAR) {
-        return `${RolesIdentifier.ADMIN} ${AuthFlowIdentifier.REGISTER_VAR}ed Successfully`;
-      } else if (auth_type_specified === AuthFlowIdentifier.SIGN_IN) {
-        return `${RolesIdentifier.ADMIN} ${AuthFlowIdentifier.SIGN_IN} Successful`;
-      }
+    const validation_checker = (user_type_specified === RolesIdentifier.ADMIN || user_type_specified === RolesIdentifier.USER)
+    if(auth_type_specified === AuthFlowIdentifier.SIGN_IN && validation_checker){
+      return `${AuthFlowIdentifier.SIGN_IN} Successfull`;
+    }
+    if(auth_type_specified === AuthFlowIdentifier.REGISTER_VAR && validation_checker){
+      return `${AuthFlowIdentifier.REGISTER_VAR} Successfull`
     }
     return DEFAULT_EXECUTED.ERROR;
   };
