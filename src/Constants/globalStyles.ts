@@ -13,6 +13,7 @@ export const REUSABLE_CONFIG = {
     flexItemsCenter: "flex items-center",
     commonGradient: "bg-gradient-to-r from-black via-emerald-500/90 to-slate-950",
 }
+import { ThemeProviderOptions } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import { PaletteMode } from '@mui/material';
 
 const rgbGen = (r: number, g: number, b: number): string =>
@@ -34,15 +35,15 @@ const shadowMaker = (r: number, g: number, b: number) => {
     ].join(', ');
 };
 
-const colorMix = (mode: PaletteMode): any => ({
-    primary: mode === 'dark' ? rgbaGen(144, 202, 249) : rgbaGen(25, 118, 210),
-    secondary: mode === 'dark' ? rgbaGen(244, 143, 177) : rgbaGen(211, 47, 47),
-    error: mode === 'dark' ? rgbaGen(239, 83, 80) : rgbaGen(211, 47, 47),
-    success: mode === 'dark' ? rgbaGen(102, 187, 106) : rgbaGen(56, 142, 60),
-    info: mode === 'dark' ? rgbaGen(41, 182, 246) : rgbaGen(2, 136, 209),
-    warning: mode === 'dark' ? rgbaGen(255, 183, 77) : rgbaGen(255, 160, 0),
-    background: mode === 'dark' ? '#121212' : '#ffffff',
-    surface: mode === 'dark' ? '#424242' : '#f5f5f5',
+export const colorMixGenerator = (mode: PaletteMode): any => ({
+    primary: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(144, 202, 249) : rgbaGen(25, 118, 210),
+    secondary: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(244, 143, 177) : rgbaGen(211, 47, 47),
+    error: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(239, 83, 80) : rgbaGen(211, 47, 47),
+    success: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(102, 187, 106) : rgbaGen(56, 142, 60),
+    info: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(41, 182, 246) : rgbaGen(2, 136, 209),
+    warning: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(255, 183, 77) : rgbaGen(255, 160, 0),
+    background: mode === ThemeProviderOptions.DARK_TH ? '#121212' : '#ffffff',
+    surface: mode === ThemeProviderOptions.DARK_TH ? '#424242' : '#f5f5f5',
 });
 
 const gradientColorMix = {
@@ -136,7 +137,7 @@ const generateComplexColorStructure = (baseColor: string, contrastColor: string,
     };
 };
 const getSystemColors = (mode: PaletteMode): ExtendedColorScheme => {
-    const isDark = mode === 'dark';
+    const isDark = mode === ThemeProviderOptions.DARK_TH;
 
     const primary = isDark ? '13, 71, 161' : '25, 118, 210';
     const secondary = isDark ? '194, 24, 91' : '233, 30, 99';
@@ -212,45 +213,45 @@ const createShade = (baseColor: string, steps: number): string[] => {
 };
 const colorVariant = (baseColor: string, mode: PaletteMode) => {
     return {
-        light: mode === 'dark' ? `${baseColor}33` : `${baseColor}66`,
+        light: mode === ThemeProviderOptions.DARK_TH ? `${baseColor}33` : `${baseColor}66`,
         main: `${baseColor}`,
-        dark: mode === 'dark' ? `${baseColor}ff` : `${baseColor}99`,
-        contrastText: mode === 'dark' ? '#fff' : '#000',
+        dark: mode === ThemeProviderOptions.DARK_TH ? `${baseColor}ff` : `${baseColor}99`,
+        contrastText: mode === ThemeProviderOptions.DARK_TH ? '#fff' : '#000',
     };
 };
 
 const generateShadowByMode = (mode: PaletteMode, baseColor: string) =>
-    mode === 'dark' ? shadowMaker(33, 33, 33) : shadowMaker(0, 0, 0);
+    mode === ThemeProviderOptions.DARK_TH ? shadowMaker(33, 33, 33) : shadowMaker(0, 0, 0);
 
 const typographyColors = (mode: PaletteMode) => ({
-    primary: colorMix(mode).primary,
-    secondary: colorMix(mode).secondary,
+    primary: colorMixGenerator(mode).primary,
+    secondary: colorMixGenerator(mode).secondary,
     disabled: rgbaGen(158, 158, 158, 0.5),
-    linkText: mode === 'dark' ? rgbaGen(130, 177, 255) : rgbaGen(25, 118, 210),
+    linkText: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(130, 177, 255) : rgbaGen(25, 118, 210),
 });
 
 const borderSurfaceGen = (mode: PaletteMode) => ({
-    borderColor: mode === 'dark' ? rgbaGen(66, 66, 66) : rgbaGen(224, 224, 224),
-    surfaceColor: mode === 'dark' ? '#303030' : '#fafafa',
+    borderColor: mode === ThemeProviderOptions.DARK_TH ? rgbaGen(66, 66, 66) : rgbaGen(224, 224, 224),
+    surfaceColor: mode === ThemeProviderOptions.DARK_TH ? '#303030' : '#fafafa',
 });
 
 
 export const generateColorSystem = (mode: PaletteMode) => {
-    const primaryColor = colorMix(mode).primary;
-    const secondaryColor = colorMix(mode).secondary;
+    const primaryColor = colorMixGenerator(mode).primary;
+    const secondaryColor = colorMixGenerator(mode).secondary;
 
     return {
         palette: {
             mode,
             primary: colorVariant(primaryColor, mode),
             secondary: colorVariant(secondaryColor, mode),
-            error: colorVariant(colorMix(mode).error, mode),
-            warning: colorVariant(colorMix(mode).warning, mode),
-            info: colorVariant(colorMix(mode).info, mode),
-            success: colorVariant(colorMix(mode).success, mode),
+            error: colorVariant(colorMixGenerator(mode).error, mode),
+            warning: colorVariant(colorMixGenerator(mode).warning, mode),
+            info: colorVariant(colorMixGenerator(mode).info, mode),
+            success: colorVariant(colorMixGenerator(mode).success, mode),
             background: {
-                default: colorMix(mode).background,
-                paper: colorMix(mode).surface,
+                default: colorMixGenerator(mode).background,
+                paper: colorMixGenerator(mode).surface,
             },
         },
         typography: {

@@ -7,18 +7,27 @@ import { TCSS_CLASSES } from "./Constant/layout_controlling";
 import { Box, Grid, Typography } from "@mui/material";
 import { BOX_COMPONENTS_SEPERATED, TYPOGRAPHY_VARIANTS_SEPERATED } from "@/Constants/variants_data";
 import { ThemeProviderOptions, ThemeSchema } from "@/Global/GlobalSiteNavigators/NavigationState/Constants/structure";
-
+import { useTheme } from 'next-themes';
 export function SpotlightPreview() {
 
-  const [fill_color_after_theme_change, set_color_after_theme_change] = useState(`${ThemeSchema.BLK_CL}`);
+  // const [fill_color_after_theme_change, set_color_after_theme_change] = useState(`${ThemeSchema.BLK_CL}`);
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     const theme = localStorage.getItem('theme');
+  //     const is_light_theme = theme === `${ThemeProviderOptions.LIGHT_TH.toLowerCase()}`;
+  //     set_color_after_theme_change(is_light_theme ? ThemeSchema.WHT_CL : ThemeSchema.SPT_LH);
+  //   }
+  // }, []);
+  const { theme } = useTheme(); // Access the current theme using next-themes
+  const [fill_color_after_theme_change, set_color_after_theme_change] = useState(ThemeSchema.BLK_CL);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const theme = localStorage.getItem('theme');
-      const is_light_theme = theme === `${ThemeProviderOptions.LIGHT_TH.toLowerCase()}`;
+    if (theme) {
+      const is_light_theme = theme === 'light';
       set_color_after_theme_change(is_light_theme ? ThemeSchema.WHT_CL : ThemeSchema.SPT_LH);
     }
-  }, []);
+  }, [theme]);
 
   return (
     <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.header} className={TCSS_CLASSES.spotlightMain}>

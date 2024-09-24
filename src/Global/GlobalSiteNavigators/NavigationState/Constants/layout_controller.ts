@@ -14,7 +14,7 @@ interface ProductDisplaySchema {
   
   export const PR_STY: { STLP: ProductDisplaySchema } = {
     STLP: {
-      headedTextLogo: `${REUSABLE_CONFIG.flexItemsCenter} gap-[2px]`,
+      headedTextLogo: `${REUSABLE_CONFIG.flexItemsCenter} gap-[2px] `,
       headedText: `md:text-3xl text-2xl ${REUSABLE_CONFIG.commonFontBold}`,
       tailedText: `md:text-3xl text-2xl ${REUSABLE_CONFIG.commonFontBold}`,
       buttonEffect: `

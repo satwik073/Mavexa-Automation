@@ -2,8 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  font-family: 'DM Sans', sans-serif;
+
+.font-controller {
+  font-family: "DM Sans", sans-serif;
 }
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
