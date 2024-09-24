@@ -12,8 +12,14 @@ import { useDispatch } from 'react-redux';
 import { set_token } from '@/Store/authSlice';
 import DynamicForm from '@/Forms/DynamicAtttributes/DynamicReducer';
 import * as Yup from 'yup';
+import { colorMixGenerator, REUSABLE_CONFIG } from '@/Constants/globalStyles';
+import { useTheme } from '@mui/material';
+import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
+import { displaying_buttons } from '@/Constants/DataObjects';
+import { TCSS_CLASSES } from '@/Pages/SpotLightCombined/Constant/layout_controlling';
 
 const queryClient = new QueryClient();
+
 interface ErrorResponse {
   Details?: string;
 }
@@ -32,7 +38,8 @@ const UserLoginEnabled: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [is_loading, set_is_loading] = useState(false);
-
+  const theme = useTheme()
+  const palette = colorMixGenerator(theme.palette.mode)
   const initialValues: LoginCredentialProps = {
     registered_user_email: '',
     registered_user_password: '',
@@ -86,23 +93,30 @@ const UserLoginEnabled: FC = () => {
 
   return (
     <React.Fragment>
-      <h1>Login</h1>
-      <div className='w-full flex'>
-        <div className='w-1/2'>
+      <div className='w-full md:flex'>
+        <div className='md:w-1/2'>
           <DynamicForm
             allocated_form_data={initialValues}
             validation_schema_declaration={validationSchema}
             on_form_submit={handleSubmit}
             is_submit_button_loading={is_loading}
-            form_title='Login'
-            form_description='Get started'
-            form_title_styling_configuration='text-white text-4xl'
-            input_placeholder_settings={ DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your pword'}
-            disable_auto_complete ={false}
+            form_title='Login into your Account'
+            titleStylingController='text-4xl md:text-5xl my-2 font-bold bg-clip-text text-black dark:text-white
+    bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50'
+            form_description='Please enter your credentials to login into your account.'
+            descriptionStylingController={`relative text-md text-zinc-500 
+    dark:text-zinc-300 tracking-wide mb-8 text-left
+    max-w-2xl antialiased leading-loose`}
+            input_placeholder_settings={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your pword'}
+            disable_auto_complete={false}
+            googleAuthRequired
+            appleAuthRequired
+            buttonStyles={`${TCSS_CLASSES.browseComponentFlexed} capitalize  my-7`}
+            buttonContent={displaying_buttons['sign_in']}
           />
         </div>
-        <div className='w-1/2 bg-white h-full'>
-        <h1 className='text-7xl'>hi</h1></div>
+        <div className='md:w-1/2 md:block hidden bg-white h-full'>
+          <h1 className='text-7xl'>hi</h1></div>
       </div>
     </React.Fragment>
   );

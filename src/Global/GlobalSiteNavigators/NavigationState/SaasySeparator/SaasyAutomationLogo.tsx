@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import ImageContainer from '@/Components/Images/ImageContainer';
 import { Box, Typography } from '@mui/material';
@@ -6,26 +6,18 @@ import { PR_STY } from '../Constants/layout_controller';
 import { BOX_COMPONENTS_SEPERATED, TYPOGRAPHY_VARIANTS_SEPERATED } from '@/Constants/variants_data';
 import { ThemeProviderOptions, ThemeSchema } from '../Constants/structure';
 import { PRODUCTS_CONFIGURATIONS } from '../Constants';
-
-interface ImageContainerProps {
-  width: number;
-  height: number;
-  alt: string;
-  src: string;
-  className?: string;
-}
+import { useTheme } from 'next-themes'; 
 
 const SaaSyAutomationLogo: React.FC = () => {
+  const { theme } = useTheme(); 
   const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const currentTheme = localStorage.getItem('theme');
-      setLogoColor(currentTheme === ThemeProviderOptions.LIGHT_TH.toLowerCase() ? '' : ThemeSchema.BLK_CL);
-    }
-  }, []);
+    const isLightTheme = theme === 'light';
+    setLogoColor(isLightTheme ? '' : ThemeSchema.BLK_CL);
+  }, [theme]); 
 
-  const imageContainerProps: ImageContainerProps = {
+  const imageContainerProps = {
     src: logoColor ? "/fuzzieLogo.png" : "/image.png",
     width: 15,
     height: 15,
@@ -36,7 +28,7 @@ const SaaSyAutomationLogo: React.FC = () => {
   return (
     <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.nav}>
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className={PR_STY.STLP.headedTextLogo}>
-        <Typography variant={TYPOGRAPHY_VARIANTS_SEPERATED.headings_variant.h5} className={PR_STY.STLP.headedText}>
+        <Typography variant={TYPOGRAPHY_VARIANTS_SEPERATED.headings_variant.h5} className={`${PR_STY.STLP.headedText}`}>
           {PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.initials}
         </Typography>
         <ImageContainer {...imageContainerProps} />

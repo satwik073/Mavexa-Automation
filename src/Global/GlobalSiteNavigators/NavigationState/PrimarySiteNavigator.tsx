@@ -12,6 +12,7 @@ import { ROUTES_EXT } from '@/Constants/standard_routes';
 import { Button } from '@/Components/Images/External/UI/button';
 import { useDispatch } from 'react-redux';
 import { set_token } from '@/Store/authSlice';
+import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 
 const PrimarySiteNavigator: React.FC = () => {
   const theme = useTheme();
@@ -48,6 +49,7 @@ const PrimarySiteNavigator: React.FC = () => {
 
       <Button onClick={handle_clear}>Logout</Button>
 
+            <ThemeSwitcher/>
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section}>
         <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className="flex items-center gap-4">
           <Link to={RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS} className={PR_STY.STLP.buttonEffect}>

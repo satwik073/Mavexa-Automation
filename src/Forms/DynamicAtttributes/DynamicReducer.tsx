@@ -1,33 +1,38 @@
-import { TextField, Button, Box, Grid, Typography, useTheme, CircularProgress } from '@mui/material';
+import { TextField, Button, Box, Grid, Typography, useTheme as useMUITheme, CircularProgress } from '@mui/material';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { DataTypeFormIdentifier } from '@/Constants/structure';
-
-interface DynamicFormAtttributes<T> {
+import { ThemeProviderOptions, ThemeSchema } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import { displaying_buttons } from '@/Constants/DataObjects';
+import { TCSS_CLASSES } from '@/Pages/SpotLightCombined/Constant/layout_controlling';
+import { Button as UIButton } from '@/Components/Images/External/UI/button';
+interface DynamicFormAttributes<T> {
   form_title?: string;
   form_description?: string;
-  form_title_styling_configuration?: string;
-  form_description_styling_configuration?: string;
   allocated_form_data: T;
   validation_schema_declaration: Yup.ObjectSchema<any>;
-  input_placeholder_settings?: string;
   on_form_submit: (form_values: T) => void;
-  additional_class_name?: string;
+  input_placeholder_settings?: string;
   is_submit_button_loading?: boolean;
-  form_box_styling?: string;
-  input_field_styling?: string;
-  button_text?: string;
-  grid_spacing_configuration?: number;
-  button_disabled_styling?: string;
   form_max_width?: number;
-  button_styling?: string;
+  titleStylingController?: string,
+  descriptionStylingController?: string,
+  grid_spacing_configuration?: number;
   form_padding_configuration?: number;
-  field_label_transformer?: (field_key: string) => string;
   show_labels?: boolean;
-  field_error_styling?: string;
   container_grid_alignment?: 'center' | 'flex-start' | 'flex-end';
   form_background_color?: string;
   disable_auto_complete?: boolean;
+  textFieldStyles?: Record<string, any>;
+  textFieldStyleOverrides?: Record<string, Record<string, any>>;
+  buttonStyles?: string;
+  buttonDisabledStyles?: Record<string, any>;
+  googleAuthRequired?: boolean,
+  appleAuthRequired?: boolean,
+  isDividerRequired?: boolean,
+  buttonContent: string
 }
 
 const determine_input_field_type = (field_key: string): string => {
@@ -56,26 +61,24 @@ const DynamicForm = <T extends Record<string, any>>({
   on_form_submit,
   form_title,
   form_description,
-  form_title_styling_configuration,
-  form_description_styling_configuration,
   is_submit_button_loading = false,
-  form_box_styling,
-  input_placeholder_settings,
-  additional_class_name,
-  input_field_styling,
-  button_text = 'Submit',
-  grid_spacing_configuration = 3,
-  button_disabled_styling,
   form_max_width = 600,
-  button_styling,
+  grid_spacing_configuration = 3,
   form_padding_configuration = 4,
-  field_label_transformer,
   show_labels = true,
-  field_error_styling,
   container_grid_alignment = 'flex-start',
   form_background_color = '#fff',
   disable_auto_complete = false,
-}: DynamicFormAtttributes<T>) => {
+  textFieldStyles,
+  textFieldStyleOverrides,
+  buttonStyles,
+  buttonDisabledStyles,
+  titleStylingController,
+  descriptionStylingController,
+  googleAuthRequired,
+  appleAuthRequired,
+  buttonContent
+}: DynamicFormAttributes<T>) => {
   const form_controller = useFormik({
     initialValues: allocated_form_data,
     validationSchema: validation_schema_declaration,
@@ -84,38 +87,39 @@ const DynamicForm = <T extends Record<string, any>>({
     },
   });
 
-  const theme = useTheme();
+  const { theme: nextTheme } = useTheme();
+  const muiTheme = useMUITheme();
+  const isDarkMode = nextTheme === ThemeProviderOptions.DARK_TH;
 
   return (
     <Box
       component="form"
       onSubmit={form_controller.handleSubmit}
-      className={form_box_styling}
       sx={{
         width: '100%',
         maxWidth: form_max_width,
         mx: 'auto',
         p: { xs: form_padding_configuration, md: form_padding_configuration },
-        borderRadius: 2,
-        border: `1px solid ${theme.palette.divider}`,
+
       }}
     >
-      <Typography
-        variant="h5"
-        sx={{
-          mb: 4,
-          textAlign: 'center',
-          fontWeight: 600,
-          color: theme.palette.text.primary,
-        }}
-      >
-        <Grid className={form_title_styling_configuration}>
-          {form_title}
-        </Grid>
-        <Grid className={form_description_styling_configuration}>
-          {form_description}
-        </Grid>
-      </Typography>
+      <div className={titleStylingController}>
+        {form_title}
+      </div>
+      <div className={descriptionStylingController}>
+        {form_description}
+      </div>
+      <div>
+
+        {(googleAuthRequired && appleAuthRequired) ? (<Grid className={`${TCSS_CLASSES.buttonsParentGridIssues} my-8`}>
+          <UIButton className={`${TCSS_CLASSES.browseComponentFlexed} capitalize`}>
+            {displaying_buttons['google_auth']}
+          </UIButton>
+          <UIButton className={TCSS_CLASSES.customComponentFlexed}>
+            {displaying_buttons['apple_auth']}
+          </UIButton>
+        </Grid>) : (<div></div>)}
+      </div>
 
       <Grid container spacing={grid_spacing_configuration} justifyContent={container_grid_alignment}>
         {Object.keys(allocated_form_data).map((field_key) => (
@@ -134,33 +138,39 @@ const DynamicForm = <T extends Record<string, any>>({
               value={form_controller.values[field_key] || ''}
               onChange={form_controller.handleChange}
               onBlur={form_controller.handleBlur}
-              placeholder={input_placeholder_settings || generate_placeholder_text(field_key)}
+              placeholder={generate_placeholder_text(field_key)}
               variant="outlined"
               fullWidth
-              className={input_field_styling}
               autoComplete={disable_auto_complete ? 'off' : 'on'}
               sx={{
-                '& .MuiOutlinedInput-root': {
-                  bgcolor: '#424242',
-                  borderRadius: '8px',
-                  color: 'white',
-                  '& fieldset': {
-                    borderColor: '#424242',
-                  },
-                  '&:hover fieldset': {
-                    borderColor: 'white',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: 'white',
-                  },
+                bgcolor: isDarkMode ? '#424242' : '#f9f9f9',
+                borderRadius: '8px',
+                border: `1px solid transparent`,
+                '& fieldset': {
+                  borderColor: isDarkMode ? '#424242' : '#e0e0e0',
+                },
+                '&:hover fieldset': {
+                  borderColor: isDarkMode ? '#ffffff' : '#000000',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#10B981',
                 },
                 '& .MuiInputLabel-root': {
-                  color: 'white',
+                  color: isDarkMode ? '#ffffff' : '#000000',
+                  '&.Mui-focused': {
+                    color: '#10B981',
+                  },
                 },
                 '& .MuiInputBase-input::placeholder': {
-                  color: 'rgba(255, 255, 255, 0.7)',
+                  color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
                   opacity: 1,
                 },
+                '& .MuiInputBase-input::focus': {
+                  color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
+                  opacity: 1,
+                },
+                ...textFieldStyles,
+                ...textFieldStyleOverrides?.[field_key],
               }}
               error={Boolean(form_controller.touched[field_key] && form_controller.errors[field_key])}
               helperText={
@@ -176,8 +186,8 @@ const DynamicForm = <T extends Record<string, any>>({
       <Button
         type="submit"
         variant="contained"
-        color="primary"
         fullWidth
+        className={buttonStyles}
         sx={{
           mt: 4,
           py: 1.5,
@@ -185,17 +195,22 @@ const DynamicForm = <T extends Record<string, any>>({
           fontWeight: 600,
           textTransform: 'none',
           borderRadius: 2,
-          bgcolor: is_submit_button_loading ? theme.palette.action.disabledBackground : 'primary.main',
-          color: 'white',
+          border: `1px solid transparent`,
+          backgroundColor: isDarkMode ? '#ffffff' : '#000000',
           '&:hover': {
-            bgcolor: 'white',
-            color: theme.palette.primary.main,
+            bgcolor: isDarkMode ? '#ffffff' : '#000000',
+            color: isDarkMode ? '#000000' : '#ffffff',
           },
+          '&:focus': {
+            border: `1px solid #10B981`,
+            color: '#10B981',
+          },
+          buttonStyles,
+          ...(is_submit_button_loading && buttonDisabledStyles),
         }}
-        className={button_styling || button_disabled_styling}
         disabled={is_submit_button_loading}
       >
-        {is_submit_button_loading ? <CircularProgress size={24} color="inherit" /> : button_text}
+        {is_submit_button_loading ? <CircularProgress size={24} color="inherit" /> : `${buttonContent}`}
       </Button>
     </Box>
   );

@@ -12,7 +12,7 @@ interface SpotLightStylingAttributes {
 
 export const TCSS_CLASSES: SpotLightStylingAttributes = {
   browseComponentFlexed: `
-    bg-slate-900 dark:bg-white dark:text-black no-underline mb-3
+    bg-slate-900 dark:bg-white dark:text-black no-underline mb-7
     ${REUSABLE_CONFIG.flexCenterCommon} space-x-2 group cursor-pointer relative 
     hover:shadow-2xl ${REUSABLE_CONFIG.transitionCommon} shadow-zinc-900 p-px 
     font-semibold text-white ${REUSABLE_CONFIG.commonPadding} w-full sm:w-52 h-14 

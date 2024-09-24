@@ -1,41 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ThemeProviderOptions } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
+import { useEffect } from 'react';
+import { useTheme } from 'next-themes';
 
-interface ThemeContextType {
-  currentTheme: ThemeProviderOptions;
-  setCurrentTheme: (theme: ThemeProviderOptions) => void;
-  toggleTheme: () => void;
-}
-
-const ThemeContext = createContext<ThemeContextType>({
-  currentTheme: ThemeProviderOptions.DARK_TH,
-  setCurrentTheme: () => {},
-  toggleTheme: () => {},
-});
-
-export const ThemeProviderRules: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [currentTheme, setCurrentTheme] = useState<ThemeProviderOptions>(ThemeProviderOptions.DARK_TH);
-
+const ThemeUpdater = () => {
+  const { theme} = useTheme();
+console.log(theme)
   useEffect(() => {
-    const savedTheme = localStorage.getItem('Theme-Config') as ThemeProviderOptions || ThemeProviderOptions.DARK_TH;
-    setCurrentTheme(savedTheme);
-  }, []);
 
-  useEffect(() => {
-    localStorage.setItem('Theme-Config', currentTheme);
-  }, [currentTheme]);
+    if (theme) {
+      localStorage.setItem('theme', theme);
+    }
+  }, [theme]);
 
-  const toggleTheme = () => {
-    setCurrentTheme((prevTheme) => 
-      prevTheme === ThemeProviderOptions.LIGHT_TH ? ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH
-    );
-  };
-
-  return (
-    <ThemeContext.Provider value={{ currentTheme, setCurrentTheme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return null;
 };
 
-export const useTheme = () => useContext(ThemeContext);
+export default ThemeUpdater;
