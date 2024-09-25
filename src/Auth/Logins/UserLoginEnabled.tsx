@@ -45,7 +45,7 @@ const UserLoginEnabled: FC = () => {
   const { theme } = useTheme();
   const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
   const imageContainerProps = {
-    src: logoColor ? "../../../public/darkLogin.png" : "../../../public/lightLogin.png",
+    src: logoColor ? "/darkLogin.png" : "/lightLogin.png",
     width: 1000,
     height: 1000,
     alt: "SaaSy Logo",
@@ -137,8 +137,7 @@ const UserLoginEnabled: FC = () => {
         </div>
         <div className='md:w-1/2  bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] h-screen'>
   <div className='p-6 text-center'>
-    <div className='text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white dark:text-black
-    bg-opacity-50'>The Simplest way to manage your workplace</div>
+    <div className={`text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white bg-opacity-50`}>The Simplest way to manage your workplace</div>
     <ImageContainer {...imageContainerProps} className='flex  my-[8rem] justify-center items-center mb-4' />
     <InfiniteMovingCards className='mt-[6rem]' items={clients}/>
   </div>
