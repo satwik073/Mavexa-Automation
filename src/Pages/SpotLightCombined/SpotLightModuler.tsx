@@ -10,16 +10,7 @@ import { ThemeProviderOptions, ThemeSchema } from "@/Global/GlobalSiteNavigators
 import { useTheme } from 'next-themes';
 export function SpotlightPreview() {
 
-  // const [fill_color_after_theme_change, set_color_after_theme_change] = useState(`${ThemeSchema.BLK_CL}`);
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const theme = localStorage.getItem('theme');
-  //     const is_light_theme = theme === `${ThemeProviderOptions.LIGHT_TH.toLowerCase()}`;
-  //     set_color_after_theme_change(is_light_theme ? ThemeSchema.WHT_CL : ThemeSchema.SPT_LH);
-  //   }
-  // }, []);
-  const { theme } = useTheme(); // Access the current theme using next-themes
+  const { theme } = useTheme();
   const [fill_color_after_theme_change, set_color_after_theme_change] = useState(ThemeSchema.BLK_CL);
 
   useEffect(() => {
