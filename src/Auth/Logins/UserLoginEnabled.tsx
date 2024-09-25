@@ -1,23 +1,27 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useMutation, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { LOGIN_SESSION } from '@/Pipe/Auth/auth';
 import { MESSAGE_HANDLER, MessageConfiguration } from '@/Events/MessageDispatch';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { ThemeProviderOptions } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
+import { ThemeProviderOptions, ThemeSchema } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import { AuthFlowIdentifier, DataTypeFormIdentifier, RolesIdentifier, RoutesConfiguration } from '@/Constants/structure';
 import { TENANT_AUTHENTICATION } from '@/Events/Success/PredefinedError';
 import { useDispatch } from 'react-redux';
 import { set_token } from '@/Store/authSlice';
 import DynamicForm from '@/Forms/DynamicAtttributes/DynamicReducer';
 import * as Yup from 'yup';
+import { useTheme as useMUITheme } from '@mui/material';
 import { colorMixGenerator, REUSABLE_CONFIG } from '@/Constants/globalStyles';
-import { useTheme } from '@mui/material';
+import { useTheme } from 'next-themes'
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 import { displaying_buttons } from '@/Constants/DataObjects';
 import { TCSS_CLASSES } from '@/Pages/SpotLightCombined/Constant/layout_controlling';
-
+import ImageContainer from '@/Components/Images/ImageContainer';
+import Image from "../../../public/p1.png"
+import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
+import { clients } from '@/lib/constants';
 const queryClient = new QueryClient();
 
 interface ErrorResponse {
@@ -28,6 +32,8 @@ interface LoginCredentialProps {
   registered_user_password: string;
 }
 
+
+
 const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
   const login_request_generated = await LOGIN_SESSION(payload);
   const response_handler = await axios(login_request_generated);
@@ -36,10 +42,23 @@ const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
 
 const UserLoginEnabled: FC = () => {
   const navigate = useNavigate();
+  const { theme } = useTheme();
+  const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
+  const imageContainerProps = {
+    src: logoColor ? "../../../public/darkLogin.png" : "../../../public/lightLogin.png",
+    width: 1000,
+    height: 1000,
+    alt: "SaaSy Logo",
+    className: "shadow-sm",
+  };
+  useEffect(() => {
+    const isLightTheme = theme === 'light';
+    setLogoColor(isLightTheme ? '' : ThemeSchema.BLK_CL);
+  }, [theme]);
   const dispatch = useDispatch();
   const [is_loading, set_is_loading] = useState(false);
-  const theme = useTheme()
-  const palette = colorMixGenerator(theme.palette.mode)
+  const themeDefined = useMUITheme()
+  const palette = colorMixGenerator(themeDefined.palette.mode)
   const initialValues: LoginCredentialProps = {
     registered_user_email: '',
     registered_user_password: '',
@@ -93,7 +112,8 @@ const UserLoginEnabled: FC = () => {
 
   return (
     <React.Fragment>
-      <div className='w-full md:flex'>
+      <ThemeSwitcher/>
+      <div className='w-full md:flex h-full md:p-20  items-center justify-center'>
         <div className='md:w-1/2'>
           <DynamicForm
             allocated_form_data={initialValues}
@@ -115,8 +135,16 @@ const UserLoginEnabled: FC = () => {
             buttonContent={displaying_buttons['sign_in']}
           />
         </div>
-        <div className='md:w-1/2 md:block hidden bg-white h-full'>
-          <h1 className='text-7xl'>hi</h1></div>
+        <div className='md:w-1/2  bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] h-screen'>
+  <div className='p-6 text-center'>
+    <div className='text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white dark:text-black
+    bg-opacity-50'>The Simplest way to manage your workplace</div>
+    <ImageContainer {...imageContainerProps} className='flex  my-[8rem] justify-center items-center mb-4' />
+    <InfiniteMovingCards className='mt-[6rem]' items={clients}/>
+  </div>
+</div>
+
+     
       </div>
     </React.Fragment>
   );

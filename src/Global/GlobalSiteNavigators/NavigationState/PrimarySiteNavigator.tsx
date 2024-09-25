@@ -13,6 +13,8 @@ import { Button } from '@/Components/Images/External/UI/button';
 import { useDispatch } from 'react-redux';
 import { set_token } from '@/Store/authSlice';
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
+import { Tooltip, TooltipContent, TooltipProvider } from '@/Globals/GlobalToolTips/TooltipContent';
+import { TooltipTrigger } from '@radix-ui/react-tooltip';
 
 const PrimarySiteNavigator: React.FC = () => {
   const theme = useTheme();
@@ -23,7 +25,7 @@ const PrimarySiteNavigator: React.FC = () => {
 
   const handle_clear = () => {
     localStorage.removeItem('User-Settings');
-    setIsLoggedIn(false); 
+    setIsLoggedIn(false);
     dispatch(set_token(null))
     navigate('/');
     console.log("Clicked Logout");
@@ -41,7 +43,16 @@ const PrimarySiteNavigator: React.FC = () => {
         {PRODUCTS_CONFIGURATIONS.LINKS_SETTINGS.properties.map((index_value_rendering) => (
           <ListItem key={index_value_rendering.route_link_staged}>
             <Link to={index_value_rendering.path_controlled} className='links-attached capitalize'>
-              {index_value_rendering.route_link_staged}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger className='capitalize text-[16px]'>
+                    {index_value_rendering.route_link_staged}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {index_value_rendering.route_link_staged}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </Link>
           </ListItem>
         ))}
@@ -49,7 +60,7 @@ const PrimarySiteNavigator: React.FC = () => {
 
       <Button onClick={handle_clear}>Logout</Button>
 
-            <ThemeSwitcher/>
+      <ThemeSwitcher />
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section}>
         <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className="flex items-center gap-4">
           <Link to={RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS} className={PR_STY.STLP.buttonEffect}>
