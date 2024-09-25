@@ -12,7 +12,7 @@ interface SpotLightStylingAttributes {
 
 export const TCSS_CLASSES: SpotLightStylingAttributes = {
   browseComponentFlexed: `
-    bg-slate-900 dark:bg-white dark:text-black no-underline mb-7
+    bg-black dark:bg-white dark:text-black no-underline mb-3
     ${REUSABLE_CONFIG.flexCenterCommon} space-x-2 group cursor-pointer relative 
     hover:shadow-2xl ${REUSABLE_CONFIG.transitionCommon} shadow-zinc-900 p-px 
     font-semibold text-white ${REUSABLE_CONFIG.commonPadding} w-full sm:w-52 h-14 
@@ -21,9 +21,9 @@ export const TCSS_CLASSES: SpotLightStylingAttributes = {
 
   customComponentFlexed: `
     w-full sm:w-52 ${REUSABLE_CONFIG.commonTextSm} text-black bg-white 
-    dark:bg-black h-14 border border-neutral-300 ${REUSABLE_CONFIG.darkModeText} 
-    dark:border-emerald-500 ${REUSABLE_CONFIG.flexCenterCommon} hover:bg-slate-900 
-    hover:border-emerald-500 hover:text-white 
+    dark:bg-black h-14 border-2 bg-white border-neutral-300 ${REUSABLE_CONFIG.darkModeText} 
+    dark:border-emerald-500 ${REUSABLE_CONFIG.flexCenterCommon} 
+    hover:border-emerald-500 hover:text-black hover:bg-white
     ${REUSABLE_CONFIG.roundedxlCommon} ${REUSABLE_CONFIG.transitionCommon} ${REUSABLE_CONFIG.commonShadow}
   `,
 

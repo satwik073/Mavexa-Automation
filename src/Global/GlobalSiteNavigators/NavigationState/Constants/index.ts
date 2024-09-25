@@ -6,7 +6,7 @@ import ImageContainer from "@/Components/Images/ImageContainer";
 
 export const PRODUCTS_CONFIGURATIONS: NavigationProperties = {
     LOGO_SETTINGS: {
-        initials: "Saa",
+        initials: "Mavexa",
         trailing_constants: "y",
         theme_controlled_icon: AiFillThunderbolt,
         product_display : SaaSyAutomationLogo,

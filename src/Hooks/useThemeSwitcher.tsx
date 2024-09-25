@@ -49,7 +49,7 @@ const DropdownMenuComponent = (props: Props) => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className='z-50 mt-6'>
-                {TRANSLATING_NAVIGATION_TEXT.theme_selectors.map((theme_iteration, index_reduction_value) => (<DropdownMenuItem key={index_reduction_value} onClick={() => handle_theme_change(theme_iteration)}>{TRANSLATING_NAVIGATION_TEXT.drop_down_content[index_reduction_value]}</DropdownMenuItem>))}
+                {TRANSLATING_NAVIGATION_TEXT.theme_selectors.map((theme_iteration, index_reduction_value) => (<DropdownMenuItem className='border-none' key={index_reduction_value} onClick={() => handle_theme_change(theme_iteration)}>{TRANSLATING_NAVIGATION_TEXT.drop_down_content[index_reduction_value]}</DropdownMenuItem>))}
             </DropdownMenuContent>
         </DropdownMenu>
     )

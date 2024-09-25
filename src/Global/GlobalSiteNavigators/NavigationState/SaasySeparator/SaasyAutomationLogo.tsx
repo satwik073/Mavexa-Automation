@@ -18,9 +18,9 @@ const SaaSyAutomationLogo: React.FC = () => {
   }, [theme]); 
 
   const imageContainerProps = {
-    src: logoColor ? "/fuzzieLogo.png" : "/image.png",
-    width: 15,
-    height: 15,
+    src: logoColor ? "/Mavexa.png" : "/MavexaLight.png",
+    width: 65,
+    height: 65,
     alt: "SaaSy Logo",
     className: "shadow-sm",
   };
@@ -28,13 +28,10 @@ const SaaSyAutomationLogo: React.FC = () => {
   return (
     <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.nav}>
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className={PR_STY.STLP.headedTextLogo}>
-        <Typography variant={TYPOGRAPHY_VARIANTS_SEPERATED.headings_variant.h5} className={`${PR_STY.STLP.headedText}`}>
-          {PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.initials}
-        </Typography>
         <ImageContainer {...imageContainerProps} />
-        <Typography variant={TYPOGRAPHY_VARIANTS_SEPERATED.headings_variant.h5} className={PR_STY.STLP.tailedText}>
-          {PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.trailing_constants}
-        </Typography>
+        <span className={`${PR_STY.STLP.headedText}`}>
+          {PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.initials}
+        </span>
       </Box>
     </Box>
   );

@@ -15,21 +15,14 @@ import { set_token } from '@/Store/authSlice';
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 import { Tooltip, TooltipContent, TooltipProvider } from '@/Globals/GlobalToolTips/TooltipContent';
 import { TooltipTrigger } from '@radix-ui/react-tooltip';
+import { MenuEvent } from '@/Components/MenuDropDown/MenuOpenEvent';
 
 const PrimarySiteNavigator: React.FC = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
   const [is_logged_in, setIsLoggedIn] = useState<boolean>(localStorage.getItem('User-Settings') ? true : false); // Check token presence
-  const dispatch = useDispatch()
   const is_small_screen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handle_clear = () => {
-    localStorage.removeItem('User-Settings');
-    setIsLoggedIn(false);
-    dispatch(set_token(null))
-    navigate('/');
-    console.log("Clicked Logout");
-  };
+
 
   useEffect(() => {
     const token = localStorage.getItem('User-Settings');
@@ -58,11 +51,14 @@ const PrimarySiteNavigator: React.FC = () => {
         ))}
       </List>
 
-      <Button onClick={handle_clear}>Logout</Button>
+      {/* <Button className='lg:flex hidden' onClick={handle_clear}>Logout</Button> */}
+      <div className='sm:hidden flex'>
+        <ThemeSwitcher />
 
-      <ThemeSwitcher />
+      </div>
+      <MenuEvent />
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section}>
-        <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className="flex items-center gap-4">
+        <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className="flex items-center gap-4 md:flex hidden">
           <Link to={RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS} className={PR_STY.STLP.buttonEffect}>
             <span className={PR_STY.STLP.spanOutline} />
             <span className={PR_STY.STLP.inlineSource}>
@@ -77,7 +73,7 @@ const PrimarySiteNavigator: React.FC = () => {
               )}
             </span>
           </Link>
-          <CiMenuFries className='md:hidden' />
+          {/* <CiMenuFries className='md:hidden' /> */}
         </Box>
       </Box>
     </Box>

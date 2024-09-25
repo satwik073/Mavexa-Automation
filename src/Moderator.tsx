@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 // import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PrimarySiteFooter from './Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter';
 // import { MESSAGE_HANDLER, MessageConfiguration } from './Events/MessageDispatch';
 // import { ThemeProviderOptions } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 
@@ -19,6 +20,7 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
       <Suspense fallback={<div>Loading...</div>}>
         <SpotLight />
       </Suspense>
+      {/* <PrimarySiteFooter */}
     </>
   );
 };
