@@ -34,8 +34,8 @@ interface ProductDisplaySchema {
       `,
       leftAside: `
         px-12 fixed right-0 left-0 top-0 py-4 px-4 bg-white dark:bg-black/40 
-        dark:backdrop-blur-lg z-[100] ${REUSABLE_CONFIG.flexItemsCenter} 
-        border-b-[1px] dark:border-neutral-900 justify-between
+        dark:backdrop-blur-md z-[100] ${REUSABLE_CONFIG.flexItemsCenter} 
+        border-b-[1px] border-neutral-100 dark:border-neutral-900 justify-between
       `,
       absoluteStructure: `${REUSABLE_CONFIG.absoluteCenter} hidden md:block`,
       listItems: `${REUSABLE_CONFIG.flexItemsCenter} list-none`,

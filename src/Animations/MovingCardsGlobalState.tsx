@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import Image from 'next/image'
+import img from 'next/image'
 import React, { useEffect, useState } from 'react'
 // import useMediaQuery from '@mui/material/useMediaQuery';
 export const InfiniteMovingCards = ({
@@ -83,7 +83,7 @@ export const InfiniteMovingCards = ({
         )}
       >
         {items.map((item) => (
-          <Image
+          <img
             width={90}
             height={1}
             src={item.href}
