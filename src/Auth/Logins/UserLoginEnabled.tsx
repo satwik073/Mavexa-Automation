@@ -22,6 +22,7 @@ import ImageContainer from '@/Components/Images/ImageContainer';
 import Image from "../../../public/p1.png"
 import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
 import { clients } from '@/lib/constants';
+import SaaSyAutomationLogo from '@/Global/GlobalSiteNavigators/NavigationState/SaasySeparator/SaasyAutomationLogo';
 const queryClient = new QueryClient();
 
 interface ErrorResponse {
@@ -113,6 +114,7 @@ const UserLoginEnabled: FC = () => {
   return (
     <React.Fragment>
       <ThemeSwitcher />
+      <SaaSyAutomationLogo/>
       <div className='w-full md:flex h-full md:p-20  items-center justify-center'>
         <div className='md:w-1/2'>
           <DynamicForm
