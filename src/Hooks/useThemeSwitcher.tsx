@@ -39,7 +39,7 @@ const DropdownMenuComponent = (props: Props) => {
         set_theme_fetching_state(new_fetched_theme_spotted);
         save_theme_in_localStorage(new_fetched_theme_spotted);
     };
-
+//TODO
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
