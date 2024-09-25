@@ -7,7 +7,7 @@ const SERVER_BASE = {
     staging: import.meta.env.VITE_APP_LOCAL_SERVER_BASE_URL,
     development: import.meta.env.VITE_APP_HOSTED_SERVER_DEV
 }[ENV_MODE] || import.meta.env.VITE_APP_HOSTED_SERVER_DEV;
-
+console.log(SERVER_BASE)
 
 const LOGIN_URL = {
     production: import.meta.env.VITE_APP_USER_LOGIN,
