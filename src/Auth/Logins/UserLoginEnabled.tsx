@@ -112,7 +112,7 @@ const UserLoginEnabled: FC = () => {
 
   return (
     <React.Fragment>
-      <ThemeSwitcher/>
+      <ThemeSwitcher />
       <div className='w-full md:flex h-full md:p-20  items-center justify-center'>
         <div className='md:w-1/2'>
           <DynamicForm
@@ -121,8 +121,8 @@ const UserLoginEnabled: FC = () => {
             on_form_submit={handleSubmit}
             is_submit_button_loading={is_loading}
             form_title='Login into your Account'
-            titleStylingController='text-4xl md:text-5xl my-2 font-bold bg-clip-text text-black dark:text-white
-    bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50'
+            titleStylingController={`text-4xl md:text-5xl my-2 font-bold bg-clip-text
+    bg-opacity-50`}
             form_description='Please enter your credentials to login into your account.'
             descriptionStylingController={`relative text-md text-zinc-500 
     dark:text-zinc-300 tracking-wide mb-8 text-left
@@ -136,14 +136,14 @@ const UserLoginEnabled: FC = () => {
           />
         </div>
         <div className='md:w-1/2  bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] h-screen'>
-  <div className='p-6 text-center'>
-    <div className={`text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white bg-opacity-50`}>The Simplest way to manage your workplace</div>
-    <ImageContainer {...imageContainerProps} className='flex  my-[8rem] justify-center items-center mb-4' />
-    <InfiniteMovingCards className='mt-[6rem]' items={clients}/>
-  </div>
-</div>
+          <div className='p-6 text-center'>
+            <div className={`text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white bg-opacity-50`}>The Simplest way to manage your workplace</div>
+            <ImageContainer {...imageContainerProps} className='flex  my-[8rem] justify-center items-center mb-4' />
+            <InfiniteMovingCards className='mt-[6rem]' items={clients} />
+          </div>
+        </div>
 
-     
+
       </div>
     </React.Fragment>
   );
