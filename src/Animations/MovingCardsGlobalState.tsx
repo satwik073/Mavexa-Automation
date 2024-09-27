@@ -65,7 +65,7 @@ export const InfiniteMovingCards = ({
         containerRef.current.style.setProperty('--animation-duration', '80s')
     }
   }
-  console.log(items)
+
   return (
     <div
       ref={containerRef}

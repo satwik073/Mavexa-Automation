@@ -45,7 +45,7 @@ export const TCSS_CLASSES: SpotLightStylingAttributes = {
   `,
 
   buttonsParentGridIssues: `
-    sm:flex md:mt-8 mt-6 gap-5 w-full
+    sm:flex md:mt-8 mt-6 gap-5  w-full
   `,
 
   gridItemsCombined: `

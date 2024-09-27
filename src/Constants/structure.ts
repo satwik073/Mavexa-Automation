@@ -1,6 +1,7 @@
 export enum RoutesConfiguration {
     DEFAULT_PATH = '/',
     AUTH = '/automation',
+    VERIFICATION = '/tenant/verification',
     PRODUCTS = '/products',
     PRICING = '/pricing',
     CLIENTS = '/clients',

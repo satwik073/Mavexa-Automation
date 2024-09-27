@@ -16,6 +16,7 @@ import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 import { Tooltip, TooltipContent, TooltipProvider } from '@/Globals/GlobalToolTips/TooltipContent';
 import { TooltipTrigger } from '@radix-ui/react-tooltip';
 import { MenuEvent } from '@/Components/MenuDropDown/MenuOpenEvent';
+import { REUSABLE_CONFIG } from '@/Constants/globalStyles';
 
 const PrimarySiteNavigator: React.FC = () => {
   const theme = useTheme();
@@ -30,7 +31,11 @@ const PrimarySiteNavigator: React.FC = () => {
   }, []);
 
   return (
-    <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section} className={PR_STY.STLP.leftAside}>
+    <Box sx={{top:0 , position:'fixed' , zIndex:1000 , left:0 , right:0
+    }}>
+       
+    <h1  className={` text-center w-full text-white bg-black py-4 px-4 leading-6 md:text-md text-sm`}>Check out the product updates we announced at MavexaConnect 2024! See what’s new.</h1>
+    <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section} className={`${PR_STY.STLP.leftAside}`}>
       <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
       <List className={`${PR_STY.STLP.listItems} md:flex hidden text-sm`}>
         {PRODUCTS_CONFIGURATIONS.LINKS_SETTINGS.properties.map((index_value_rendering) => (
@@ -76,6 +81,7 @@ const PrimarySiteNavigator: React.FC = () => {
           {/* <CiMenuFries className='md:hidden' /> */}
         </Box>
       </Box>
+    </Box>
     </Box>
   );
 };
