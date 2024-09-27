@@ -7,7 +7,10 @@
 // import CardContainers from "@/Pages/CardWrapper/CardFlexContainers";
 // import PeopleEngaged from "@/Pages/Testimonials/PeopleEngaged";
 // import PrimarySiteFooter from "./Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter";
+import UserVerificationRequests from './Auth/Verifications/OTP_Request';
+import UserLoginEnabled from './Auth/Logins/UserLoginEnabled';
 import ModeratorLazyLoader from "./Moderator";
+import Product from "./Network/Product";
 
 
 interface RenderingAnnotations {
@@ -15,6 +18,9 @@ interface RenderingAnnotations {
     // SPT_PR: typeof SpotlightPreview;
     // IN_SC: typeof InfiniteMovingCards;
     MOD_T : typeof ModeratorLazyLoader;
+    OTP_TQ : typeof UserVerificationRequests,
+    LG_AUTH : typeof UserLoginEnabled,
+    PR_S : typeof Product
     // FS_DM: typeof FeaturesSectionDemo;
     // FD_DM : typeof FeaturedSectionDemo;
     // CDC_T: typeof CardContainers;
@@ -26,6 +32,10 @@ export const APP_CONFIG : RenderingAnnotations ={
     // SPT_PR: SpotlightPreview,
     // IN_SC: InfiniteMovingCards,
     MOD_T : ModeratorLazyLoader,
+    OTP_TQ : UserVerificationRequests,
+    LG_AUTH : UserLoginEnabled,
+    PR_S : Product
+
     // FS_DM: FeaturesSectionDemo,
     // FD_DM: FeaturedSectionDemo,
     // CDC_T: CardContainers,

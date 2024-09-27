@@ -161,6 +161,10 @@ const DynamicForm = <T extends Record<string, any>>({
                     color: '#10B981',
                   },
                 },
+                '& .MuiInputBase-input': {
+                  height: '30px', 
+                  padding: '8px', 
+                },
                 '& .MuiInputBase-input::placeholder': {
                   color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
                   opacity: 1,

@@ -29,7 +29,7 @@ const queryClient = new QueryClient();
 interface ErrorResponse {
   Details?: string;
 }
-interface LoginCredentialProps {
+export interface LoginCredentialProps {
   registered_user_email: string;
   registered_user_password: string;
 }
@@ -54,13 +54,11 @@ const UserLoginEnabled: FC = () => {
     className: "shadow-sm",
   };
   useEffect(() => {
-    const isLightTheme = theme === 'light';
+    const isLightTheme = theme === ThemeProviderOptions.LIGHT_TH
     setLogoColor(isLightTheme ? '' : ThemeSchema.BLK_CL);
   }, [theme]);
   const dispatch = useDispatch();
   const [is_loading, set_is_loading] = useState(false);
-  const themeDefined = useMUITheme()
-  const palette = colorMixGenerator(themeDefined.palette.mode)
   const initialValues: LoginCredentialProps = {
     registered_user_email: '',
     registered_user_password: '',
@@ -68,7 +66,7 @@ const UserLoginEnabled: FC = () => {
 
   const validationSchema = Yup.object({
     registered_user_email: Yup.string().email('Invalid email').required('Email is required'),
-    registered_user_password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    registered_user_password: Yup.string().min(0, 'Password must be at least 6 characters').required('Password is required'),
   });
 
   const mutation = useMutation({
@@ -87,11 +85,15 @@ const UserLoginEnabled: FC = () => {
         token: data.token,
         user_info: data.userInfo,
       }));
+      console.log( dispatch(set_token({
+        user_info: data.userInfo,
+      })))
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
+      localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified)); 
       set_is_loading(false);
     },
-
+    
     onError: (error: any) => {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<ErrorResponse>;
@@ -105,13 +107,13 @@ const UserLoginEnabled: FC = () => {
       }
       set_is_loading(false);
     }
-
+    
   });
-
+  
   const handleSubmit = (values: LoginCredentialProps) => {
     mutation.mutate(values);
   };
-
+  
   return (
     <React.Fragment>
       <ThemeSwitcher />
