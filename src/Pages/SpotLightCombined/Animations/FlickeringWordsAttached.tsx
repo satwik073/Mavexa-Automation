@@ -35,7 +35,7 @@ export function FlipWordsDemo() {
   </div>
   <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
 </button>
-      <div className="text-4xl  md:text-7xl text-left font-extrabold mb-6 relative  dark:text-white text-black max-w-4xl">
+      <div className="text-4xl  md:text-7xl text-left font-black md:font-extrabold mb-6 relative  dark:text-white text-black max-w-4xl">
         Automate your <br />
         workflow with <br />
         <FlipWords words={words} />software
