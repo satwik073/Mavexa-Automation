@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { set_token } from '@/Store/authSlice';
 import DynamicForm from '@/Forms/DynamicAtttributes/DynamicReducer';
 import * as Yup from 'yup';
-import { useTheme as useMUITheme } from '@mui/material';
+import { useMediaQuery, useTheme as useMUITheme } from '@mui/material';
 import { colorMixGenerator, REUSABLE_CONFIG } from '@/Constants/globalStyles';
 import { useTheme } from 'next-themes'
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
@@ -45,7 +45,9 @@ const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
 const UserLoginEnabled: FC = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const muiTheme = useMUITheme()
   const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
+  const is_small_screen = useMediaQuery(muiTheme.breakpoints.down('sm'))
   const imageContainerProps = {
     src: logoColor ? "/darkLogin.png" : "/lightLogin.png",
     width: 1000,
@@ -78,8 +80,8 @@ const UserLoginEnabled: FC = () => {
       MESSAGE_HANDLER(TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN), MessageConfiguration.SC_M, {
         hideProgressBar: true,
         autoClose: 5000,
-        position: 'bottom-right',
-        theme: ThemeProviderOptions.DARK_TH,
+        position: is_small_screen ? 'top-right' : 'bottom-right',
+        theme: logoColor ?  ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
       });
       dispatch(set_token({
         token: data.token,
@@ -102,7 +104,8 @@ const UserLoginEnabled: FC = () => {
         MESSAGE_HANDLER(message_captured, MessageConfiguration.ERR_M, {
           hideProgressBar: true,
           autoClose: 1000,
-          theme: ThemeProviderOptions.DARK_TH,
+          position: is_small_screen ? 'top-right' : 'bottom-right',
+          theme: logoColor ?  ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
         });
       }
       set_is_loading(false);

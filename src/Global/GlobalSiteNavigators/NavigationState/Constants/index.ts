@@ -19,7 +19,6 @@ export const PRODUCTS_CONFIGURATIONS: NavigationProperties = {
             { route_link_staged: RoutesConfiguration.CLIENTS.substring(1), path_controlled: RoutesConfiguration.CLIENTS },
             { route_link_staged: RoutesConfiguration.RESOURCES.substring(1), path_controlled: RoutesConfiguration.RESOURCES },
             { route_link_staged: RoutesConfiguration.DOCUMENTATION.substring(1), path_controlled: RoutesConfiguration.DOCUMENTATION },
-            { route_link_staged: RoutesConfiguration.ENTERPRISE.substring(1), path_controlled: RoutesConfiguration.ENTERPRISE },
         ],
         theme_options: [ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH, ThemeProviderOptions.DEFAULT],
         theme_processor: ThemeProviderOptions
