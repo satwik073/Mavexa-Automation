@@ -37,6 +37,7 @@ export function SpotlightPreview() {
       className={`${TCSS_CLASSES.spotlightMain} flex flex-col lg:flex-row items-center justify-between`}
       sx={{ padding: '2rem' }}
     >
+      <SPOT_LIGHT_PREVIEW_CONTENT_RAISED.splot_light_effects_emerald className="-top-40 left-0 md:left-60 md:-top-20" fill_valuable_color_blend={fill_color_after_theme_change} />
 
       <Grid
         item
@@ -51,7 +52,7 @@ export function SpotlightPreview() {
           <Typography className={TCSS_CLASSES.variantsParaTypography}>
             {SPOT_LIGHT_PREVIEW_CONTENT_RAISED.headline_fetched}
           </Typography>
-          <Grid  className={TCSS_CLASSES.buttonsParentGridIssues}>
+          <Grid className={TCSS_CLASSES.buttonsParentGridIssues}>
             <Grid item>
               <Button className={TCSS_CLASSES.browseComponentFlexed}>
                 {displaying_buttons['browse_components']}

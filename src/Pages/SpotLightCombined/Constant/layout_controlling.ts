@@ -28,8 +28,7 @@ export const TCSS_CLASSES: SpotLightStylingAttributes = {
   `,
 
   spotlightMain: `
-   md:h-[50rem] md:mt-0 mt-9 w-full rounded-md flex md:items-center bg-white 
-   dark:bg-black/[0.96] antialiased bg-grid-black/[0.06] dark:bg-grid-white/[0.08] 
+   md:h-[50rem] md:mt-0 mt-9 w-full rounded-md flex md:items-center antialiased bg-grid-black/[0.06] dark:bg-grid-white/[0.08] 
    relative overflow-hidden
   `,
 
