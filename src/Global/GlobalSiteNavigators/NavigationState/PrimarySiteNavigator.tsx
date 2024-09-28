@@ -57,7 +57,7 @@ const PrimarySiteNavigator: React.FC = () => {
       </List>
 
       {/* <Button className='lg:flex hidden' onClick={handle_clear}>Logout</Button> */}
-     
+     <ThemeSwitcher/>
       <MenuEvent />
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section}>
         <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className=" items-center gap-4 md:flex hidden">
