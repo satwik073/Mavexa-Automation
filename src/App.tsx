@@ -16,7 +16,7 @@ const AppRoutes = () => {
   const [loading, setLoading] = useState(true);
   
   const isUserAuthenticated = () => !!localStorage.getItem('User-Settings') || !!token_captured;
-  const isUserVerified = () => !!localStorage.getItem('User-Verification') || !!is_user_verified;
+  const isUserVerified = () => !!localStorage.getItem('User-Verification') && !!is_user_verified;
 
   useEffect(() => {
     setLoading(true);

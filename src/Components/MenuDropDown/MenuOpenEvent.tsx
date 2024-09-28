@@ -26,6 +26,7 @@ export function MenuEvent() {
     const dispatch = useDispatch()
     const handle_clear = () => {
         localStorage.removeItem('User-Settings');
+        localStorage.removeItem('User-Verification')
         setIsLoggedIn(false);
         dispatch(set_token(null))
         navigate('/');

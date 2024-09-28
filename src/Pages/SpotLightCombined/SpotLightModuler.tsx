@@ -34,7 +34,7 @@ export function SpotlightPreview() {
   return (
     <Box
       component={BOX_COMPONENTS_SEPERATED.components_fetched.header}
-      className={`${TCSS_CLASSES.spotlightMain} ${theme === ThemeProviderOptions.LIGHT_TH ? 'bg-white' : 'bg-blue-800'} flex flex-col lg:flex-row items-center justify-between`}
+      className={`${TCSS_CLASSES.spotlightMain} flex flex-col lg:flex-row items-center justify-between`}
       sx={{ padding: '2rem' }}
     >
 
@@ -42,7 +42,7 @@ export function SpotlightPreview() {
         item
         xs={12}
         lg={6}
-        className="flex flex-col items-start justify-center md:px-0 px-6 py-20 w-full lg:w-1/2"
+        className="flex flex-col items-start justify-center md:px-0 px-1  py-20 w-full lg:w-1/2"
       >
         <Grid>
           <Typography variant={TYPOGRAPHY_VARIANTS_SEPERATED.headings_variant.h1} className={TCSS_CLASSES.variantHeadingTypography}>

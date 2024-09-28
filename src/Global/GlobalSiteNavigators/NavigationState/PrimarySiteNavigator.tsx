@@ -57,13 +57,10 @@ const PrimarySiteNavigator: React.FC = () => {
       </List>
 
       {/* <Button className='lg:flex hidden' onClick={handle_clear}>Logout</Button> */}
-      <div className='sm:hidden flex'>
-        <ThemeSwitcher />
-
-      </div>
+     
       <MenuEvent />
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section}>
-        <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className="flex items-center gap-4 md:flex hidden">
+        <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className=" items-center gap-4 md:flex hidden">
           <Link to={RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS} className={PR_STY.STLP.buttonEffect}>
             <span className={PR_STY.STLP.spanOutline} />
             <span className={PR_STY.STLP.inlineSource}>
