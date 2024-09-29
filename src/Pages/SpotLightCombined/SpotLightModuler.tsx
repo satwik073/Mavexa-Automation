@@ -20,7 +20,7 @@ export function SpotlightPreview() {
     width: 1000,
     height: 1000,
     alt: "SaaSy Logo",
-    className: "shadow-sm",
+    className: "shadow-sm z-20",
   };
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function SpotlightPreview() {
       className={`${TCSS_CLASSES.spotlightMain} flex flex-col lg:flex-row items-center justify-between`}
       sx={{ padding: '2rem' }}
     >
-      <SPOT_LIGHT_PREVIEW_CONTENT_RAISED.splot_light_effects_emerald className="-top-40 left-0 md:left-60 md:-top-20" fill_valuable_color_blend={fill_color_after_theme_change} />
+      <SPOT_LIGHT_PREVIEW_CONTENT_RAISED.splot_light_effects_emerald className="-top-40 z-0 left-0 md:left-60 md:-top-20" fill_valuable_color_blend={fill_color_after_theme_change} />
 
       <Grid
         item
@@ -72,7 +72,7 @@ export function SpotlightPreview() {
         lg={6}
         className="flex items-center justify-center p-6 w-full lg:w-1/2"
       >
-        <ImageContainer {...imageContainerProps} />
+        <ImageContainer  {...imageContainerProps} />
       </Grid>
     </Box>
   );

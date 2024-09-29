@@ -1,5 +1,5 @@
 
-import { set_token } from "@/Store/authSlice";
+import { remove_token, set_token } from "@/Store/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -25,13 +25,13 @@ export function MenuEvent() {
     const [is_logged_in, setIsLoggedIn] = useState<boolean>(localStorage.getItem('User-Settings') ? true : false); // Check token presence
     const dispatch = useDispatch()
     const handle_clear = () => {
-        localStorage.removeItem('User-Settings');
-        localStorage.removeItem('User-Verification')
-        setIsLoggedIn(false);
-        dispatch(set_token(null))
-        navigate('/');
-        console.log("Clicked Logout");
-      };
+      localStorage.removeItem('User-Settings');
+      setIsLoggedIn(false);
+      dispatch(remove_token());
+      navigate('/');
+      console.log("User logged out and navigated to home");
+    };
+    
 
       
   useEffect(() => {
