@@ -1,11 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { APP_CONFIG } from '.';
 import { ROUTES_EXT } from './Constants/standard_routes';
@@ -16,6 +9,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import { updateAuthToken, updateUserVerified } from './Store/authSlice';
 import { useTheme } from 'next-themes';
+import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 
 interface ValidRoutesConfiguration {
   path: string;
@@ -25,9 +19,7 @@ const IncludedRoutesSettings: ValidRoutesConfiguration[] = [
   { path: RoutesConfiguration.AUTH },    
   { path: RoutesConfiguration.DEFAULT_PATH }
 ];
-const DefaultRoutesSettings : ValidRoutesConfiguration[] = [
-  {path: RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH || '/'}
-]
+
 
 const AppRoutes = () => {
   const navigate = useNavigate();
@@ -40,16 +32,25 @@ const AppRoutes = () => {
   const persistedVerification = useMemo(() => localStorage.getItem('User-Verified'), []);
   const isUserAuthenticated = useMemo(() => !!localStorage.getItem('User-Settings') || !!tokenSelector, [tokenSelector]);
   const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification]);
-  const {theme} = useTheme()
-  const authRedirectionLogic = useMemo(() => {
-    if ((isUserAuthenticated && !isUserVerified && location.pathname !== RoutesConfiguration.VERIFICATION) || (isUserAuthenticated && !isUserVerified && IncludedRoutesSettings.some((routes_config) => routes_config.path === location.pathname)) ) {
-      navigate(RoutesConfiguration.VERIFICATION, { replace: true });
-    } else if (
-      isUserVerified &&
-      DefaultRoutesSettings.some((routes_config) => routes_config.path === location.pathname)
-    ) {
+  const { theme } = useTheme();
+
+
+  useEffect(() => {
+    const isDefaultOrVerificationRoute =
+      location.pathname === RoutesConfiguration.VERIFICATION ||
+      [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname);
+    if (isUserAuthenticated && isUserVerified && isDefaultOrVerificationRoute) {
       navigate(RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM, { replace: true });
-    } else if (
+    } 
+    else if (
+      isUserAuthenticated &&
+      !isUserVerified &&
+      location.pathname !== RoutesConfiguration.VERIFICATION &&
+      !IncludedRoutesSettings.some((route) => route.path === location.pathname)
+    ) {
+      navigate(RoutesConfiguration.VERIFICATION, { replace: true });
+    } 
+    else if (
       !isUserAuthenticated &&
       ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname)
     ) {
@@ -57,13 +58,15 @@ const AppRoutes = () => {
     }
   }, [isUserAuthenticated, isUserVerified, location.pathname, navigate]);
 
-  console.log(isUserAuthenticated, isUserVerified)
+
+
   useEffect(() => {
     const handleTokenSync = () => {
       if (typeof persistedToken === 'string' && !tokenSelector) {
         dispatch(updateAuthToken(persistedToken));
       }
     };
+
     const handleVerificationSync = () => {
       if (persistedVerification === 'true' && !verifiedSelector) {
         dispatch(updateUserVerified(true));
@@ -71,41 +74,25 @@ const AppRoutes = () => {
         dispatch(updateUserVerified(false));
       }
     };
-    const conditionalExecution = () => {
-      const tokenSyncPromise = new Promise<void>((resolve) => {
-        handleTokenSync();
-        resolve();
-      });
 
-      const verificationSyncPromise = new Promise<void>((resolve) => {
-        handleVerificationSync();
-        resolve();
-      });
-
-      Promise.all([tokenSyncPromise, verificationSyncPromise]).then(() => {
-        console.log('State synchronized successfully');
-      });
+    const conditionalExecution = async () => {
+      await Promise.all([handleTokenSync(), handleVerificationSync()]);
+      console.log('State synchronized successfully');
     };
 
     if (persistedToken !== tokenSelector || persistedVerification !== verifiedSelector) {
       conditionalExecution();
     }
 
-    authRedirectionLogic;
     setLoading(false);
-  }, [
-    dispatch,
-    persistedToken,
-    persistedVerification,
-    tokenSelector,
-    verifiedSelector,
-    authRedirectionLogic,
-  ]);
+  }, [dispatch, persistedToken, persistedVerification, tokenSelector, verifiedSelector]);
+
+
 
   return loading ? (
-     <div className='w-full h-screen flex items-center justify-center'>
-          <CircularProgress size={54} sx={{ color: theme === 'light' ? 'black' : 'white' }} />
-        </div>
+    <div className="w-full h-screen flex items-center justify-center">
+      <CircularProgress size={54} sx={{ color: theme === ThemeProviderOptions.LIGHT_TH ? ThemeSchema.BLK_CL : ThemeSchema.WHT_CL }} />
+    </div>
   ) : (
     <Routes>
       <Route
@@ -129,10 +116,7 @@ const AppRoutes = () => {
         path={RoutesConfiguration.PRODUCTS || ROUTES_EXT.FEAT_CONFIG.PRD}
         element={<APP_CONFIG.PR_S />}
       />
-      <Route
-        path='*'
-        element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />}
-      />
+      <Route path="*" element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />} />
     </Routes>
   );
 };
