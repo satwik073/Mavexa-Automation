@@ -13,16 +13,13 @@ import { set_token } from '@/Store/authSlice';
 import DynamicForm from '@/Forms/DynamicAtttributes/DynamicReducer';
 import * as Yup from 'yup';
 import { useMediaQuery, useTheme as useMUITheme } from '@mui/material';
-import { colorMixGenerator, REUSABLE_CONFIG } from '@/Constants/globalStyles';
 import { useTheme } from 'next-themes'
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 import { displaying_buttons } from '@/Constants/DataObjects';
 import { TCSS_CLASSES } from '@/Pages/SpotLightCombined/Constant/layout_controlling';
 import ImageContainer from '@/Components/Images/ImageContainer';
-import Image from "../../../public/p1.png"
 import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
 import { clients } from '@/lib/constants';
-import SaaSyAutomationLogo from '@/Global/GlobalSiteNavigators/NavigationState/SaasySeparator/SaasyAutomationLogo';
 import { PRODUCTS_CONFIGURATIONS } from '@/Global/GlobalSiteNavigators/NavigationState/Constants';
 const queryClient = new QueryClient();
 
@@ -81,7 +78,7 @@ const UserLoginEnabled: FC = () => {
         hideProgressBar: true,
         autoClose: 5000,
         position: is_small_screen ? 'top-right' : 'bottom-right',
-        theme: logoColor ?  ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
+        theme: logoColor ? ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
       });
       dispatch(
         set_token({
@@ -89,14 +86,14 @@ const UserLoginEnabled: FC = () => {
           user_info: data.userInfo,
         })
       );
-    
+
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
-      localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified)); 
+      localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified));
       console.log(localStorage.getItem('User-Verification'))
       set_is_loading(false);
     },
-    
+
     onError: (error: any) => {
       if (axios.isAxiosError(error)) {
         const axiosError = error as AxiosError<ErrorResponse>;
@@ -106,32 +103,31 @@ const UserLoginEnabled: FC = () => {
           hideProgressBar: true,
           autoClose: 1000,
           position: is_small_screen ? 'top-right' : 'bottom-right',
-          theme: logoColor ?  ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
+          theme: logoColor ? ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
         });
       }
       set_is_loading(false);
     }
-    
+
   });
-  
+
   const handleSubmit = (values: LoginCredentialProps) => {
     mutation.mutate(values);
   };
-  
+
   return (
     <React.Fragment>
       <ThemeSwitcher />
-      <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display/>
-      <div className='w-full md:flex h-full md:p-20  items-center justify-center'>
-        <div className='md:w-1/2'>
+      <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
+      <div className='w-full md:flex h-full items-center justify-center md:p-6'>
+        <div className=' md:w-1/2 w-full'>
           <DynamicForm
             allocated_form_data={initialValues}
             validation_schema_declaration={validationSchema}
             on_form_submit={handleSubmit}
             is_submit_button_loading={is_loading}
             form_title='Login into your Account'
-            titleStylingController={`text-4xl md:text-5xl my-2 font-bold bg-clip-text
-    bg-opacity-50`}
+            titleStylingController={`text-4xl   text-left font-black md:font-extrabold mb-6 relative  dark:text-white text-black max-w-4xl`}
             form_description='Please enter your credentials to login into your account.'
             descriptionStylingController={`relative text-md text-zinc-500 
     dark:text-zinc-300 tracking-wide mb-8 text-left
@@ -140,17 +136,17 @@ const UserLoginEnabled: FC = () => {
             disable_auto_complete={false}
             googleAuthRequired
             appleAuthRequired
-            buttonStyles={`${TCSS_CLASSES.browseComponentFlexed} capitalize  my-7`}
+            buttonStyles={` rounded-full capitalize p-4 w-full my-2 hover:bg-transparent  dark:bg-black/40 bg-white text-black dark:text-white hover:none border dark:border-gray-200 border-[0.5px] `}
             buttonContent={displaying_buttons['sign_in']}
           />
         </div>
-        <div className='md:w-1/2  bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] h-screen'>
+        {/* <div className='lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] h-screen'>
           <div className='p-6 text-center'>
             <div className={`text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white bg-opacity-50`}>The Simplest way to manage your workplace</div>
             <ImageContainer {...imageContainerProps} className='flex  my-[8rem] justify-center items-center mb-4' />
             <InfiniteMovingCards className='mt-[6rem]' items={clients} />
           </div>
-        </div>
+        </div> */}
 
 
       </div>

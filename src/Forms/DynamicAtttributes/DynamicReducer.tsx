@@ -111,11 +111,11 @@ const DynamicForm = <T extends Record<string, any>>({
       </div>
       <div>
 
-        {(googleAuthRequired && appleAuthRequired) ? (<Grid className={`${TCSS_CLASSES.buttonsParentGridIssues} my-8`}>
-          <UIButton className={`${TCSS_CLASSES.browseComponentFlexed} capitalize`}>
+        {(googleAuthRequired && appleAuthRequired) ? (<Grid className={`${TCSS_CLASSES.buttonsParentGridIssues} w-full  my-8`}>
+          <UIButton className={buttonStyles}>
             {displaying_buttons['google_auth']}
           </UIButton>
-          <UIButton className={TCSS_CLASSES.customComponentFlexed}>
+          <UIButton className={buttonStyles}>
             {displaying_buttons['apple_auth']}
           </UIButton>
         </Grid>) : (<div></div>)}
@@ -129,7 +129,7 @@ const DynamicForm = <T extends Record<string, any>>({
               name={field_key}
               label={
                 field_key === 'registered_user_email'
-                  ? 'Email'
+                  ? 'Email ID'
                   : field_key === 'registered_user_password'
                     ? 'Password'
                     : field_key.replace('_', ' ').toUpperCase()
@@ -157,16 +157,22 @@ const DynamicForm = <T extends Record<string, any>>({
                 },
                 '& .MuiInputLabel-root': {
                   color: isDarkMode ? '#ffffff' : '#000000',
+                  fontSize:'12px',
                   '&.Mui-focused': {
                     color: '#10B981',
+                    fontSize:'15px'
                   },
                 },
                 '& .MuiInputBase-input': {
-                  height: '30px', 
-                  padding: '8px', 
+                  height: '25px', 
+                  padding: '12px', 
+                  fontSize:'2px'
                 },
                 '& .MuiInputBase-input::placeholder': {
                   color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
+                  display :'flex',
+                  justifyContent :'center',
+                  alignItems : 'center',
                   opacity: 1,
                 },
                 '& .MuiInputBase-input::focus': {
