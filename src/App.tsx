@@ -10,6 +10,7 @@ import { CircularProgress } from '@mui/material';
 import { updateAuthToken, updateUserVerified } from './Store/authSlice';
 import { useTheme } from 'next-themes';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
+import UserRegistrationEnabled from './Auth/Registrations/UserRegistrationEnabled';
 
 interface ValidRoutesConfiguration {
   path: string;
@@ -115,6 +116,10 @@ const AppRoutes = () => {
       <Route
         path={RoutesConfiguration.PRODUCTS || ROUTES_EXT.FEAT_CONFIG.PRD}
         element={<APP_CONFIG.PR_S />}
+      />
+      <Route
+        path={RoutesConfiguration.REGISTRATION}
+        element={<UserRegistrationEnabled/>}
       />
       <Route path="*" element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />} />
     </Routes>

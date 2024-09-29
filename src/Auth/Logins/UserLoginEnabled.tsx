@@ -16,7 +16,6 @@ import { useMediaQuery, useTheme as useMUITheme } from '@mui/material';
 import { useTheme } from 'next-themes'
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 import { displaying_buttons } from '@/Constants/DataObjects';
-import { TCSS_CLASSES } from '@/Pages/SpotLightCombined/Constant/layout_controlling';
 import ImageContainer from '@/Components/Images/ImageContainer';
 import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
 import { clients } from '@/lib/constants';
@@ -110,43 +109,54 @@ const UserLoginEnabled: FC = () => {
     }
 
   });
-
+  const handle_toggle_auth_controller = ()=>{
+    navigate(`${RoutesConfiguration.REGISTRATION}`)
+  }
   const handleSubmit = (values: LoginCredentialProps) => {
     mutation.mutate(values);
   };
 
   return (
     <React.Fragment>
-      <ThemeSwitcher />
-      <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
-      <div className='w-full md:flex h-full items-center justify-center md:p-6'>
+      {/* <ThemeSwitcher /> */}
+      <div className='flex flex-col md:flex-row items-center justify-between w-full lg:p-6'>
         <div className=' md:w-1/2 w-full'>
+          <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
           <DynamicForm
             allocated_form_data={initialValues}
             validation_schema_declaration={validationSchema}
             on_form_submit={handleSubmit}
             is_submit_button_loading={is_loading}
             form_title='Login into your Account'
-            titleStylingController={`text-4xl   text-left font-black md:font-extrabold mb-6 relative  dark:text-white text-black max-w-4xl`}
+            titleStylingController={`text-4xl md:text-center   text-left font-black md:font-extrabold mb-6 relative  dark:text-white text-black max-w-4xl`}
             form_description='Please enter your credentials to login into your account.'
-            descriptionStylingController={`relative text-md text-zinc-500 
-    dark:text-zinc-300 tracking-wide mb-8 text-left
-    max-w-2xl antialiased leading-loose`}
+            descriptionStylingController={`relative text-sm md:text-md text-zinc-500  md:text-center dark:text-zinc-300  mb-8 text-left max-w-2xl antialiased`}
             input_placeholder_settings={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your pword'}
             disable_auto_complete={false}
             googleAuthRequired
             appleAuthRequired
-            buttonStyles={` rounded-full capitalize p-4 w-full my-2 hover:bg-transparent  dark:bg-black/40 bg-white text-black dark:text-white hover:none border dark:border-gray-200 border-[0.5px] `}
+            forgetPasswordRequired
+            ForgetPasswordStyling='text-[13px] my-2  text-[#10B981]'
+            buttonStyles={` rounded-full flex capitalize p-4  w-full my-2 hover:bg-transparent  dark:bg-black/40 bg-white text-black dark:text-white hover:none border dark:border-gray-200 border-[0.5px] `}
             buttonContent={displaying_buttons['sign_in']}
+            auth_flow_type={AuthFlowIdentifier.SIGN_IN}
+            show_auth_links
+            on_switch_to_other_auth_flow={handle_toggle_auth_controller}
+
           />
         </div>
-        {/* <div className='lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] h-screen'>
-          <div className='p-6 text-center'>
-            <div className={`text-4xl md:text-5xl my-2 font-bold bg-clip-text text-white bg-opacity-50`}>The Simplest way to manage your workplace</div>
-            <ImageContainer {...imageContainerProps} className='flex  my-[8rem] justify-center items-center mb-4' />
-            <InfiniteMovingCards className='mt-[6rem]' items={clients} />
+        <div className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
+          <div className="p-6 lg:p-10 text-center md:text-left ">
+            <div className="text-4xl lg:text-4xl font-bold text-white md:max-w-lg bg-opacity-50 bg-clip-text mb-6 lg:mb-10">
+              The Simplest way to manage your workplace
+            </div>
+            <div className="flex justify-center items-center mb-4">
+              <ImageContainer {...imageContainerProps} />
+            </div>
+            <InfiniteMovingCards className="mt-[6rem]" items={clients} />
           </div>
-        </div> */}
+        </div>
+
 
 
       </div>
