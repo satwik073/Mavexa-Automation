@@ -6,6 +6,7 @@ export enum RoutesConfiguration {
     PRICING = '/pricing',
     CLIENTS = '/clients',
     RESOURCES = '/resources',
+    REGISTRATION ='/register',
     DOCUMENTATION = '/documentation',
     ENTERPRISE = '/enterprise',
     DASHBOARD = '/dashboard',

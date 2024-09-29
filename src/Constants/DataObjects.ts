@@ -10,7 +10,6 @@ export const displaying_buttons : ButtonsFetching={
     debugging_concept : "Join Now",
     google_auth : "Login with Google",
     apple_auth : "Login with Apple",
-    sign_in :"Sign in Now",
+    sign_in :"Login Now",
     sign_up:"Sign up Now",
-
 }
