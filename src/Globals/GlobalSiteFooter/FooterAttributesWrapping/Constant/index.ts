@@ -65,13 +65,7 @@ export const TRANSLATING_FOOTER_TEXT: TranslatingFooterText = {
                 { path_specified: "#", text_fields: "Hiring Statistics" }
             ]
         },
-        {
-            fetched_headings_attached: "Downloads",
-            links_estaiblished: [
-                { path_specified: "#", text_fields: "Marketing Calendar" },
-                { path_specified: "#", text_fields: "SEO Infographics" }
-            ]
-        }
+        
     ],
     social_media_connections: [
         { target_window: "_blank", rel: "noreferrer", path_specified: '#', icons_from_react: FaFacebook, label: 'Facebook' },
