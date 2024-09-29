@@ -83,16 +83,17 @@ const UserLoginEnabled: FC = () => {
         position: is_small_screen ? 'top-right' : 'bottom-right',
         theme: logoColor ?  ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
       });
-      dispatch(set_token({
-        token: data.token,
-        user_info: data.userInfo,
-      }));
-      console.log( dispatch(set_token({
-        user_info: data.userInfo,
-      })))
+      dispatch(
+        set_token({
+          token: data.token,
+          user_info: data.userInfo,
+        })
+      );
+    
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
       localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified)); 
+      console.log(localStorage.getItem('User-Verification'))
       set_is_loading(false);
     },
     

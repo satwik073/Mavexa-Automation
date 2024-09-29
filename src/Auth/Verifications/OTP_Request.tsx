@@ -30,7 +30,7 @@ import {
 import { RoutesConfiguration } from "@/Constants/structure";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { set_token } from "@/Store/authSlice";
+import { remove_token, set_token } from "@/Store/authSlice";
 
 const FormSchema = z.object({
   pin: z.string().min(6, {
@@ -38,22 +38,29 @@ const FormSchema = z.object({
   }),
 });
 export function InputOTPForm() {
-  // Initialize form
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       pin: "",
     },
   });
-  const [is_logged_in, setIsLoggedIn] = useState<boolean>(localStorage.getItem('User-Settings') ? true : false); // Check token presence
+  const [is_logged_in, setIsLoggedIn] = useState<boolean>(localStorage.getItem('User-Settings') ? true : false);
+  const is_user_verified = !!localStorage.getItem('User-Verification')
   const dispatch = useDispatch()
   const handle_clear = () => {
     localStorage.removeItem('User-Settings');
+    localStorage.removeItem('User-Verification')
     setIsLoggedIn(false);
-    dispatch(set_token(null))
+    dispatch(remove_token())
     navigate('/');
     console.log("Clicked Logout");
   };
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('User-Settings');
+    setIsLoggedIn(!!token);
+  }, []);
   const navigate = useNavigate()
   const muiTheme = useMUITheme();
   const isSmallScreen = useMediaQuery(muiTheme.breakpoints.down("sm"));
@@ -101,13 +108,12 @@ export function InputOTPForm() {
             </FormItem>
           )}
         />
-<div className="flex gap-4">
-
-        <Button type="submit">Submit</Button>
-        <div>
-          <Button onClick={handle_clear}>Logout</Button>
+        <div className="flex gap-4">
+          <Button type="submit">Submit</Button>
+          <div>
+            <Button onClick={handle_clear}>Logout</Button>
+          </div>
         </div>
-</div>
       </form>
     </Form>
   );

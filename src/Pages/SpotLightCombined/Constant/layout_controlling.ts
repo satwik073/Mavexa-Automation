@@ -20,7 +20,7 @@ export const TCSS_CLASSES: SpotLightStylingAttributes = {
   `,
 
   customComponentFlexed: `
-    w-full sm:w-52 ${REUSABLE_CONFIG.commonTextSm} text-black bg-white 
+    w-full sm:w-52 z-10 ${REUSABLE_CONFIG.commonTextSm} text-black bg-white 
     dark:bg-black h-14 border-2 bg-white border-neutral-300 ${REUSABLE_CONFIG.darkModeText} 
     dark:border-emerald-500 ${REUSABLE_CONFIG.flexCenterCommon} 
     hover:border-emerald-500 hover:text-black hover:bg-white
@@ -28,7 +28,7 @@ export const TCSS_CLASSES: SpotLightStylingAttributes = {
   `,
 
   spotlightMain: `
-   md:h-[50rem] md:mt-0 mt-9 w-full rounded-md flex md:items-center antialiased bg-grid-black/[0.06] dark:bg-grid-white/[0.08] 
+   h-full md:mt-12 z-20 mt-9 w-full rounded-md flex md:items-center antialiased bg-grid-black/[0.06] dark:bg-grid-white/[0.08] 
    relative overflow-hidden
   `,
 

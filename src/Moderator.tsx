@@ -9,13 +9,12 @@ const Periodic_Navigation = lazy(() => import('@/Global/GlobalSiteNavigators/Nav
 type Props = {};
 
 const ModeratorLazyLoader: React.FC<Props> = () => {
-  const { theme } = useTheme(); // Get current theme
+  const { theme } = useTheme();
 
   return (
     <>
       <Suspense fallback={
         <div className='w-full h-screen flex items-center justify-center'>
-          {/* Change color directly based on theme */}
           <CircularProgress size={54} sx={{ color: theme === 'light' ? 'black' : 'white' }} />
         </div>
       }>
