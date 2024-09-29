@@ -4,6 +4,7 @@ import { CircularProgress } from '@mui/material';
 import { useTheme } from 'next-themes';
 
 const SpotLight = lazy(() => import('@/Pages/SpotLightCombined/SpotLightModuler').then(module => ({ default: module.SpotlightPreview })));
+const GlobalAnnotations = lazy(() => import('@/Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter'))
 const Periodic_Navigation = lazy(() => import('@/Global/GlobalSiteNavigators/NavigationState/PrimarySiteNavigator'));
 
 type Props = {};
@@ -21,6 +22,8 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
         <Periodic_Navigation />
         <SpotLight />
       </Suspense>
+
+        <GlobalAnnotations/>
     </>
   );
 };
