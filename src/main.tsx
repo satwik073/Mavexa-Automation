@@ -13,7 +13,7 @@ createRoot(container!).render(
   <StrictMode>
     <Provider store={store}>
       <CustomFontProvider>
-        <ThemeProvider attribute="class" defaultTheme={ThemeProviderOptions.DEFAULT} themes={[ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH , ThemeProviderOptions.DEFAULT]}>
+        <ThemeProvider attribute="class" defaultTheme={ThemeProviderOptions.DARK_TH} themes={[ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH , ThemeProviderOptions.DEFAULT]}>
          <ThemeUpdater/>
           <App />
         </ThemeProvider>

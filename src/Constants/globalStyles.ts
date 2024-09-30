@@ -12,11 +12,23 @@ export const REUSABLE_CONFIG = {
     fullRounded: "rounded-full",
     flexItemsCenter: "flex items-center",
     commonGradient: "bg-gradient-to-r from-black via-emerald-500/90 to-slate-950",
+    textLeft: 'text-left',
+    textCenter: 'text-center',
+    textBlack: 'text-black',
+    textZinc500: 'text-zinc-500',
+    darkTextZinc300: 'dark:text-zinc-300',
+    darkBorderGray200: 'dark:border-gray-200',
+    mb6: 'mb-6',
+    mb8: 'mb-8',
+    darkBgBlack40: 'dark:bg-black/40',
+    bgWhite: 'bg-white',
+    hoverTransparent: 'hover:bg-transparent',
+
 }
 import { ThemeProviderOptions } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import { PaletteMode } from '@mui/material';
 
-const rgbGen = (r: number, g: number, b: number): string =>
+export const rgbGen = (r: number, g: number, b: number): string =>
     `rgba(${r},${g},${b})`;
 
 const rgbaGen = (r: number, g: number, b: number, alpha: number = 1): string =>
@@ -60,9 +72,9 @@ const gradientDirection = () => {
 const gradientGen = (color1: string, color2: string, alpha1: number = 1, alpha2: number = 1) => {
     const color1Values = color1.split(',').map(value => parseFloat(value.trim())) as [number, number, number];
     const color2Values = color2.split(',').map(value => parseFloat(value.trim())) as [number, number, number];
-  
+
     return `linear-gradient(${gradientDirection()}, ${rgbaGen(...color1Values, alpha1)}, ${rgbaGen(...color2Values, alpha2)})`;
-  };
+};
 interface ColorStructure {
     main: string;
     light: string;
