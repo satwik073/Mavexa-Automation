@@ -15,11 +15,12 @@ import * as Yup from 'yup';
 import { useMediaQuery, useTheme as useMUITheme } from '@mui/material';
 import { useTheme } from 'next-themes'
 import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
-import { displaying_buttons } from '@/Constants/DataObjects';
 import ImageContainer from '@/Components/Images/ImageContainer';
 import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
 import { clients } from '@/lib/constants';
 import { PRODUCTS_CONFIGURATIONS } from '@/Global/GlobalSiteNavigators/NavigationState/Constants';
+import { LOGIN_CONFIG } from './Constants/index_controller';
+import { LGN_STY } from './Constants/layout_controller';
 const queryClient = new QueryClient();
 
 interface ErrorResponse {
@@ -127,18 +128,18 @@ const UserLoginEnabled: FC = () => {
             validation_schema_declaration={validationSchema}
             on_form_submit={handleSubmit}
             is_submit_button_loading={is_loading}
-            form_title='Login into your Account'
-            titleStylingController={`text-4xl md:text-center   text-left font-black md:font-extrabold mb-6 relative  dark:text-white text-black max-w-4xl`}
-            form_description='Please enter your credentials to login into your account.'
-            descriptionStylingController={`relative text-sm md:text-md text-zinc-500  md:text-center dark:text-zinc-300  mb-8 text-left max-w-2xl antialiased`}
-            input_placeholder_settings={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your pword'}
+            form_title={LOGIN_CONFIG.TITLE}
+            titleStylingController={LGN_STY.TITLE}
+            form_description={LOGIN_CONFIG.SUBTITLE}
+            descriptionStylingController={LGN_STY.SUBTITLE}
+            input_placeholder_settings={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your password'}
             disable_auto_complete={false}
             googleAuthRequired
             appleAuthRequired
             forgetPasswordRequired
-            ForgetPasswordStyling='text-[13px] my-2  text-[#10B981]'
-            buttonStyles={` rounded-full flex capitalize p-4  w-full my-2 hover:bg-transparent  dark:bg-black/40 bg-white text-black dark:text-white hover:none border dark:border-gray-200 border-[0.5px] `}
-            buttonContent={displaying_buttons['sign_in']}
+            ForgetPasswordStyling={LGN_STY.FG_PASSCODE}
+            buttonStyles={LGN_STY.BTN_STYLES}
+            buttonContent={LOGIN_CONFIG.AUTH_BTN}
             auth_flow_type={AuthFlowIdentifier.SIGN_IN}
             show_auth_links
             on_switch_to_other_auth_flow={handle_toggle_auth_controller}
