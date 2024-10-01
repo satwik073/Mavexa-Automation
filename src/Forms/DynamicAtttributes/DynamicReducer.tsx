@@ -9,23 +9,25 @@ import { TCSS_CLASSES } from '@/Pages/SpotLightCombined/Constant/layout_controll
 import { Button as UIButton } from '@/Components/Images/External/UI/button';
 import { AppleAuthenticationSvgDark, AppleAuthenticationSvgLight, GooogleAuthenticationSvg } from '@/assets';
 import ImageContainer from '@/Components/Images/ImageContainer';
+import { useNavigate } from 'react-router-dom';
+
 interface DynamicFormAttributes<T> {
-  form_title?: string;
-  form_description?: string;
-  allocated_form_data: T;
-  validation_schema_declaration: Yup.ObjectSchema<any>;
-  on_form_submit: (form_values: T) => void;
-  input_placeholder_settings?: string;
-  is_submit_button_loading?: boolean;
-  form_max_width?: number;
+  titleAttached? : string,
   titleStylingController?: string,
-  descriptionStylingController?: string,
-  grid_spacing_configuration?: number;
-  form_padding_configuration?: number;
-  show_labels?: boolean;
-  container_grid_alignment?: 'center' | 'flex-start' | 'flex-end';
-  form_background_color?: string;
-  disable_auto_complete?: boolean;
+  subtitleAttached? : string,
+  subtitleStylingController?: string,
+  formObjectData : T,
+  spacingEnabled? : number,
+  areaCoverage? : number,
+  validSchemaStructure :  Yup.ObjectSchema<any>,
+  onFormSubmission : (form_values : T) => void;
+  placeHoldersConfig? : string,
+  isApiCalledLoading? : boolean,
+  gridContainerConfig? : number,
+  paddingResponseController? : number,
+  labelsAttached? : boolean,
+  gridAlignments? : 'center' | 'flex-start' | 'flex-end',
+  autoCompleteEnabled? : boolean,
   textFieldStyles?: Record<string, any>;
   textFieldStyleOverrides?: Record<string, Record<string, any>>;
   buttonStyles?: string;
@@ -35,10 +37,10 @@ interface DynamicFormAttributes<T> {
   isDividerRequired?: boolean,
   buttonContent: string,
   forgetPasswordRequired?: boolean,
-  ForgetPasswordStyling?: string,
-  auth_flow_type?: AuthFlowIdentifier;
-  show_auth_links?: boolean;
-  on_switch_to_other_auth_flow?: () => void; 
+  forgetPasswordStyling?: string,
+  authFlowIdentifier? : AuthFlowIdentifier,
+  authLinksEnabled? : boolean,
+  onSwitchToDifferentAuthFlow? : () => void,
   switchAuthFlowStyling?: string;
 }
 
@@ -51,7 +53,7 @@ const determine_input_field_type = (field_key: string): string => {
 
 const generate_placeholder_text = (field_key: string): string => {
   switch (field_key) {
-    case 'registered_userName':
+    case 'registered_username':
       return 'Enter your username';
     case 'registered_user_email':
       return 'Enter your email';
@@ -65,63 +67,62 @@ const generate_placeholder_text = (field_key: string): string => {
 };
 
 const DynamicForm = <T extends Record<string, any>>({
-  allocated_form_data,
-  validation_schema_declaration,
-  on_form_submit,
-  form_title,
-  form_description,
-  is_submit_button_loading = false,
-  form_max_width = 600,
-  grid_spacing_configuration = 3,
-  form_padding_configuration = 4,
-  show_labels = true,
-  ForgetPasswordStyling,
-  container_grid_alignment = 'flex-start',
-  form_background_color = '#fff',
-  forgetPasswordRequired = false,
-  disable_auto_complete = false,
+  titleAttached,
+  titleStylingController,
+  subtitleAttached,
+  subtitleStylingController,
+  formObjectData,
+  areaCoverage,
+  spacingEnabled,
+  validSchemaStructure,
+  onFormSubmission,
+  isApiCalledLoading,
+  gridContainerConfig,
+  gridAlignments,
+  autoCompleteEnabled,
   textFieldStyles,
   textFieldStyleOverrides,
+  buttonContent,
   buttonStyles,
   buttonDisabledStyles,
-  titleStylingController,
-  descriptionStylingController,
   googleAuthRequired,
   appleAuthRequired,
-  buttonContent,
-  auth_flow_type = AuthFlowIdentifier.SIGN_IN, 
-  show_auth_links = false,
-  on_switch_to_other_auth_flow,
-  switchAuthFlowStyling,
+  forgetPasswordRequired,
+  forgetPasswordStyling,
+  authFlowIdentifier,
+  authLinksEnabled,
+  onSwitchToDifferentAuthFlow,
+  switchAuthFlowStyling
+
 }: DynamicFormAttributes<T>) => {
   const form_controller = useFormik({
-    initialValues: allocated_form_data,
-    validationSchema: validation_schema_declaration,
+    initialValues: formObjectData,
+    validationSchema: validSchemaStructure,
     onSubmit: (form_values) => {
-      on_form_submit(form_values);
+      onFormSubmission(form_values);
     },
   });
 
   const { theme: nextTheme } = useTheme();
   const isDarkMode = nextTheme === ThemeProviderOptions.DARK_TH;
-
+  const navigate = useNavigate()
   return (
     <Box
       component="form"
       onSubmit={form_controller.handleSubmit}
       sx={{
         width: '100%',
-        maxWidth: form_max_width,
+        maxWidth: areaCoverage,
         mx: 'auto',
-        p: { xs: form_padding_configuration, md: form_padding_configuration },
+        p: { xs: spacingEnabled, md: spacingEnabled },
 
       }}
     >
       <div className={titleStylingController}>
-        {form_title}
+        {titleAttached}
       </div>
-      <div className={descriptionStylingController}>
-        {form_description}
+      <div className={subtitleStylingController}>
+        {subtitleAttached}
       </div>
       <div>
       </div>
@@ -151,8 +152,8 @@ const DynamicForm = <T extends Record<string, any>>({
         <div></div>
       )}
 
-      <Grid container spacing={grid_spacing_configuration} justifyContent={container_grid_alignment}>
-        {Object.keys(allocated_form_data).map((field_key) => (
+      <Grid container spacing={gridContainerConfig} justifyContent={gridAlignments}>
+        {Object.keys(formObjectData).map((field_key) => (
           <Grid item xs={12} key={field_key}>
             <TextField
               id={field_key}
@@ -162,7 +163,7 @@ const DynamicForm = <T extends Record<string, any>>({
                   ? 'Email ID'
                   : field_key === 'registered_user_password'
                     ? 'Password'
-                    : field_key === 'registered_userName' ?
+                    : field_key === 'registered_username' ?
                       'Username'
                       : field_key.replace('_', ' ').toUpperCase()
               }
@@ -173,13 +174,14 @@ const DynamicForm = <T extends Record<string, any>>({
               placeholder={generate_placeholder_text(field_key)}
               variant="outlined"
               fullWidth
-              autoComplete={disable_auto_complete ? 'off' : 'on'}
+              autoComplete={autoCompleteEnabled ? 'off' : 'on'}
               sx={{
                 bgcolor: isDarkMode ? '#353839' : '#f9f9f9',
                 borderRadius: '8px',
                 border: `1px solid transparent`,
                 '& fieldset': {
                   borderColor: isDarkMode ? '#424242' : '#e0e0e0',
+                   paddingTop:'12px'
                 },
                 '&:hover fieldset': {
                   borderColor: isDarkMode ? '#ffffff' : '#000000',
@@ -190,15 +192,18 @@ const DynamicForm = <T extends Record<string, any>>({
                 '& .MuiInputLabel-root': {
                   color: isDarkMode ? '#ffffff' : '#000000',
                   fontSize: '12px',
+                  
                   '&.Mui-focused': {
                     color: '#10B981',
                     fontSize: '15px'
+                    
                   },
                 },
                 '& .MuiInputBase-input': {
                   height: '25px',
                   padding: '12px',
-                  fontSize: '15px'
+                  fontSize: '15px',
+                 
                 },
                 '& .MuiInputBase-input::placeholder': {
                   color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
@@ -229,7 +234,7 @@ const DynamicForm = <T extends Record<string, any>>({
       </Grid>
         <div className="relative w-full">
           {forgetPasswordRequired && (
-            <div className={`absolute right-0 flex ${ForgetPasswordStyling}`}>
+            <div className={`absolute right-0 flex ${forgetPasswordStyling}`}>
               <span className='cursor-pointer'>Forgot your password?</span>
               <span className='dark:text-white text-black'>&nbsp; Create new</span>
             </div>
@@ -260,20 +265,22 @@ const DynamicForm = <T extends Record<string, any>>({
             color: '#10B981',
           },
           buttonStyles,
-          ...(is_submit_button_loading && buttonDisabledStyles),
+          ...(isApiCalledLoading && buttonDisabledStyles),
         }}
-        disabled={is_submit_button_loading}
+        disabled={isApiCalledLoading}
       >
-        {is_submit_button_loading ? <CircularProgress size={24} color="inherit" /> : `${buttonContent}`}
+        {isApiCalledLoading? <CircularProgress size={24} color="inherit" /> : `${buttonContent}`}
       </Button>
-      {show_auth_links && (
+      {authLinksEnabled && (
         <div className={`mt-4 text-center ${switchAuthFlowStyling}`}>
-          {auth_flow_type === AuthFlowIdentifier.SIGN_IN ? (
+          {authFlowIdentifier === AuthFlowIdentifier.SIGN_IN ? (
             <div>
               <span>Don't have an account?</span>
               <span
                 className="ml-1 text-green-600 cursor-pointer"
-                onClick={on_switch_to_other_auth_flow}
+                onClick={() => navigate('/register' , {
+                  replace : true,
+                })}
               >
                 Register
               </span>
@@ -283,7 +290,9 @@ const DynamicForm = <T extends Record<string, any>>({
               <span>Already have an account?</span>
               <span
                 className="ml-1 text-green-600 cursor-pointer"
-                onClick={on_switch_to_other_auth_flow}
+                onClick={() => navigate('/' , {
+                  replace : true,
+                })}
               >
                 Login
               </span>

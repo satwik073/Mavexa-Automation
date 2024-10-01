@@ -11,6 +11,7 @@ import { InputOTPForm } from './Auth/Verifications/OTP_Request';
 import UserLoginEnabled from './Auth/Logins/UserLoginEnabled';
 import ModeratorLazyLoader from "./Moderator";
 import Product from "./Network/Product";
+import UserRegistrationEnabled from './Auth/Registrations/UserRegistrationEnabled'
 
 
 interface RenderingAnnotations {
@@ -21,6 +22,7 @@ interface RenderingAnnotations {
     OTP_TQ : typeof InputOTPForm
     LG_AUTH : typeof UserLoginEnabled,
     PR_S : typeof Product
+    RG_S : typeof UserRegistrationEnabled,
     // FS_DM: typeof FeaturesSectionDemo;
     // FD_DM : typeof FeaturedSectionDemo;
     // CDC_T: typeof CardContainers;
@@ -34,7 +36,8 @@ export const APP_CONFIG : RenderingAnnotations ={
     MOD_T : ModeratorLazyLoader,
     OTP_TQ : InputOTPForm,
     LG_AUTH : UserLoginEnabled,
-    PR_S : Product
+    PR_S : Product,
+    RG_S : UserRegistrationEnabled
 
     // FS_DM: FeaturesSectionDemo,
     // FD_DM: FeaturedSectionDemo,

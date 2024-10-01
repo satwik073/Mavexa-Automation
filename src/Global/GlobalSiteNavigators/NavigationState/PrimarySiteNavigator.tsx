@@ -22,7 +22,7 @@ const PrimarySiteNavigator: React.FC = () => {
   const theme = useTheme();
   const [is_logged_in, setIsLoggedIn] = useState<boolean>(localStorage.getItem('User-Settings') ? true : false); // Check token presence
   const is_small_screen = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const PrimarySiteNavigator: React.FC = () => {
             <span className={PR_STY.STLP.spanOutline} />
             <span className={PR_STY.STLP.inlineSource}>
               {is_logged_in && !is_small_screen ? (
-                <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.button}>
+                <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.button} onClick={() => navigate(`${RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS}`)}>
                   {displaying_buttons['dashboard_classic']}
                 </Box>
               ) : (

@@ -18,12 +18,12 @@ export const FOOTER_SYLING_ATTACHED: FooterStylingAttached = {
     grid_systems_from_col_end: "col-span-2 lg:col-span-3 lg:flex lg:items-end w-full",
     resposnive_properties_padding: "mx-auto px-4 py-16 w-full",
     grid_containers: "lg:flex lg:items-start lg:gap-8 w-full",
-    footer_headlines_bolded: "mt-10 px-5 py-5 relative text-sm sm:text-xl text-zinc-500 dark:text-zinc-300 tracking-wide mb-8 text-left max-w-2xl antialiased leading-loose",
+    footer_headlines_bolded: "mt-10  px-5 py-5 relative text-sm sm:text-xl text-zinc-500 dark:text-zinc-300 tracking-wide mb-8 text-left max-w-2xl antialiased leading-loose",
     data_headlines: "font-bold text-gray-900 dark:text-white text-xl -mb-3",
     links_attached_beautified: "relative text-sm sm:text-ll text-zinc-500 dark:text-zinc-300 tracking-wide text-left max-w-2xl antialiased leading-loose",
-    divider_remastered: "dark:bg-gray-800",
-    box_stylings_defined: "flex justify-center items-center gap-6 py-8 px-4 bg-gray-200 dark:bg-black w-full",
+    divider_remastered: "dark:bg-[#3F4E4F] bg-gray-50" ,
+    box_stylings_defined: "py-8 px-8 bg-gray-50 dark:bg-black w-full",
     inner_box: "flex flex-col w-[72%]",
-    copyright_text: "text-neutral-900 dark:text-gray-200 text-xs flex items-center md:text-sm",
+    copyright_text: "text-zinc-500 dark:text-zinc-300  text-xs flex items-center md:text-sm",
     social_media_links_fetched: "text-neutral-900 transition hover:opacity-75 dark:text-gray-200 flex items-center"
 };

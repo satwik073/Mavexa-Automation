@@ -10,7 +10,7 @@ import { CircularProgress } from '@mui/material';
 import { updateAuthToken, updateUserVerified } from './Store/authSlice';
 import { useTheme } from 'next-themes';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
-import UserRegistrationEnabled from './Auth/Registrations/UserRegistrationEnabled';
+import Dashboard from './Network/Dashboard';
 
 interface ValidRoutesConfiguration {
   path: string;
@@ -38,16 +38,11 @@ const AppRoutes = () => {
 
   useEffect(() => {
     const isDefaultOrVerificationRoute =
-      location.pathname === RoutesConfiguration.VERIFICATION ||
-      [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname);
+      location.pathname === RoutesConfiguration.VERIFICATION || [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname);
     if (isUserAuthenticated && isUserVerified && isDefaultOrVerificationRoute) {
       navigate(RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM, { replace: true });
     } 
-    else if (
-      isUserAuthenticated &&
-      !isUserVerified &&
-      location.pathname !== RoutesConfiguration.VERIFICATION &&
-      !IncludedRoutesSettings.some((route) => route.path === location.pathname)
+    else if (isUserAuthenticated &&!isUserVerified &&location.pathname !== RoutesConfiguration.VERIFICATION &&!IncludedRoutesSettings.some((route) => route.path === location.pathname)
     ) {
       navigate(RoutesConfiguration.VERIFICATION, { replace: true });
     } 
@@ -119,7 +114,15 @@ const AppRoutes = () => {
       />
       <Route
         path={RoutesConfiguration.REGISTRATION}
-        element={<UserRegistrationEnabled/>}
+        element={<APP_CONFIG.RG_S/>}
+      />
+      <Route
+        path={RoutesConfiguration.REGISTRATION}
+        element={<APP_CONFIG.RG_S/>}
+      />
+      <Route
+        path={RoutesConfiguration.DASHBOARD}
+        element={<Dashboard/>}
       />
       <Route path="*" element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />} />
     </Routes>

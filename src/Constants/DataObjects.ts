@@ -11,5 +11,5 @@ export const displaying_buttons : ButtonsFetching={
     google_auth : "Login with Google",
     apple_auth : "Login with Apple",
     sign_in :"Login Now",
-    sign_up:"Sign up Now",
+    sign_up:"Register Now",
 }
