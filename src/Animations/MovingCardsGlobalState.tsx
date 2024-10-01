@@ -1,6 +1,8 @@
 'use client'
 
+import { ThemeProviderOptions } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure'
 import { cn } from '@/lib/utils'
+import { useTheme } from 'next-themes'
 import img from 'next/image'
 import React, { useEffect, useState } from 'react'
 // import useMediaQuery from '@mui/material/useMediaQuery';
@@ -23,7 +25,7 @@ export const InfiniteMovingCards = ({
   const scrollerRef = React.useRef<HTMLUListElement>(null)
   // const matches = useMediaQuery('(max-width:600px)');
   
-  
+
   const [start, setStart] = useState(false)
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
@@ -68,31 +70,31 @@ export const InfiniteMovingCards = ({
 
   return (
     <div
-      ref={containerRef}
+    ref={containerRef}
+    className={cn(
+      'scroller relative z-20  w-full overflow-hidden  [mask-image:linear-gradient(to_right,white_100%,transparent,transparent,white_10%)]  dark:[mask-image:linear-gradient(to_right,transparent,black_100%,black_100%,transparent)]',
+      className
+    )}
+  >
+    <ul
+      ref={scrollerRef}
       className={cn(
-        'scroller relative z-20  w-full overflow-hidden md:mt-0 mt-20 bg-transparent',
-        className
+        ' flex min-w-full shrink-0 gap-10 py-4 w-max flex-nowrap',
+        start && 'animate-scroll ',
+        pauseOnHover && 'hover:[animation-play-state:paused]'
       )}
     >
-      <ul
-        ref={scrollerRef}
-        className={cn(
-          ' flex min-w-full shrink-0 gap-10 py-4 w-max flex-nowrap',
-          start && 'animate-scroll ',
-          pauseOnHover && 'hover:[animation-play-state:paused]'
-        )}
-      >
-        {items.map((item) => (
-          <img
-            width={90}
-            height={1}
-            src={item.href}
-            alt={item.href}
-            className=" relative rounded-2xl  text-black object-contain"
-            key={item.href}
-          />
-        ))}
-      </ul>
-    </div>
+      {items.map((item, idx) => (
+        <img
+          width={120}
+          height={1}
+          src={item.href}
+          alt={item.href}
+          className=" relative rounded-2xl  object-contain opacity-50"
+          key={item.href}
+        />
+      ))}
+    </ul>
+  </div>
   )
 }
