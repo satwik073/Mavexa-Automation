@@ -1,7 +1,9 @@
 export const clients = Array.from({ length: 10 }, (_, index) => ({
     href: `/${index + 1}.png`
 }));
-
+export const clients_inverted = Array.from({length : 10}, (_ , index) =>({
+  href: `/image${index}.png`
+}))
 export const products = [
     {
       title: 'Moonbeam',
