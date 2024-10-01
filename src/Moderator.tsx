@@ -5,6 +5,9 @@ import { useTheme } from 'next-themes';
 import { InfiniteMovingCards } from './Animations/MovingCardsGlobalState';
 import { clients, clients_inverted } from './lib/constants';
 import { ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
+import { FeaturedSectionDemo } from './Pages/GridContainer/GridTerminalLayout';
+import { FeaturesSectionDemo } from './Pages/GridContainer/GridConstants';
+import CardContainers from './Pages/CardWrapper/CardFlexContainers';
 
 const SpotLight = lazy(() => import('@/Pages/SpotLightCombined/SpotLightModuler').then(module => ({ default: module.SpotlightPreview })));
 const GlobalAnnotations = lazy(() => import('@/Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter'))
@@ -31,8 +34,10 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
         <Periodic_Navigation />
         <SpotLight />
         <InfiniteMovingCards items={logoColor ? clients : clients_inverted} />
+        <FeaturesSectionDemo/>
+        <FeaturedSectionDemo/>
+        <CardContainers/>
       </Suspense>
-
       <GlobalAnnotations />
     </>
   );
