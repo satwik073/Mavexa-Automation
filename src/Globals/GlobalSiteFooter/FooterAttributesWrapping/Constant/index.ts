@@ -27,8 +27,8 @@ export interface TranslatingFooterText {
 }
 
 export const TRANSLATING_FOOTER_TEXT: TranslatingFooterText = {
-    footer_headlines: "Revolutionize your buNsiness with seamless automation and cutting-edge technology, empowering you to focus on growth and innovation while we handle the complexities of your digital operations",
-    footer_copyright_issue_marked: "2024 SaaSy. All rights reserved.",
+    footer_headlines: "Revolutionize your business with seamless automation and cutting-edge technology, empowering you to focus on growth and innovation while we handle the complexities of your digital operations",
+    footer_copyright_issue_marked: "2024 Mavexa All rights reserved.",
     footer_fetched_headings_attached_links: [
         {
             fetched_headings_attached: "Services",

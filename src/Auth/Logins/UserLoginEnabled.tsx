@@ -34,8 +34,11 @@ export interface LoginCredentialProps {
 
 
 const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
+  console.time('RegistrationCallerExecutionTime'); 
   const login_request_generated = await LOGIN_SESSION(payload);
   const response_handler = await axios(login_request_generated);
+  console.timeEnd('RegistrationCallerExecutionTime'); 
+
   return response_handler.data;
 };
 
@@ -110,7 +113,7 @@ const UserLoginEnabled: FC = () => {
     }
 
   });
-  const handle_toggle_auth_controller = ()=>{
+  const handle_toggle_auth_controller = () => {
     navigate(`${RoutesConfiguration.REGISTRATION}`)
   }
   const handleSubmit = (values: LoginCredentialProps) => {
@@ -124,25 +127,27 @@ const UserLoginEnabled: FC = () => {
         <div className=' md:w-1/2 w-full'>
           <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
           <DynamicForm
-            allocated_form_data={initialValues}
-            validation_schema_declaration={validationSchema}
-            on_form_submit={handleSubmit}
-            is_submit_button_loading={is_loading}
-            form_title={LOGIN_CONFIG.TITLE}
+            formObjectData={initialValues}
+            validSchemaStructure={validationSchema}
+            onFormSubmission={handleSubmit}
+            isApiCalledLoading={is_loading}
+            titleAttached={LOGIN_CONFIG.TITLE}
             titleStylingController={LGN_STY.TITLE}
-            form_description={LOGIN_CONFIG.SUBTITLE}
-            descriptionStylingController={LGN_STY.SUBTITLE}
-            input_placeholder_settings={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your password'}
-            disable_auto_complete={false}
+            subtitleAttached={LOGIN_CONFIG.SUBTITLE}
+            subtitleStylingController={LGN_STY.SUBTITLE}
+            placeHoldersConfig={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your password'}
+            autoCompleteEnabled={false}
             googleAuthRequired
             appleAuthRequired
+            spacingEnabled={4}
+            paddingResponseController={2}
             forgetPasswordRequired
-            ForgetPasswordStyling={LGN_STY.FG_PASSCODE}
+            forgetPasswordStyling={LGN_STY.FG_PASSCODE}
             buttonStyles={LGN_STY.BTN_STYLES}
             buttonContent={LOGIN_CONFIG.AUTH_BTN}
-            auth_flow_type={AuthFlowIdentifier.SIGN_IN}
-            show_auth_links
-            on_switch_to_other_auth_flow={handle_toggle_auth_controller}
+            authFlowIdentifier={AuthFlowIdentifier.SIGN_IN}
+            authLinksEnabled
+            onSwitchToDifferentAuthFlow={handle_toggle_auth_controller}
 
           />
         </div>
