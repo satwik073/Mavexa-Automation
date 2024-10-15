@@ -122,7 +122,7 @@ const UserLoginEnabled: FC = () => {
         const axiosError = error as AxiosError<ErrorResponse>;
         const axios_detail = axiosError.response?.data?.Details;
         const message_captured: string = (axios_detail) ? `Login Unsuccessful` : TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN)
-        MESSAGE_HANDLER_SONNER(titleAttached, description, MessageConfiguration.DEFAULT);
+        MESSAGE_HANDLER_SONNER(titleAttached, description, MessageConfiguration.ERR_M);
       }
       set_is_loading(false);
     }
