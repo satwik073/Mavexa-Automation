@@ -11,6 +11,7 @@ import { updateAuthToken, updateUserVerified } from './Store/authSlice';
 import { useTheme } from 'next-themes';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import Dashboard from './Network/Dashboard';
+import { Toaster } from './Components/Images/External/UI/toaster';
 
 interface ValidRoutesConfiguration {
   path: string;
@@ -136,6 +137,7 @@ function App() {
         <AppRoutes />
       </Router>
       <ToastContainer />
+      <Toaster/>
     </div>
   );
 }

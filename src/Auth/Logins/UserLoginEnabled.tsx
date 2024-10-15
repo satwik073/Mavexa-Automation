@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useMutation, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { LOGIN_SESSION } from '@/Pipe/Auth/auth';
-import { MESSAGE_HANDLER, MessageConfiguration } from '@/Events/MessageDispatch';
+import { MESSAGE_HANDLER } from '@/Events/MessageDispatch';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProviderOptions, ThemeSchema } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
@@ -21,6 +21,8 @@ import { clients } from '@/lib/constants';
 import { PRODUCTS_CONFIGURATIONS } from '@/Global/GlobalSiteNavigators/NavigationState/Constants';
 import { LOGIN_CONFIG } from './Constants/index_controller';
 import { LGN_STY } from './Constants/layout_controller';
+import { BsCheck2Circle } from 'react-icons/bs';
+import { MESSAGE_HANDLER_SONNER, MessageConfiguration } from '@/Events/SonnerMessageDispatch';
 const queryClient = new QueryClient();
 
 interface ErrorResponse {
@@ -42,6 +44,29 @@ const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
   return response_handler.data;
 };
 
+const title = (
+  <div className="flex items-center">
+      {/* <HiOutlineSparkles className="dark:text-white text-gray-500 font-thin ml-1" size={20} /> */}
+      <span className="mx-1 font-normal">Success Notification</span>
+  </div>
+);
+
+const description = (
+  <div className="mt-2 bg-slate-950 py-3 rounded-lg px-2">
+  <pre className="text-white text-xs w-full">
+    <code className=" whitespace-pre-wrap text-ellipsis text-xs text-justify">
+      {`"You have been logged in successfully "`}
+    </code>
+  </pre>
+</div>
+);
+const titleAttached = (
+  <div className="flex items-center">
+  {/* <BsCheck2Circle className="text-green-500 mr-2" size={20} /> */}
+  {/* <HiOutlineSparkles className="dark:text-white text-gray-500 font-thin ml-1" size={20} /> */}
+  <span className="mx-1 font-normal">Error Notification</span>
+</div>
+)
 const UserLoginEnabled: FC = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
@@ -77,12 +102,7 @@ const UserLoginEnabled: FC = () => {
       set_is_loading(true);
     },
     onSuccess: (data) => {
-      MESSAGE_HANDLER(TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN), MessageConfiguration.SC_M, {
-        hideProgressBar: true,
-        autoClose: 5000,
-        position: is_small_screen ? 'top-right' : 'bottom-right',
-        theme: logoColor ? ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
-      });
+      MESSAGE_HANDLER_SONNER(title , description, MessageConfiguration.SC_M);
       dispatch(
         set_token({
           token: data.token,
@@ -102,12 +122,7 @@ const UserLoginEnabled: FC = () => {
         const axiosError = error as AxiosError<ErrorResponse>;
         const axios_detail = axiosError.response?.data?.Details;
         const message_captured: string = (axios_detail) ? `Login Unsuccessful` : TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN)
-        MESSAGE_HANDLER(message_captured, MessageConfiguration.ERR_M, {
-          hideProgressBar: true,
-          autoClose: 1000,
-          position: is_small_screen ? 'top-right' : 'bottom-right',
-          theme: logoColor ? ThemeProviderOptions.DARK_TH : ThemeProviderOptions.LIGHT_TH,
-        });
+        MESSAGE_HANDLER_SONNER(titleAttached, description, MessageConfiguration.DEFAULT);
       }
       set_is_loading(false);
     }
