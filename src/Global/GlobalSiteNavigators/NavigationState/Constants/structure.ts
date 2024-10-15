@@ -15,7 +15,8 @@ export enum ThemeProviderOptions {
 export enum ThemeSchema {
     BLK_CL = '#000',
     WHT_CL = '#FFF',
-    SPT_LH = '#10B981'
+    SPT_LH = '#10B981',
+    DEFAULT = "DEFAULT"
 }
 export interface NavigationProperties {
     LOGO_SETTINGS: {

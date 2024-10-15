@@ -1,5 +1,5 @@
 
-import { remove_token, set_token } from "@/Store/authSlice";
+import { remove_token } from "@/Store/authSlice";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -40,6 +40,8 @@ export function MenuEvent() {
   }, []);
   return (
     <DropdownMenu>
+
+  
       <DropdownMenuTrigger asChild>
         <Button  variant="outline" size="icon" className='z-[1000] dark:text-white text-black' ><CiMenuFries className=" "/></Button>
       </DropdownMenuTrigger>
@@ -55,7 +57,9 @@ export function MenuEvent() {
             Billing
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
+          
           <DropdownMenuItem>
+            
             Settings
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
