@@ -32,7 +32,6 @@ const PrimarySiteNavigator: React.FC = () => {
        
     <h1  className={` text-center w-full text-white bg-black py-4 px-4 leading-6 md:text-md text-sm`}>Check out the product updates we announced at MavexaConnect 2024! See what’s new.</h1>
     <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.section} className={`${PR_STY.STLP.leftAside}`}>
-        <ToastDemo/>
       <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
       <List className={`${PR_STY.STLP.listItems} md:flex hidden text-sm`}>
         {PRODUCTS_CONFIGURATIONS.LINKS_SETTINGS.properties.map((index_value_rendering) => (

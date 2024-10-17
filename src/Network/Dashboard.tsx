@@ -1,10 +1,14 @@
-import React from 'react'
+
+import { SidebarDemo } from '@/Globals/GlobalSidebarMenu/SideMenuWrapper/SidebarActionController'
+
 
 type Props = {}
 
 const Dashboard = (props: Props) => {
   return (
-    <div>Dashboard</div>
+   <div>
+    {/* <SidebarDemo/> */}
+   </div>
   )
 }
 

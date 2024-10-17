@@ -138,8 +138,8 @@ const UserLoginEnabled: FC = () => {
   return (
     <React.Fragment>
       {/* <ThemeSwitcher /> */}
-      <div className='flex flex-col md:flex-row items-center justify-between w-full lg:p-6'>
-        <div className=' md:w-1/2 w-full'>
+      <div className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
+        <div className='max-w-xl'>
           <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
           <DynamicForm
             formObjectData={initialValues}
@@ -166,7 +166,7 @@ const UserLoginEnabled: FC = () => {
 
           />
         </div>
-        <div className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
+        {/* <div className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
           <div className="p-6 lg:p-10 text-center md:text-left ">
             <div className="text-4xl lg:text-4xl font-bold text-white md:max-w-lg bg-opacity-50 bg-clip-text mb-6 lg:mb-10">
               The Simplest way to manage your workplace
@@ -176,7 +176,7 @@ const UserLoginEnabled: FC = () => {
             </div>
             <InfiniteMovingCards className="mt-[6rem]" items={clients} />
           </div>
-        </div>
+        </div> */}
 
 
 
