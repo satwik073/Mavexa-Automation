@@ -14,7 +14,7 @@ createRoot(container!).render(
     <Provider store={store}>
       <CustomFontProvider>
         <ThemeProvider attribute="class" defaultTheme={ThemeProviderOptions.DARK_TH} themes={[ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH , ThemeProviderOptions.DEFAULT]}>
-         <ThemeUpdater/>
+         {/* <ThemeUpdater/> */}
           <App />
         </ThemeProvider>
       </CustomFontProvider>
