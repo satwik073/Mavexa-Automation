@@ -1,10 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
+import { Link } from "react-router-dom";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/Globals/GlobalToolTips/TooltipContent";
+import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
 interface Links {
   label: string;
   href: string;
@@ -157,20 +158,22 @@ export const MobileSidebar = ({
 
 export const SidebarLink = ({
   link,
-  className,
+
   ...props
 }: {
   link: Links;
-  className?: string;
-  props?: LinkProps;
+
 }) => {
   const { open, animate } = useSidebar();
   return (
+    <React.Fragment>
+
+   
     <Link
-      href={link.href}
+      to={'#'}
       className={cn(
         "flex items-center justify-start gap-2  group/sidebar py-2",
-        className
+
       )}
       {...props}
     >
@@ -183,8 +186,20 @@ export const SidebarLink = ({
         }}
         className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >
-        {link.label}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger className='capitalize text-[16px]'>
+             
+                {link.label}
+            </TooltipTrigger>
+            <TooltipContent  className='capitalize text-[12px]'>
+              {link.label}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </motion.span>
     </Link>
+
+    </React.Fragment>
   );
 };

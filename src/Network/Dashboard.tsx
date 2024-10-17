@@ -7,7 +7,7 @@ type Props = {}
 const Dashboard = (props: Props) => {
   return (
    <div>
-    {/* <SidebarDemo/> */}
+    <SidebarDemo/>
    </div>
   )
 }
