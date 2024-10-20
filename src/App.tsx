@@ -37,7 +37,6 @@ const AppRoutes = () => {
   const isUserAuthenticated = useMemo(() => !!localStorage.getItem('User-Settings') || !!tokenSelector, [tokenSelector]);
   const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification])
   const { theme } = useTheme();
-
   useEffect(() => {
     const isDefaultOrVerificationRoute =
       location.pathname === RoutesConfiguration.VERIFICATION ||
