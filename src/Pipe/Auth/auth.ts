@@ -15,7 +15,7 @@ const LOGIN_URL = {
 }[ENV_MODE] || import.meta.env.VITE_APP_USER_LOGIN;
 
 const REGISTRATION_URL = {
-    production: import.meta.env.VITE_APP_USER_REGISTER_PROD,
+    production: import.meta.env.VITE_APP_USER_REGISTER,
     staging: import.meta.env.VITE_APP_USER_REGISTER,
     development: import.meta.env.VITE_APP_USER_REGISTER_DEV
 }[ENV_MODE] || import.meta.env.VITE_APP_USER_REGISTER_DEV;

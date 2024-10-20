@@ -10,24 +10,25 @@ import { Button as UIButton } from '@/Components/Images/External/UI/button';
 import { AppleAuthenticationSvgDark, AppleAuthenticationSvgLight, GooogleAuthenticationSvg } from '@/assets';
 import ImageContainer from '@/Components/Images/ImageContainer';
 import { useNavigate } from 'react-router-dom';
+import { LGN_STY } from '@/Auth/Logins/Constants/layout_controller';
 
 interface DynamicFormAttributes<T> {
-  titleAttached? : string,
+  titleAttached?: string,
   titleStylingController?: string,
-  subtitleAttached? : string,
+  subtitleAttached?: string,
   subtitleStylingController?: string,
-  formObjectData : T,
-  spacingEnabled? : number,
-  areaCoverage? : number,
-  validSchemaStructure :  Yup.ObjectSchema<any>,
-  onFormSubmission : (form_values : T) => void;
-  placeHoldersConfig? : string,
-  isApiCalledLoading? : boolean,
-  gridContainerConfig? : number,
-  paddingResponseController? : number,
-  labelsAttached? : boolean,
-  gridAlignments? : 'center' | 'flex-start' | 'flex-end',
-  autoCompleteEnabled? : boolean,
+  formObjectData: T,
+  spacingEnabled?: number,
+  areaCoverage?: number,
+  validSchemaStructure: Yup.ObjectSchema<any>,
+  onFormSubmission: (form_values: T) => void;
+  placeHoldersConfig?: string,
+  isApiCalledLoading?: boolean,
+  gridContainerConfig?: number,
+  paddingResponseController?: number,
+  labelsAttached?: boolean,
+  gridAlignments?: 'center' | 'flex-start' | 'flex-end',
+  autoCompleteEnabled?: boolean,
   textFieldStyles?: Record<string, any>;
   textFieldStyleOverrides?: Record<string, Record<string, any>>;
   buttonStyles?: string;
@@ -38,9 +39,9 @@ interface DynamicFormAttributes<T> {
   buttonContent: string,
   forgetPasswordRequired?: boolean,
   forgetPasswordStyling?: string,
-  authFlowIdentifier? : AuthFlowIdentifier,
-  authLinksEnabled? : boolean,
-  onSwitchToDifferentAuthFlow? : () => void,
+  authFlowIdentifier?: AuthFlowIdentifier,
+  authLinksEnabled?: boolean,
+  onSwitchToDifferentAuthFlow?: () => void,
   switchAuthFlowStyling?: string;
 }
 
@@ -154,7 +155,7 @@ const DynamicForm = <T extends Record<string, any>>({
 
       <Grid container spacing={gridContainerConfig} justifyContent={gridAlignments}>
         {Object.keys(formObjectData).map((field_key) => (
-          <Grid item xs={12} key={field_key}>
+          <Grid item xs={12} key={field_key} sx={{ mb: 1 }}>
             <TextField
               id={field_key}
               name={field_key}
@@ -181,7 +182,7 @@ const DynamicForm = <T extends Record<string, any>>({
                 border: `1px solid transparent`,
                 '& fieldset': {
                   borderColor: isDarkMode ? '#424242' : '#e0e0e0',
-                   paddingTop:'12px'
+                  paddingTop: '12px'
                 },
                 '&:hover fieldset': {
                   borderColor: isDarkMode ? '#ffffff' : '#000000',
@@ -192,18 +193,18 @@ const DynamicForm = <T extends Record<string, any>>({
                 '& .MuiInputLabel-root': {
                   color: isDarkMode ? '#ffffff' : '#000000',
                   fontSize: '12px',
-                  
+
                   '&.Mui-focused': {
                     color: '#10B981',
                     fontSize: '15px'
-                    
+
                   },
                 },
                 '& .MuiInputBase-input': {
                   height: '25px',
                   padding: '12px',
                   fontSize: '15px',
-                 
+
                 },
                 '& .MuiInputBase-input::placeholder': {
                   color: isDarkMode ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)',
@@ -232,14 +233,14 @@ const DynamicForm = <T extends Record<string, any>>({
 
 
       </Grid>
-        <div className="relative w-full">
-          {forgetPasswordRequired && (
-            <div className={`absolute right-0 flex ${forgetPasswordStyling}`}>
-              <span className='cursor-pointer'>Forgot your password?</span>
-              <span className='dark:text-white text-black'>&nbsp; Create new</span>
-            </div>
-          )}
-        </div>
+      <div className="relative w-full">
+        {forgetPasswordRequired && (
+          <div className={`absolute right-0 flex ${forgetPasswordStyling}`}>
+            <span className='cursor-pointer'>Forgot your password?</span>
+            <span className='dark:text-white text-black'>&nbsp; Create new</span>
+          </div>
+        )}
+      </div>
 
       <Button
         type="submit"
@@ -255,7 +256,7 @@ const DynamicForm = <T extends Record<string, any>>({
           marginTop: 8,
           border: `1px solid transparent`,
           backgroundColor: isDarkMode ? '#ffffff' : '#000000',
-          color : isDarkMode ?  '#000000' : '#ffffff',
+          color: isDarkMode ? '#000000' : '#ffffff',
           '&:hover': {
             bgcolor: isDarkMode ? '#ffffff' : '#000000',
             color: isDarkMode ? '#000000' : '#ffffff',
@@ -269,29 +270,29 @@ const DynamicForm = <T extends Record<string, any>>({
         }}
         disabled={isApiCalledLoading}
       >
-        {isApiCalledLoading? <CircularProgress size={24} color="inherit" /> : `${buttonContent}`}
+        {isApiCalledLoading ? <CircularProgress size={24} color="inherit" /> : `${buttonContent}`}
       </Button>
       {authLinksEnabled && (
         <div className={`mt-4 text-center ${switchAuthFlowStyling}`}>
           {authFlowIdentifier === AuthFlowIdentifier.SIGN_IN ? (
             <div>
-              <span>Don't have an account?</span>
+              <span className='text-[13px] mx-1'>Don't have an account?</span>
               <span
-                className="ml-1 text-green-600 cursor-pointer"
-                onClick={() => navigate('/register' , {
-                  replace : true,
+                className={LGN_STY.FG_PASSCODE}
+                onClick={() => navigate('/register', {
+                  replace: true,
                 })}
               >
                 Register
               </span>
             </div>
           ) : (
-            <div>
-              <span>Already have an account?</span>
+            <div >
+              <span className='text-[13px] mx-1'>Already have an account?</span>
               <span
-                className="ml-1 text-green-600 cursor-pointer"
-                onClick={() => navigate('/' , {
-                  replace : true,
+                className={LGN_STY.FG_PASSCODE}
+                onClick={() => navigate('/', {
+                  replace: true,
                 })}
               >
                 Login
