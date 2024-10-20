@@ -1,4 +1,4 @@
-import SaaSyLightening from "../fuzzieLogo.png"
+import SaaSyLightening from "../Images/fuzzieLogo.png"
 export default {
 
     SaaSyLightening

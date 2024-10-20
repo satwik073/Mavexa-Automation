@@ -112,7 +112,8 @@ const UserLoginEnabled: FC = () => {
 
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
-      localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified));
+      const settingVerificationDynamic = ( JSON.stringify(data.userInfo.is_user_verified) === undefined ) ? JSON.stringify(data.userInfo.verified) : JSON.stringify(data.userInfo.is_user_verified)
+      localStorage.setItem('User-Verification', settingVerificationDynamic);
       console.log(localStorage.getItem('User-Verification'))
       set_is_loading(false);
     },

@@ -28,12 +28,14 @@ const AppRoutes = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const tokenSelector = useSelector((state: any) => state.auth.token_for_authnetication);
-  const verifiedSelector = useSelector((state: any) => state.auth?.user_info?.is_user_verified);
+  const verifiedSelector = useSelector((state: any) => 
+    state.auth?.user_info?.is_user_verified ?? JSON.parse(localStorage.getItem('User-Verification') || 'false')
+  );  
   const [loading, setLoading] = useState<boolean>(true);
   const persistedToken = useMemo(() => localStorage.getItem('User-Token'), []);
   const persistedVerification = useMemo(() => localStorage.getItem('User-Verified'), []);
   const isUserAuthenticated = useMemo(() => !!localStorage.getItem('User-Settings') || !!tokenSelector, [tokenSelector]);
-  const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification]);
+  const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification])
   const { theme } = useTheme();
 
 

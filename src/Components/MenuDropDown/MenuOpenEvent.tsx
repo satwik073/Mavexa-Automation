@@ -21,9 +21,13 @@ import {
 import { CiMenuFries } from "react-icons/ci"
 import { PRODUCTS_CONFIGURATIONS } from "@/Global/GlobalSiteNavigators/NavigationState/Constants";
 import { PR_STY } from "@/Global/GlobalSiteNavigators/NavigationState/Constants/layout_controller";
-import { Grid, ListItem } from "@mui/material";
+import { Box, Grid, ListItem } from "@mui/material";
 import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from "@radix-ui/react-tooltip";
 import { List } from "lucide-react";
+import { displaying_buttons } from "@/Constants/DataObjects";
+import { BOX_COMPONENTS_SEPERATED } from "@/Constants/variants_data";
+import { RoutesConfiguration } from "@/Constants/structure";
+import { ROUTES_EXT } from "@/Constants/standard_routes";
 
 export function MenuEvent() {
   const navigate = useNavigate();
@@ -39,7 +43,6 @@ export function MenuEvent() {
 
 
   const data = PRODUCTS_CONFIGURATIONS.LINKS_SETTINGS.properties
-  console.log(data)
   useEffect(() => {
     const token = localStorage.getItem('User-Settings');
     setIsLoggedIn(!!token);
@@ -81,7 +84,9 @@ export function MenuEvent() {
             </DropdownMenuPortal>
           </DropdownMenuSub>
           <DropdownMenuItem>
-            Get Started
+            <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.button} onClick={() => navigate(`${RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS}`)}>
+              {displaying_buttons['dashboard_classic']}
+            </Box>
             <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
