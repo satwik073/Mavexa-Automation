@@ -2,15 +2,15 @@ import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // Lazy load SidebarDemo to improve performance
-const SidebarDemo = lazy(() => import('@/Globals/GlobalSidebarMenu/SideMenuWrapper/SidebarActionController').then(module => ({ default: module.SidebarDemo})));
+const SidebarDemo = lazy(() => import('@/Globals/GlobalSidebarMenu/SideMenuWrapper/SidebarActionController').then(module => ({ default: module.SidebarDemo })));
 
 type Props = {};
 
 const Dashboard = (props: Props) => {
   return (
     <div>
-      <Helmet>
-        {/* Standard Meta Tags */}
+      {/* <Helmet>
+       
         <title>Dashboard - User Activity and Performance | Mavexa</title>
         <meta
           name="description"
@@ -20,7 +20,6 @@ const Dashboard = (props: Props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="canonical" href="https://mavexa.vercel.app/dashboard" />
 
-        {/* Open Graph Meta Tags */}
         <meta property="og:title" content="Mavexa Dashboard - User Activity and Performance" />
         <meta
           property="og:description"
@@ -31,7 +30,7 @@ const Dashboard = (props: Props) => {
         <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
         <meta property="og:site_name" content="Mavexa" />
 
-        {/* Twitter Cards Meta Tags */}
+     
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Mavexa Dashboard - User Activity and Performance" />
         <meta
@@ -40,7 +39,6 @@ const Dashboard = (props: Props) => {
         />
         <meta name="twitter:image" content="https://mavexa.vercel.app/test2.png" />
 
-        {/* Structured Data (JSON-LD) */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -55,8 +53,17 @@ const Dashboard = (props: Props) => {
             }
           })}
         </script>
+      </Helmet> */}
+      <Helmet>
+        <title>Dashboard - User Activity and Performance | Mavexa</title>
+        <meta
+          name="description"
+          content="Access your personalized dashboard on Mavexa to track user activity, performance stats, and analytics. Stay updated with real-time data."
+        />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
-      
+
       {/* Lazy-loaded SidebarDemo component with fallback */}
       <Suspense fallback={<div>Loading sidebar...</div>}>
         <SidebarDemo />
