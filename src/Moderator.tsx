@@ -71,21 +71,43 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
       <Helmet>
         {/* Standard Meta Tags */}
         <title>Mavexa - Saas Automation Platform</title>
-        <meta name="description" content="This is my React app" />
-        <meta name="robots" content="index,follow" />
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content="My React App Title" />
-        <meta property="og:description" content="Description of my React app" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://my-react-app.com" />
-        <meta property="og:image" content="https://my-react-app.com/my-image.jpg" />
-        <meta property="og:site_name" content="My React App" />
 
-        {/* Twitter Cards Meta Tags */}
+        <meta name="description" content="Mavexa is a leading SaaS automation platform, providing solutions for businesses to streamline their processes and scale efficiently." />
+
+
+        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
+        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
+        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
+        <meta property="og:url" content="https://mavexa.vercel.app" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Mavexa" />
+        <meta property="og:locale" content="en_US" />
+        
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="My React App Title" />
-        <meta name="twitter:description" content="Description of my React app" />
-        <meta name="twitter:image" content="https://my-react-app.com/my-image.jpg" />
+        <meta name="twitter:title" content="Mavexa - SaaS Automation Platform" />
+        <meta name="twitter:description" content="Streamline your business with Mavexa’s SaaS automation platform. Get insights, optimize operations, and scale effectively." />
+        <meta name="twitter:image" content="https://mavexa.vercel.app/test2.png" />
+        <meta name="twitter:site" content="@mavexa" />
+        <meta name="twitter:creator" content="@mavexa" />
+        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
+        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
+        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
+        <meta property="og:url" content="https://mavexa.vercel.app" />
+
+
+        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
+        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
+        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
+        <meta property="og:url" content="https://mavexa.vercel.app" />
+
+        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
+        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
+        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
+        <meta property="og:url" content="https://mavexa.vercel.app" />
+
+
+        <link rel="canonical" href="https://mavexa.vercel.app" />
+
       </Helmet>
       <Suspense fallback={FallbackComponentProgress}>
         <MemoizedNavigation />
