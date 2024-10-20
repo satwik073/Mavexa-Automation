@@ -26,13 +26,12 @@ const ThemeIdentifier = (theme_recognizer: string): string => {
 };
 
 const useThemeHandler = (theme_recognizer: string) => {
-  const [themeSwitcher, setThemeSwitcher] = useState<string>(ThemeIdentifier(theme_recognizer));
+  const [themeSwitcher, setThemeSwitcher] = useState<string>(ThemeSchema.BLK_CL);
   useEffect(() => {
     setThemeSwitcher(ThemeIdentifier(theme_recognizer));
   }, [theme_recognizer]);
   return themeSwitcher;
 };
-
 const SuspenseFallbackController = <T extends {}>(Collectives: React.ComponentType<T>, fallbackQueue: React.ReactNode) => {
   return (props: T) => (
     <Suspense fallback={fallbackQueue}>
@@ -44,7 +43,7 @@ const SuspenseFallbackController = <T extends {}>(Collectives: React.ComponentTy
 const ModeratorLazyLoader: React.FC<Props> = () => {
   const { theme } = useTheme();
   const logoColor = useThemeHandler(theme || 'light');
-  
+
   const FallbackComponentProgress = useMemo(() => (
     <Box className='w-full h-screen flex items-center justify-center'>
       <CircularProgress color="inherit" size={54} />
@@ -57,7 +56,7 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
   const MemoizedPricing = useMemo(() => SuspenseFallbackController(PricingAndBillingAnnotations, FallbackComponentProgress), [FallbackComponentProgress]);
   const MemoizedAnnotations = useMemo(() => SuspenseFallbackController(GlobalAnnotations, FallbackComponentProgress), [FallbackComponentProgress]);
 
-  const clientRenderingItems = useMemo(() => (logoColor ? clients : clients_inverted), [logoColor]);
+  const clientRenderingItems = logoColor ? clients : clients_inverted;
 
   const renderMovingCards = useCallback(() => {
     return <InfiniteMovingCards
@@ -72,6 +71,7 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
       <Suspense fallback={FallbackComponentProgress}>
         <MemoizedNavigation />
         <MemoizedLight />
+       
         {renderMovingCards()}
         <MemoizedGridConstants />
         <MemoizedPricing />

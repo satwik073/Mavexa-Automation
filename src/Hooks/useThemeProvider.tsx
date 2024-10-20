@@ -3,7 +3,6 @@ import { useTheme } from 'next-themes';
 
 const ThemeUpdater = () => {
   const { theme} = useTheme();
-console.log(theme)
   useEffect(() => {
 
     if (theme) {
