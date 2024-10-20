@@ -38,25 +38,22 @@ const AppRoutes = () => {
   const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification])
   const { theme } = useTheme();
 
-
   useEffect(() => {
     const isDefaultOrVerificationRoute =
-      location.pathname === RoutesConfiguration.VERIFICATION || [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname);
+      location.pathname === RoutesConfiguration.VERIFICATION ||
+      [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION].includes(location.pathname);
+  
     if (isUserAuthenticated && isUserVerified && isDefaultOrVerificationRoute) {
       navigate(RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM, { replace: true });
     } 
-    else if (isUserAuthenticated &&!isUserVerified &&location.pathname !== RoutesConfiguration.VERIFICATION &&!IncludedRoutesSettings.some((route) => route.path === location.pathname)
-    ) {
+    else if (isUserAuthenticated && !isUserVerified && location.pathname !== RoutesConfiguration.VERIFICATION) {
       navigate(RoutesConfiguration.VERIFICATION, { replace: true });
     } 
-    else if (
-      !isUserAuthenticated &&
-      ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname)
-    ) {
-      navigate(ROUTES_EXT.DEFAULT.PATH || RoutesConfiguration.DEFAULT_PATH, { replace: true });
+    else if (!isUserAuthenticated && ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION].includes(location.pathname)) {
+      navigate(RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH, { replace: true });
     }
   }, [isUserAuthenticated, isUserVerified, location.pathname, navigate]);
-
+  
 
 
   useEffect(() => {
