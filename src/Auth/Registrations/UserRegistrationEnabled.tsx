@@ -32,10 +32,10 @@ export interface LoginCredentialProps {
 }
 
 const REGISTRATION_CALLER = async (payload: LoginCredentialProps) => {
-  console.time('RegistrationCallerExecutionTime'); 
+  console.time('RegistrationCallerExecutionTime');
   const login_request_generated = await REGISTER_SESSION(payload);
   const response_handler = await axios(login_request_generated);
-  console.timeEnd('RegistrationCallerExecutionTime'); 
+  console.timeEnd('RegistrationCallerExecutionTime');
   return response_handler.data;
 };
 
@@ -59,7 +59,7 @@ const UserRegistrationEnabled: FC = () => {
   const dispatch = useDispatch();
   const [is_loading, set_is_loading] = useState(false);
   const initialValues: LoginCredentialProps = {
-    registered_username : '',
+    registered_username: '',
     registered_user_email: '',
     registered_user_password: '',
   };
@@ -120,8 +120,8 @@ const UserRegistrationEnabled: FC = () => {
 
   return (
     <React.Fragment>
-      <Box className='flex flex-col md:flex-row items-center justify-between w-full lg:p-6'>
-        <Box className=' md:w-1/2 w-full'>
+      <Box className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
+        <Box className='max-w-lg'>
           <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
           <DynamicForm
             formObjectData={initialValues}
@@ -146,17 +146,6 @@ const UserRegistrationEnabled: FC = () => {
 
           />
         </Box>
-        <Box className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
-          <Box className="p-6 lg:p-10 text-center md:text-left ">
-            <Box className="text-4xl lg:text-4xl font-bold text-white md:max-w-lg bg-opacity-50 bg-clip-text mb-6 lg:mb-10">
-              The Simplest way to manage your workplace
-            </Box>
-            <Box className="flex justify-center items-center mb-4">
-              <ImageContainer {...imageContainerProps} />
-            </Box>
-            <InfiniteMovingCards className="mt-[6rem]" items={clients} />
-          </Box>
-        </Box>
 
 
 
@@ -168,7 +157,7 @@ const UserRegistrationEnabled: FC = () => {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserRegistrationEnabled/>
+      <UserRegistrationEnabled />
     </QueryClientProvider>
   );
 }

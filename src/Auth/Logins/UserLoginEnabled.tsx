@@ -112,7 +112,8 @@ const UserLoginEnabled: FC = () => {
 
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
-      localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified));
+      const settingVerificationDynamic = ( JSON.stringify(data.userInfo.is_user_verified) === undefined ) ? JSON.stringify(data.userInfo.verified) : JSON.stringify(data.userInfo.is_user_verified)
+      localStorage.setItem('User-Verification', settingVerificationDynamic);
       console.log(localStorage.getItem('User-Verification'))
       set_is_loading(false);
     },
@@ -122,7 +123,7 @@ const UserLoginEnabled: FC = () => {
         const axiosError = error as AxiosError<ErrorResponse>;
         const axios_detail = axiosError.response?.data?.Details;
         const message_captured: string = (axios_detail) ? `Login Unsuccessful` : TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN)
-        MESSAGE_HANDLER_SONNER(titleAttached, description, MessageConfiguration.DEFAULT);
+        MESSAGE_HANDLER_SONNER(titleAttached, description, MessageConfiguration.ERR_M);
       }
       set_is_loading(false);
     }
@@ -138,8 +139,8 @@ const UserLoginEnabled: FC = () => {
   return (
     <React.Fragment>
       {/* <ThemeSwitcher /> */}
-      <div className='flex flex-col md:flex-row items-center justify-between w-full lg:p-6'>
-        <div className=' md:w-1/2 w-full'>
+      <div className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
+        <div className='max-w-xl'>
           <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
           <DynamicForm
             formObjectData={initialValues}
@@ -166,7 +167,7 @@ const UserLoginEnabled: FC = () => {
 
           />
         </div>
-        <div className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
+        {/* <div className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
           <div className="p-6 lg:p-10 text-center md:text-left ">
             <div className="text-4xl lg:text-4xl font-bold text-white md:max-w-lg bg-opacity-50 bg-clip-text mb-6 lg:mb-10">
               The Simplest way to manage your workplace
@@ -176,7 +177,7 @@ const UserLoginEnabled: FC = () => {
             </div>
             <InfiniteMovingCards className="mt-[6rem]" items={clients} />
           </div>
-        </div>
+        </div> */}
 
 
 

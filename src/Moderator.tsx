@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { InfiniteMovingCards } from './Animations/MovingCardsGlobalState';
 import { clients, clients_inverted } from './lib/constants';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
-
+import { Helmet } from 'react-helmet-async'
 const TransientLight = lazy(() => import('@/Pages/SpotLightCombined/SpotLightModuler').then(module => ({ default: module.SpotlightPreview })));
 const GlobalAnnotations = lazy(() => import('@/Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter'));
 const PeriodicNavigation = lazy(() => import('@/Global/GlobalSiteNavigators/NavigationState/PrimarySiteNavigator'));
@@ -26,13 +26,12 @@ const ThemeIdentifier = (theme_recognizer: string): string => {
 };
 
 const useThemeHandler = (theme_recognizer: string) => {
-  const [themeSwitcher, setThemeSwitcher] = useState<string>(ThemeIdentifier(theme_recognizer));
+  const [themeSwitcher, setThemeSwitcher] = useState<string>(ThemeSchema.BLK_CL);
   useEffect(() => {
     setThemeSwitcher(ThemeIdentifier(theme_recognizer));
   }, [theme_recognizer]);
   return themeSwitcher;
 };
-
 const SuspenseFallbackController = <T extends {}>(Collectives: React.ComponentType<T>, fallbackQueue: React.ReactNode) => {
   return (props: T) => (
     <Suspense fallback={fallbackQueue}>
@@ -44,7 +43,7 @@ const SuspenseFallbackController = <T extends {}>(Collectives: React.ComponentTy
 const ModeratorLazyLoader: React.FC<Props> = () => {
   const { theme } = useTheme();
   const logoColor = useThemeHandler(theme || 'light');
-  
+
   const FallbackComponentProgress = useMemo(() => (
     <Box className='w-full h-screen flex items-center justify-center'>
       <CircularProgress color="inherit" size={54} />
@@ -57,7 +56,7 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
   const MemoizedPricing = useMemo(() => SuspenseFallbackController(PricingAndBillingAnnotations, FallbackComponentProgress), [FallbackComponentProgress]);
   const MemoizedAnnotations = useMemo(() => SuspenseFallbackController(GlobalAnnotations, FallbackComponentProgress), [FallbackComponentProgress]);
 
-  const clientRenderingItems = useMemo(() => (logoColor ? clients : clients_inverted), [logoColor]);
+  const clientRenderingItems = logoColor ? clients : clients_inverted;
 
   const renderMovingCards = useCallback(() => {
     return <InfiniteMovingCards
@@ -69,6 +68,25 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
 
   return (
     <>
+      <Helmet>
+        {/* Standard Meta Tags */}
+        <title>Mavexa - Saas Automation Platform</title>
+        <meta name="description" content="This is my React app" />
+        <meta name="robots" content="index,follow" />
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content="My React App Title" />
+        <meta property="og:description" content="Description of my React app" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://my-react-app.com" />
+        <meta property="og:image" content="https://my-react-app.com/my-image.jpg" />
+        <meta property="og:site_name" content="My React App" />
+
+        {/* Twitter Cards Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="My React App Title" />
+        <meta name="twitter:description" content="Description of my React app" />
+        <meta name="twitter:image" content="https://my-react-app.com/my-image.jpg" />
+      </Helmet>
       <Suspense fallback={FallbackComponentProgress}>
         <MemoizedNavigation />
         <MemoizedLight />

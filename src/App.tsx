@@ -28,33 +28,31 @@ const AppRoutes = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const tokenSelector = useSelector((state: any) => state.auth.token_for_authnetication);
-  const verifiedSelector = useSelector((state: any) => state.auth?.user_info?.is_user_verified);
+  const verifiedSelector = useSelector((state: any) => 
+    state.auth?.user_info?.is_user_verified ?? JSON.parse(localStorage.getItem('User-Verification') || 'false')
+  );  
   const [loading, setLoading] = useState<boolean>(true);
   const persistedToken = useMemo(() => localStorage.getItem('User-Token'), []);
   const persistedVerification = useMemo(() => localStorage.getItem('User-Verified'), []);
   const isUserAuthenticated = useMemo(() => !!localStorage.getItem('User-Settings') || !!tokenSelector, [tokenSelector]);
-  const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification]);
+  const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification])
   const { theme } = useTheme();
-
-
   useEffect(() => {
     const isDefaultOrVerificationRoute =
-      location.pathname === RoutesConfiguration.VERIFICATION || [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname);
+      location.pathname === RoutesConfiguration.VERIFICATION ||
+      [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION].includes(location.pathname);
+  
     if (isUserAuthenticated && isUserVerified && isDefaultOrVerificationRoute) {
       navigate(RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM, { replace: true });
     } 
-    else if (isUserAuthenticated &&!isUserVerified &&location.pathname !== RoutesConfiguration.VERIFICATION &&!IncludedRoutesSettings.some((route) => route.path === location.pathname)
-    ) {
+    else if (isUserAuthenticated && !isUserVerified && location.pathname !== RoutesConfiguration.VERIFICATION) {
       navigate(RoutesConfiguration.VERIFICATION, { replace: true });
     } 
-    else if (
-      !isUserAuthenticated &&
-      ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/'].includes(location.pathname)
-    ) {
-      navigate(ROUTES_EXT.DEFAULT.PATH || RoutesConfiguration.DEFAULT_PATH, { replace: true });
+    else if (!isUserAuthenticated && ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION].includes(location.pathname)) {
+      navigate(RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH, { replace: true });
     }
   }, [isUserAuthenticated, isUserVerified, location.pathname, navigate]);
-
+  
 
 
   useEffect(() => {
