@@ -37,7 +37,7 @@ export function MenuEvent() {
     localStorage.removeItem('User-Settings');
     setIsLoggedIn(false);
     dispatch(remove_token());
-    navigate('/');
+    navigate(RoutesConfiguration.LOGIN);
     console.log("User logged out and navigated to home");
   };
 

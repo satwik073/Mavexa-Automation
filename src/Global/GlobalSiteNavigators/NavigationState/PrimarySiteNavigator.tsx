@@ -21,13 +21,15 @@ const PrimarySiteNavigator = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("User-Settings"));
   
   const getButtonComponent = useCallback(
-    () => !loginStatus ? (
+    () => loginStatus ||isLoggedIn ? (
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.button} onClick={() => navigate(RoutesConfiguration.DASHBOARD || ROUTES_EXT.END_FLOW.DAS)}>
         {displaying_buttons["dashboard_classic"]}
       </Box>
     ) : (
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.button}>
+        <Link to={`${RoutesConfiguration.LOGIN}`}>
         {displaying_buttons["get_started"]}
+        </Link>
       </Box>
     ),
     [isLoggedIn, isSmallScreen, navigate]

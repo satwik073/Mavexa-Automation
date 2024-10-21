@@ -12,13 +12,17 @@ import { useTheme } from 'next-themes';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import Dashboard from './Network/Dashboard';
 import { Toaster } from './Components/Images/External/UI/toaster';
+import Pricing from './Network/Pricing';
+import Clients from './Network/Clients';
+import Documentation from './Network/Documentation';
+import Resources from './Network/Resources';
 
 interface ValidRoutesConfiguration {
   path: string;
 }
 
 const IncludedRoutesSettings: ValidRoutesConfiguration[] = [
-  { path: RoutesConfiguration.AUTH },    
+  { path: RoutesConfiguration.AUTH },
   { path: RoutesConfiguration.DEFAULT_PATH }
 ];
 
@@ -28,9 +32,9 @@ const AppRoutes = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const tokenSelector = useSelector((state: any) => state.auth.token_for_authnetication);
-  const verifiedSelector = useSelector((state: any) => 
+  const verifiedSelector = useSelector((state: any) =>
     state.auth?.user_info?.is_user_verified ?? JSON.parse(localStorage.getItem('User-Verification') || 'false')
-  );  
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const persistedToken = useMemo(() => localStorage.getItem('User-Token'), []);
   const persistedVerification = useMemo(() => localStorage.getItem('User-Verified'), []);
@@ -40,19 +44,19 @@ const AppRoutes = () => {
   useEffect(() => {
     const isDefaultOrVerificationRoute =
       location.pathname === RoutesConfiguration.VERIFICATION ||
-      [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION].includes(location.pathname);
-  
+      [RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION, RoutesConfiguration.LOGIN].includes(location.pathname);
+
     if (isUserAuthenticated && isUserVerified && isDefaultOrVerificationRoute) {
-      navigate(RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM, { replace: true });
-    } 
+      navigate(RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM || RoutesConfiguration.CLIENTS, { replace: true });
+    }
     else if (isUserAuthenticated && !isUserVerified && location.pathname !== RoutesConfiguration.VERIFICATION) {
       navigate(RoutesConfiguration.VERIFICATION, { replace: true });
-    } 
-    else if (!isUserAuthenticated && ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION].includes(location.pathname)) {
-      navigate(RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH, { replace: true });
+    }
+    else if (!isUserAuthenticated && ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION, RoutesConfiguration.CLIENTS, RoutesConfiguration.RESOURCES, RoutesConfiguration.DOCUMENTATION, RoutesConfiguration.PRICING, RoutesConfiguration.LOGIN, RoutesConfiguration.ENTERPRISE, RoutesConfiguration.PRODUCTS].includes(location.pathname)) {
+      navigate(RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH , { replace: true });
     }
   }, [isUserAuthenticated, isUserVerified, location.pathname, navigate]);
-  
+
 
 
   useEffect(() => {
@@ -90,9 +94,10 @@ const AppRoutes = () => {
     </div>
   ) : (
     <Routes>
+      <Route path={RoutesConfiguration.LOGIN} element={<APP_CONFIG.LG_AUTH />} />
       <Route
         path={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH}
-        element={<APP_CONFIG.LG_AUTH />}
+        element={<APP_CONFIG.MOD_T />}
       />
       <Route
         path={RoutesConfiguration.AUTH || ROUTES_EXT.AUTH_FLOW.ATM}
@@ -111,17 +116,30 @@ const AppRoutes = () => {
         path={RoutesConfiguration.PRODUCTS || ROUTES_EXT.FEAT_CONFIG.PRD}
         element={<APP_CONFIG.PR_S />}
       />
+
       <Route
         path={RoutesConfiguration.REGISTRATION}
-        element={<APP_CONFIG.RG_S/>}
-      />
-      <Route
-        path={RoutesConfiguration.REGISTRATION}
-        element={<APP_CONFIG.RG_S/>}
+        element={<APP_CONFIG.RG_S />}
       />
       <Route
         path={RoutesConfiguration.DASHBOARD}
-        element={<Dashboard/>}
+        element={<Dashboard />}
+      />
+      <Route
+        path={RoutesConfiguration.PRICING}
+        element={<Pricing />}
+      />
+      <Route
+        path={RoutesConfiguration.CLIENTS}
+        element={<Clients />}
+      />
+      <Route
+        path={RoutesConfiguration.DOCUMENTATION}
+        element={<Documentation />}
+      />
+      <Route
+        path={RoutesConfiguration.RESOURCES}
+        element={<Resources />}
       />
       <Route path="*" element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />} />
     </Routes>
@@ -135,7 +153,7 @@ function App() {
         <AppRoutes />
       </Router>
       <ToastContainer />
-      <Toaster/>
+      <Toaster />
     </div>
   );
 }
