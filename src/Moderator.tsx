@@ -70,41 +70,36 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
     <>
       <Helmet>
         {/* Standard Meta Tags */}
-        <title>Mavexa - Saas Automation Platform</title>
+        <title>Mavexa - Leading SaaS Automation Platform for Business</title>
 
-        <meta name="description" content="Mavexa is a leading SaaS automation platform, providing solutions for businesses to streamline their processes and scale efficiently." />
+        <meta name="description" content="Mavexa offers innovative SaaS automation solutions to streamline business processes, boost operational efficiency, and scale with ease." />
 
-
-        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
-        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
+   
+        <meta property="og:title" content="Mavexa - SaaS Automation Solutions for Business Efficiency" />
+        <meta property="og:description" content="Transform your business operations with Mavexa's SaaS automation tools. Get insights, automate workflows, and scale efficiently." />
         <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
         <meta property="og:url" content="https://mavexa.vercel.app" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Mavexa" />
         <meta property="og:locale" content="en_US" />
-        
+
+
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mavexa - SaaS Automation Platform" />
-        <meta name="twitter:description" content="Streamline your business with Mavexa’s SaaS automation platform. Get insights, optimize operations, and scale effectively." />
+        <meta name="twitter:title" content="Mavexa - Leading SaaS Automation Platform" />
+        <meta name="twitter:description" content="Boost your business with Mavexa's leading SaaS automation platform. Automate, optimize, and scale seamlessly with real-time insights." />
         <meta name="twitter:image" content="https://mavexa.vercel.app/test2.png" />
         <meta name="twitter:site" content="@mavexa" />
         <meta name="twitter:creator" content="@mavexa" />
-        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
-        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
-        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
-        <meta property="og:url" content="https://mavexa.vercel.app" />
-
 
         <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
-        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
+        <meta property="og:description" content="Streamline your business operations with Mavexa's cutting-edge SaaS automation platform." />
         <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
         <meta property="og:url" content="https://mavexa.vercel.app" />
+        <meta property="og:type" content="website" />
 
-        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
-        <meta property="og:description" content="Mavexa provides top-notch automation tools for your business. Streamline operations, gain insights, and scale efficiently with real-time data." />
-        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
-        <meta property="og:url" content="https://mavexa.vercel.app" />
 
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="SaaS automation, business automation, workflow automation, streamline business processes, real-time insights, scale business, Mavexa" />
 
         <link rel="canonical" href="https://mavexa.vercel.app" />
 
