@@ -7,11 +7,11 @@
 // import CardContainers from "@/Pages/CardWrapper/CardFlexContainers";
 // import PeopleEngaged from "@/Pages/Testimonials/PeopleEngaged";
 // import PrimarySiteFooter from "./Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter";
-import { InputOTPForm } from './Auth/Verifications/OTP_Request';
-import UserLoginEnabled from './Auth/Logins/UserLoginEnabled';
+import { InputOTPForm } from './Auth/PasscodeAuth/VerificationAuthService';
+import UserLoginEnabled from './Auth/AuthTokenHandler/AuthServiceValidator';
 import ModeratorLazyLoader from "./Moderator";
 import Product from "./Network/Product";
-import UserRegistrationEnabled from './Auth/Registrations/UserRegistrationEnabled'
+import UserRegistrationEnabled from './Auth/ProvisioningPipeline/AccountInitialization'
 
 
 interface RenderingAnnotations {

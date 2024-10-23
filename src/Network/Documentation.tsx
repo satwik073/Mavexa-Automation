@@ -7,7 +7,7 @@ const Documentation = (props: Props) => {
   return (
     <div>
     <Helmet>
-    <title>Products - Latest Deployed Capabilities | Mavexa</title>
+    <title>Documentation - Latest Deployed Capabilities | Mavexa</title>
 
     <meta name="description" content="Access products on Mavexa to track user activity, performance stats, and analytics." />
 
