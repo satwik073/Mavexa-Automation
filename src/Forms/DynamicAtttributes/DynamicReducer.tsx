@@ -10,7 +10,7 @@ import { Button as UIButton } from '@/Components/Images/External/UI/button';
 import { AppleAuthenticationSvgDark, AppleAuthenticationSvgLight, GooogleAuthenticationSvg } from '@/assets';
 import ImageContainer from '@/Components/Images/ImageContainer';
 import { useNavigate } from 'react-router-dom';
-import { LGN_STY } from '@/Auth/Logins/Constants/layout_controller';
+import { LGN_STY } from '@/Auth/AuthTokenHandler/Constants/layout';
 
 interface DynamicFormAttributes<T> {
   titleAttached?: string,

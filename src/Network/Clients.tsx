@@ -7,7 +7,7 @@ const Clients = (props: Props) => {
   return (
     <div>
     <Helmet>
-    <title>Products - Latest Deployed Capabilities | Mavexa</title>
+    <title>Clients - Latest Deployed Capabilities | Mavexa</title>
 
     <meta name="description" content="Access products on Mavexa to track user activity, performance stats, and analytics." />
 
