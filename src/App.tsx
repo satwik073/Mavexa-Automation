@@ -16,6 +16,7 @@ import Pricing from './Network/Pricing';
 import Clients from './Network/Clients';
 import Documentation from './Network/Documentation';
 import Resources from './Network/Resources';
+import { FloatingDockDemo } from './Components/DockContainer/FloatingDock';
 
 interface ValidRoutesConfiguration {
   path: string;
@@ -149,12 +150,17 @@ const AppRoutes = () => {
 function App() {
   return (
     <div>
-      <Router>
-        <AppRoutes />
-      </Router>
-      <ToastContainer />
-      <Toaster />
-    </div>
+    <Router>
+      <AppRoutes />
+      {/* Ensure the FloatingDockDemo is fixed at the bottom-right of the screen */}
+      <div className='fixed bottom-0 right-0 -mb-40 z-50 mr-4'>
+        <FloatingDockDemo />
+      </div>
+    </Router>
+    <ToastContainer />
+    <Toaster />
+  </div>
+  
   );
 }
 
