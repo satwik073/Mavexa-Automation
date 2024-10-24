@@ -6,6 +6,7 @@ import { InfiniteMovingCards } from './Animations/MovingCardsGlobalState';
 import { clients, clients_inverted } from './lib/constants';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import { Helmet } from 'react-helmet-async'
+import { FloatingDockDemo } from './Components/DockContainer/FloatingDock';
 const TransientLight = lazy(() => import('@/Pages/SpotLightCombined/SpotLightModuler').then(module => ({ default: module.SpotlightPreview })));
 const GlobalAnnotations = lazy(() => import('@/Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter'));
 const PeriodicNavigation = lazy(() => import('@/Global/GlobalSiteNavigators/NavigationState/PrimarySiteNavigator'));
@@ -111,7 +112,9 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
         <MemoizedGridConstants />
         <MemoizedPricing />
         <MemoizedAnnotations />
+        {/* <FloatingDockDemo/> */}
       </Suspense>
+ 
     </>
   );
 };

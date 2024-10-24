@@ -9,6 +9,7 @@ import { BOX_COMPONENTS_SEPERATED, TYPOGRAPHY_VARIANTS_SEPERATED } from "@/Const
 import { ThemeProviderOptions, ThemeSchema } from "@/Global/GlobalSiteNavigators/NavigationState/Constants/structure";
 import { useTheme } from 'next-themes';
 import ImageContainer from "@/Components/Images/ImageContainer";
+import { FloatingDockDemo } from "@/Components/DockContainer/FloatingDock";
 
 export function SpotlightPreview() {
   const { theme } = useTheme();
