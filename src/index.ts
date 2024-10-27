@@ -7,7 +7,7 @@
 // import CardContainers from "@/Pages/CardWrapper/CardFlexContainers";
 // import PeopleEngaged from "@/Pages/Testimonials/PeopleEngaged";
 // import PrimarySiteFooter from "./Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter";
-import { InputOTPForm } from './Auth/PasscodeAuth/VerificationAuthService';
+import  InputOTPForm  from './Auth/PasscodeAuth/VerificationAuthService';
 import UserLoginEnabled from './Auth/AuthTokenHandler/AuthServiceValidator';
 import ModeratorLazyLoader from "./Moderator";
 import Product from "./Network/Product";
