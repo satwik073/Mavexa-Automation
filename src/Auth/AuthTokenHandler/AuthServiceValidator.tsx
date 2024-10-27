@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { useMutation, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { LOGIN_SESSION } from '@/Pipe/Auth/auth';
-import { MESSAGE_HANDLER } from '@/Events/MessageDispatch';
 import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { ThemeProviderOptions, ThemeSchema } from '@/Global/GlobalSiteNavigators/NavigationState/Constants/structure';
@@ -12,17 +11,12 @@ import { useDispatch } from 'react-redux';
 import { set_token } from '@/Store/authSlice';
 import DynamicForm from '@/Forms/DynamicAtttributes/DynamicReducer';
 import * as Yup from 'yup';
-import { useMediaQuery, useTheme as useMUITheme } from '@mui/material';
-import { useTheme } from 'next-themes'
-import ThemeSwitcher from '@/Hooks/useThemeSwitcher';
-import ImageContainer from '@/Components/Images/ImageContainer';
-import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
-import { clients } from '@/lib/constants';
 import { PRODUCTS_CONFIGURATIONS } from '@/Global/GlobalSiteNavigators/NavigationState/Constants';
 import { LOGIN_CONFIG } from './Constants';
 import { LGN_STY } from './Constants/layout';
-import { BsCheck2Circle } from 'react-icons/bs';
 import { MESSAGE_HANDLER_SONNER, MessageConfiguration } from '@/Events/SonnerMessageDispatch';
+import TitleDescriptionBlock from '@/@molecules/Content/TitleDescriptionBlock';
+import { useTheme } from 'next-themes';
 const queryClient = new QueryClient();
 
 interface ErrorResponse {
@@ -34,7 +28,6 @@ export interface LoginCredentialProps {
 }
 
 
-
 const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
   console.time('RegistrationCallerExecutionTime'); 
   const login_request_generated = await LOGIN_SESSION(payload);
@@ -44,42 +37,11 @@ const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
   return response_handler.data;
 };
 
-const title = (
-  <div className="flex items-center">
-      {/* <HiOutlineSparkles className="dark:text-white text-gray-500 font-thin ml-1" size={20} /> */}
-      <span className="mx-1 font-normal">Success Notification</span>
-  </div>
-);
-
-const description = (
-  <div className="mt-2 bg-slate-950 py-3 rounded-lg px-2">
-  <pre className="text-white text-xs w-full">
-    <code className=" whitespace-pre-wrap text-ellipsis text-xs text-justify">
-      {`"You have been logged in successfully "`}
-    </code>
-  </pre>
-</div>
-);
-const titleAttached = (
-  <div className="flex items-center">
-  {/* <BsCheck2Circle className="text-green-500 mr-2" size={20} /> */}
-  {/* <HiOutlineSparkles className="dark:text-white text-gray-500 font-thin ml-1" size={20} /> */}
-  <span className="mx-1 font-normal">Error Notification</span>
-</div>
-)
 const UserLoginEnabled: FC = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
-  const muiTheme = useMUITheme()
   const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
-  const is_small_screen = useMediaQuery(muiTheme.breakpoints.down('sm'))
-  const imageContainerProps = {
-    src: logoColor ? "/darkLogin.png" : "/lightLogin.png",
-    width: 1000,
-    height: 1000,
-    alt: "SaaSy Logo",
-    className: "shadow-sm",
-  };
+
   useEffect(() => {
     const isLightTheme = theme === ThemeProviderOptions.LIGHT_TH
     setLogoColor(isLightTheme ? '' : ThemeSchema.BLK_CL);
@@ -102,14 +64,17 @@ const UserLoginEnabled: FC = () => {
       set_is_loading(true);
     },
     onSuccess: (data) => {
-      MESSAGE_HANDLER_SONNER(title , description, MessageConfiguration.SC_M);
+      MESSAGE_HANDLER_SONNER(
+        "Success Notification", 
+        "You have been logged in successfully.", 
+        MessageConfiguration.SC_M
+    );
       dispatch(
         set_token({
           token: data.token,
           user_info: data.userInfo,
         })
       );
-
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
       const settingVerificationDynamic = ( JSON.stringify(data.userInfo.is_user_verified) === undefined ) ? JSON.stringify(data.userInfo.verified) : JSON.stringify(data.userInfo.is_user_verified)
@@ -123,7 +88,7 @@ const UserLoginEnabled: FC = () => {
         const axiosError = error as AxiosError<ErrorResponse>;
         const axios_detail = axiosError.response?.data?.Details;
         const message_captured: string = (axios_detail) ? `Login Unsuccessful` : TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN)
-        MESSAGE_HANDLER_SONNER(titleAttached, description, MessageConfiguration.ERR_M);
+        MESSAGE_HANDLER_SONNER("Error Notification", message_captured, MessageConfiguration.ERR_M);
       }
       set_is_loading(false);
     }

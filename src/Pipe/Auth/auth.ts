@@ -27,9 +27,9 @@ const RESEND_OTP_REQUEST = {
 }[ENV_MODE] || import.meta.env.VITE_APP_USER_REVERIFICATION_DEV;
 
 const OTP_AUTHENTICATION = {
-    production: import.meta.env.VITE_APP_USER_OTP_PROD,
+    production: import.meta.env.VITE_APP_USER_OTP,
     staging: import.meta.env.VITE_APP_USER_OTP,
-    development: import.meta.env.VITE_APP_USER_OTP_DEV
+    development: import.meta.env.VITE_APP_USER_OTP
 }[ENV_MODE] || import.meta.env.VITE_APP_USER_OTP_DEV;
 
 const RESET_PASSWORD = {
