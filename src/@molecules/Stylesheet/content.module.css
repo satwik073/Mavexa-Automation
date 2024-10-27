@@ -1,0 +1,64 @@
+
+.main-container {
+    @apply flex flex-col items-start p-4 rounded-lg transition duration-300 ease-in-out;
+    
+    @screen sm {
+        @apply p-2;
+    }
+    @screen lg {
+        @apply p-6 bg-slate-800;
+    }
+
+    &:hover {
+        @apply bg-slate-900 shadow-lg;
+    }
+
+    &:focus-within {
+        @apply ring-4 ring-slate-700;
+    }
+}
+
+.title-content-cell {
+    @apply flex items-center mx-1 font-semibold text-lg text-gray-200;
+
+    &:hover {
+        @apply text-slate-300;
+    }
+    &:active {
+        @apply text-slate-500;
+    }
+}
+
+.description-cell {
+    @apply mt-4 bg-slate-950 py-4 rounded-lg px-3 transition-all duration-200 ease-in;
+
+    @screen sm {
+        @apply py-2 px-1;
+    }
+
+    &:hover {
+        @apply bg-opacity-90;
+    }
+    &:focus {
+        @apply outline-none ring-2 ring-slate-800;
+    }
+}
+
+.description-text {
+    @apply text-white text-sm leading-relaxed w-full max-w-3xl;
+
+    @screen sm {
+        @apply text-xs;
+    }
+    @screen lg {
+        @apply text-base;
+    }
+}
+
+.code-block {
+    @apply whitespace-pre-wrap text-xs text-gray-400;
+
+    &:hover {
+        @apply text-slate-300;
+    }
+}

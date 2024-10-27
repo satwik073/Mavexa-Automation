@@ -1,15 +1,12 @@
 import React from 'react';
 import { toast } from '@/Hooks/useToast';
-import { BsCheck2Circle, BsExclamationCircle } from 'react-icons/bs';
-import { HiOutlineExclamation, HiOutlineSparkles } from 'react-icons/hi';
+import { BsCheck2Circle } from 'react-icons/bs';
 import { IoWarningOutline } from "react-icons/io5";
 import { RxCrossCircled } from "react-icons/rx";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { GiGearStickPattern } from "react-icons/gi";
 import { BoxTypeIdentifier } from '@/Constants/structure';
 import CustomBox from '@/@types/Comp_BX';
-import { Box } from 'lucide-react';
-import CustomText from '@/@types/Variants_TY_BX';
 
 export enum MessageConfiguration {
     ERR_M = 'error',
@@ -40,13 +37,12 @@ export const MESSAGE_HANDLER_SONNER = (
                 <IconComponent className={getIconClass(typeDeclaration)} size={20} />
             )}
             <CustomBox type={BoxTypeIdentifier.Section} className="mx-1 font-normal">
-                <CustomText className=' text-white' >
+                <p className=' text-white' >
                     {titleAttached}
-                </CustomText>
+                </p>
             </CustomBox>
         </CustomBox>
     );
-
     const descriptionCell = (
         <CustomBox type={BoxTypeIdentifier.Default} className="mt-2 bg-slate-950 py-3 rounded-lg px-2">
             <pre className="text-white text-xs w-full">
@@ -56,7 +52,6 @@ export const MESSAGE_HANDLER_SONNER = (
             </pre>
         </CustomBox>
     );
-
     const toastProps = {
         title: titleContentCell,
         description: descriptionCell,
