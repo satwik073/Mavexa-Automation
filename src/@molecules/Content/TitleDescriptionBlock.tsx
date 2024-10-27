@@ -1,9 +1,10 @@
 import CustomBox from '@/@types/Comp_BX';
 import { Box } from '@mui/material';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { MESSAGE_HANDLER_SONNER } from '@/Events/SonnerMessageDispatch';
 import { MessageConfiguration } from '@/Events/SonnerMessageDispatch';
 import { BoxTypeIdentifier } from '@/Constants/structure';
+import styles from '@/@molecules/Stylesheet/content.module.css';
 
 interface ContentBlockSettings {
     titleText: string;
@@ -18,15 +19,17 @@ const TitleDescriptionBlock: FC<ContentBlockSettings> = ({ titleText, descriptio
     };
 
     const titleContentCell = (
-        <Box component={BoxTypeIdentifier.Default} className="flex items-center">
-            <CustomBox type={BoxTypeIdentifier.Section} className="mx-1 font-normal">{titleText}</CustomBox>
+        <Box component={BoxTypeIdentifier.Default} className={styles['title-content-cell']}>
+            <CustomBox type={BoxTypeIdentifier.Section} className="mx-1 font-normal">
+                {titleText}
+            </CustomBox>
         </Box>
     );
 
     const descriptionCell = (
-        <Box component={BoxTypeIdentifier.Default} className="mt-2 bg-slate-950 py-3 rounded-lg px-2">
-            <pre className="text-white text-xs w-full">
-                <code className="whitespace-pre-wrap text-ellipsis text-xs text-justify">
+        <Box component={BoxTypeIdentifier.Default} className={styles['description-cell']}>
+            <pre className={styles['description-text']}>
+                <code className={styles['code-block']}>
                     {descriptionText}
                 </code>
             </pre>
@@ -34,7 +37,7 @@ const TitleDescriptionBlock: FC<ContentBlockSettings> = ({ titleText, descriptio
     );
 
     return (
-        <Box className="flex flex-col items-start" onClick={handleMessageDispatch}>
+        <Box className={`${styles['main-container']}`} onClick={handleMessageDispatch}>
             <CustomBox className='mx-1 font-normal'>
                 {titleContentCell}
             </CustomBox>
