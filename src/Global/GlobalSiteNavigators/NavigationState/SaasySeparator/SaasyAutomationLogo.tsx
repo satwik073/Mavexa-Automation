@@ -8,6 +8,7 @@ import { ThemeProviderOptions, ThemeSchema } from '../Constants/structure';
 import { PRODUCTS_CONFIGURATIONS } from '../Constants';
 import { useTheme } from 'next-themes';
 import { useTheme as useMuiTheme } from '@mui/material';
+import { NextGen } from '@/assets';
 const SaaSyAutomationLogo: React.FC = () => {
   const { theme } = useTheme();
   const muiTheme = useMuiTheme()
@@ -28,11 +29,11 @@ const SaaSyAutomationLogo: React.FC = () => {
   return (
     <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.nav}>
       <Box component={BOX_COMPONENTS_SEPERATED.components_fetched.aside} className={PR_STY.STLP.headedTextLogo}>
-        <ImageContainer {...imageContainerProps} />
+       <ImageContainer {...imageContainerProps}/>
         {
           !is_small_screen && (
             <span className={`${PR_STY.STLP.headedText}`}>
-              {PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.initials}
+              {/* {PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.initials} */}
             </span>
           )
         }
