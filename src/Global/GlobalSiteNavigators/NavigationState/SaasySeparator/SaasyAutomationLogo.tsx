@@ -20,7 +20,7 @@ const SaaSyAutomationLogo: React.FC = () => {
   }, [theme]);
 
   const imageContainerProps = {
-    src: logoColor ? "/test2.png" : "/test.png",
+    src: logoColor ? "/leusg0ft.png" : "/img.png",
     width: 45,
     height: 45,
     alt: "SaaSy Logo",
