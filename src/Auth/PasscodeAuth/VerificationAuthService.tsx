@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Box, useTheme as useMUITheme, useMediaQuery } from "@mui/material";
+import { Box, CircularProgress, useTheme as useMUITheme, useMediaQuery } from "@mui/material";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { useTheme } from "next-themes";
@@ -132,7 +132,9 @@ function InputOTPForm() {
           />
           <div className="flex gap-4">
             <Button type="submit" disabled={loadingScreen}>
-              {loadingScreen ? "Verifying..." : "Submit"}
+              {loadingScreen ? (<div className="w-full h-screen flex items-center justify-center">
+                <CircularProgress size={24} sx={{ color: theme === ThemeProviderOptions.LIGHT_TH ? ThemeSchema.BLK_CL : ThemeSchema.WHT_CL }} />
+              </div>) : "Submit"}
             </Button>
             <Button onClick={handleClear} variant="secondary">
               Cancel
@@ -140,7 +142,7 @@ function InputOTPForm() {
           </div>
         </form>
       </Form>
-    </B>
+    </Box>
 
   );
 }
