@@ -15,146 +15,91 @@ import { PRODUCTS_CONFIGURATIONS } from '@/Global/GlobalSiteNavigators/Navigatio
 import { LOGIN_CONFIG } from './Constants';
 import { LGN_STY } from './Constants/layout';
 import { MESSAGE_HANDLER_SONNER, MessageConfiguration } from '@/Events/SonnerMessageDispatch';
-import TitleDescriptionBlock from '@/@molecules/Content/TitleDescriptionBlock';
 import { useTheme } from 'next-themes';
+import CustomBox from '@/@types/Comp_BX';
+
 const queryClient = new QueryClient();
 
-interface ErrorResponse {
-  Details?: string;
-}
-export interface LoginCredentialProps {
-  registered_user_email: string;
-  registered_user_password: string;
-}
+interface ResponseData { Details?: string; }
+export interface CredentialKeys { registered_user_email: string; registered_user_password: string; }
 
-
-const LOGIN_CALLER = async (payload: LoginCredentialProps) => {
-  console.time('RegistrationCallerExecutionTime'); 
-  const login_request_generated = await LOGIN_SESSION(payload);
-  const response_handler = await axios(login_request_generated);
-  console.timeEnd('RegistrationCallerExecutionTime'); 
-
-  return response_handler.data;
+const REQUEST_LOGIN_EXECUTION = async (payload: CredentialKeys) => {
+  const loginRequestPayload = await LOGIN_SESSION(payload);
+  return (await axios(loginRequestPayload)).data;
 };
 
-const UserLoginEnabled: FC = () => {
-  const navigate = useNavigate();
-  const { theme } = useTheme();
-  const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
+const UserAuthProviderComponent: FC = () => {
+  const navigate = useNavigate(), { theme: runtimeTheme } = useTheme(), dispatch = useDispatch();
+  const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL), [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const isLightTheme = theme === ThemeProviderOptions.LIGHT_TH
-    setLogoColor(isLightTheme ? '' : ThemeSchema.BLK_CL);
-  }, [theme]);
-  const dispatch = useDispatch();
-  const [is_loading, set_is_loading] = useState(false);
-  const initialValues: LoginCredentialProps = {
-    registered_user_email: '',
-    registered_user_password: '',
-  };
-
+  const defaultValues: CredentialKeys = { registered_user_email: '', registered_user_password: '' };
   const validationSchema = Yup.object({
     registered_user_email: Yup.string().email('Invalid email').required('Email is required'),
     registered_user_password: Yup.string().min(0, 'Password must be at least 6 characters').required('Password is required'),
   });
 
+  useEffect(() => setLogoColor(runtimeTheme === ThemeProviderOptions.LIGHT_TH ? '' : ThemeSchema.BLK_CL), [runtimeTheme]);
+
   const mutation = useMutation({
-    mutationFn: (userData: LoginCredentialProps) => LOGIN_CALLER(userData),
-    onMutate: () => {
-      set_is_loading(true);
-    },
+    mutationFn: (userData: CredentialKeys) => REQUEST_LOGIN_EXECUTION(userData),
+    onMutate: () => setIsLoading(true),
     onSuccess: (data) => {
-      MESSAGE_HANDLER_SONNER(
-        "Success Notification", 
-        "You have been logged in successfully.", 
-        MessageConfiguration.SC_M
-    );
-      dispatch(
-        set_token({
-          token: data.token,
-          user_info: data.userInfo,
-        })
-      );
+      MESSAGE_HANDLER_SONNER("Success Notification", "You have been logged in successfully.", MessageConfiguration.SC_M);
+      dispatch(set_token({ token: data.token, user_info: data.userInfo }));
       navigate(`/${RoutesConfiguration.AUTH.substring(1)}`);
       localStorage.setItem('User-Settings', data.token);
-      const settingVerificationDynamic = ( JSON.stringify(data.userInfo.is_user_verified) === undefined ) ? JSON.stringify(data.userInfo.verified) : JSON.stringify(data.userInfo.is_user_verified)
-      localStorage.setItem('User-Verification', settingVerificationDynamic);
-      console.log(localStorage.getItem('User-Verification'))
-      set_is_loading(false);
+      localStorage.setItem('User-Verification', JSON.stringify(data.userInfo.is_user_verified ?? data.userInfo.verified));
+      setIsLoading(false);
     },
-
     onError: (error: any) => {
       if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError<ErrorResponse>;
-        const axios_detail = axiosError.response?.data?.Details;
-        const message_captured: string = (axios_detail) ? `Login Unsuccessful` : TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN)
-        MESSAGE_HANDLER_SONNER("Error Notification", message_captured, MessageConfiguration.ERR_M);
+        const axiosError = error as AxiosError<ResponseData>;
+        const message = axiosError?.request?.response ? JSON.parse(axiosError.request.response).message : TENANT_AUTHENTICATION(RolesIdentifier.USER, AuthFlowIdentifier.SIGN_IN);
+        MESSAGE_HANDLER_SONNER("Error Notification", message, MessageConfiguration.ERR_M);
       }
-      set_is_loading(false);
-    }
-
+      setIsLoading(false);
+    },
   });
-  const handle_toggle_auth_controller = () => {
-    navigate(`${RoutesConfiguration.REGISTRATION}`)
-  }
-  const handleSubmit = (values: LoginCredentialProps) => {
-    mutation.mutate(values);
-  };
-//todo
+
+  const handleToggleAuth = () => navigate(`${RoutesConfiguration.REGISTRATION}`);
+  const handleSubmit = (values: CredentialKeys) => mutation.mutate(values);
+
   return (
-    <React.Fragment>
-      {/* <ThemeSwitcher /> */}
-      <div className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
-        <div className='max-w-xl'>
-          <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
-          <DynamicForm
-            formObjectData={initialValues}
-            validSchemaStructure={validationSchema}
-            onFormSubmission={handleSubmit}
-            isApiCalledLoading={is_loading}
-            titleAttached={LOGIN_CONFIG.TITLE}
-            titleStylingController={LGN_STY.TITLE}
-            subtitleAttached={LOGIN_CONFIG.SUBTITLE}
-            subtitleStylingController={LGN_STY.SUBTITLE}
-            placeHoldersConfig={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : ' Enter your password'}
-            autoCompleteEnabled={false}
-            googleAuthRequired
-            appleAuthRequired
-            spacingEnabled={4}
-            paddingResponseController={2}
-            forgetPasswordRequired
-            forgetPasswordStyling={LGN_STY.FG_PASSCODE}
-            buttonStyles={LGN_STY.BTN_STYLES}
-            buttonContent={LOGIN_CONFIG.AUTH_BTN}
-            authFlowIdentifier={AuthFlowIdentifier.SIGN_IN}
-            authLinksEnabled
-            onSwitchToDifferentAuthFlow={handle_toggle_auth_controller}
-
-          />
-        </div>
-        {/* <div className="lg:w-2/3 md:w-1/2 w-full bg-gradient-to-b from-black via-black via-black via-black to-[#10B981] flex flex-col justify-center">
-          <div className="p-6 lg:p-10 text-center md:text-left ">
-            <div className="text-4xl lg:text-4xl font-bold text-white md:max-w-lg bg-opacity-50 bg-clip-text mb-6 lg:mb-10">
-              The Simplest way to manage your workplace
-            </div>
-            <div className="flex justify-center items-center mb-4">
-              <ImageContainer {...imageContainerProps} />
-            </div>
-            <InfiniteMovingCards className="mt-[6rem]" items={clients} />
-          </div>
-        </div> */}
-
-
-
-      </div>
-    </React.Fragment>
+    <CustomBox className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
+      <CustomBox className='max-w-xl'>
+        <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
+        <DynamicForm
+          formObjectData={defaultValues}
+          validSchemaStructure={validationSchema}
+          onFormSubmission={handleSubmit}
+          isApiCalledLoading={isLoading}
+          titleAttached={LOGIN_CONFIG.TITLE}
+          titleStylingController={LGN_STY.TITLE}
+          subtitleAttached={LOGIN_CONFIG.SUBTITLE}
+          subtitleStylingController={LGN_STY.SUBTITLE}
+          placeHoldersConfig={DataTypeFormIdentifier.EM_L ? 'Enter your email ' : 'Enter your password'}
+          autoCompleteEnabled={false}
+          googleAuthRequired
+          appleAuthRequired
+          spacingEnabled={4}
+          paddingResponseController={2}
+          forgetPasswordRequired
+          forgetPasswordStyling={LGN_STY.FG_PASSCODE}
+          buttonStyles={LGN_STY.BTN_STYLES}
+          buttonContent={LOGIN_CONFIG.AUTH_BTN}
+          authFlowIdentifier={AuthFlowIdentifier.SIGN_IN}
+          authLinksEnabled
+          onSwitchToDifferentAuthFlow={handleToggleAuth}
+        />
+      </CustomBox>
+    </CustomBox>
   );
 };
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserLoginEnabled />
+      <UserAuthProviderComponent />
     </QueryClientProvider>
   );
 }

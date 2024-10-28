@@ -32,15 +32,15 @@ const AppRoutes = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const tokenSelector = useSelector((state: any) => state.auth.token_for_authnetication);
-  const verifiedSelector = useSelector((state: any) =>
+  const TOKEN_SEL = useSelector((state: any) => state.auth.token_for_authnetication);
+  const VERIFIED_SELECTOR = useSelector((state: any) =>
     state.auth?.user_info?.is_user_verified ?? JSON.parse(localStorage.getItem('User-Verification') || 'false')
   );
   const [loading, setLoading] = useState<boolean>(true);
-  const persistedToken = useMemo(() => localStorage.getItem('User-Token'), []);
-  const persistedVerification = useMemo(() => localStorage.getItem('User-Verified'), []);
-  const isUserAuthenticated = useMemo(() => !!localStorage.getItem('User-Settings') || !!tokenSelector, [tokenSelector]);
-  const isUserVerified = useMemo(() => !!verifiedSelector || persistedVerification === 'true', [verifiedSelector, persistedVerification])
+  const PERSISTED_TOKEN = useMemo(() => localStorage.getItem('User-Token'), []);
+  const PERSISTED_VERIFICATION = useMemo(() => localStorage.getItem('User-Verified'), []);
+  const isUserAuthenticated = useMemo(() => !!localStorage.getItem('User-Settings') || !!TOKEN_SEL, [TOKEN_SEL]);
+  const isUserVerified = useMemo(() => !!VERIFIED_SELECTOR || PERSISTED_VERIFICATION === 'true', [VERIFIED_SELECTOR, PERSISTED_VERIFICATION])
   const { theme } = useTheme();
   useEffect(() => {
     const isDefaultOrVerificationRoute =
@@ -62,15 +62,15 @@ const AppRoutes = () => {
 
   useEffect(() => {
     const handleTokenSync = () => {
-      if (typeof persistedToken === 'string' && !tokenSelector) {
-        dispatch(updateAuthToken(persistedToken));
+      if (typeof PERSISTED_TOKEN === 'string' && !TOKEN_SEL) {
+        dispatch(updateAuthToken(PERSISTED_TOKEN));
       }
     };
 
     const handleVerificationSync = () => {
-      if (persistedVerification === 'true' && !verifiedSelector) {
+      if (PERSISTED_VERIFICATION === 'true' && !VERIFIED_SELECTOR) {
         dispatch(updateUserVerified(true));
-      } else if (persistedVerification === 'false' && !verifiedSelector) {
+      } else if (PERSISTED_VERIFICATION === 'false' && !VERIFIED_SELECTOR) {
         dispatch(updateUserVerified(false));
       }
     };
@@ -80,12 +80,12 @@ const AppRoutes = () => {
       console.log('State synchronized successfully');
     };
 
-    if (persistedToken !== tokenSelector || persistedVerification !== verifiedSelector) {
+    if (PERSISTED_TOKEN !== TOKEN_SEL || PERSISTED_VERIFICATION !== VERIFIED_SELECTOR) {
       conditionalExecution();
     }
 
     setLoading(false);
-  }, [dispatch, persistedToken, persistedVerification, tokenSelector, verifiedSelector]);
+  }, [dispatch, PERSISTED_TOKEN, PERSISTED_VERIFICATION, TOKEN_SEL, VERIFIED_SELECTOR]);
 
 
 
