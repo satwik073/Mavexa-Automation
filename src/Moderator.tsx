@@ -105,6 +105,36 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
         <link rel="canonical" href="https://mavexa.vercel.app" />
 
       </Helmet>
+      {/* <SEO_Module_Optimizer
+        primaryTitle="Amazing Product - Mavexa"
+        primaryDescription="Discover Mavexa's latest amazing product that can transform your life."
+        canonicalURL="https://www.mavexa.com/amazing-product"
+        metaImageURL="https://www.mavexa.com/images/amazing-product.jpg"
+        additionalKeywords="Mavexa, amazing product, life transformation, innovation"
+        schemaEntityType="Product"
+        contentAuthor="John Doe"
+        contentPublisher="Mavexa Inc."
+        publicationDate="2024-10-29"
+        lastModifiedDate="2024-10-29"
+        localizedLanguageRegion="en_US"
+        twitterHandleAlias="@mavexa"
+        facebookApplicationID="1234567890" */}
+      {/* /> */}
+      {/* <SEO_Module_Optimizer
+        primaryTitle="Welcome to Mavexa"
+        primaryDescription="Mavexa is your top destination for quality tech solutions."
+        canonicalURL="https://mavexa.com"
+        metaImageURL="https://mavexa.com/logo.png"
+        additionalKeywords="tech, solutions, Mavexa"
+        schemaEntityType="Organization"
+        contentAuthor="John Doe"
+        contentPublisher="Mavexa Inc."
+        publicationDate="2024-10-01"
+        lastModifiedDate="2024-10-15"
+        localizedLanguageRegion="en_US"
+        twitterHandleAlias="@mavexa"
+        facebookApplicationID="1234567890"
+      /> */}
       <Suspense fallback={FallbackComponentProgress}>
         <MemoizedNavigation />
         <MemoizedLight />

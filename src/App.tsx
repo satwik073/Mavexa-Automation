@@ -10,13 +10,7 @@ import { CircularProgress } from '@mui/material';
 import { updateAuthToken, updateUserVerified } from './Store/authSlice';
 import { useTheme } from 'next-themes';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
-import Dashboard from './Network/Dashboard';
 import { Toaster } from './Components/Images/External/UI/toaster';
-import Pricing from './Network/Pricing';
-import Clients from './Network/Clients';
-import Documentation from './Network/Documentation';
-import Resources from './Network/Resources';
-import { FloatingDockDemo } from './Components/DockContainer/FloatingDock';
 
 interface ValidRoutesConfiguration {
   path: string;
@@ -124,23 +118,23 @@ const AppRoutes = () => {
       />
       <Route
         path={RoutesConfiguration.DASHBOARD}
-        element={<Dashboard />}
+        element={<APP_CONFIG.DSH />}
       />
       <Route
         path={RoutesConfiguration.PRICING}
-        element={<Pricing />}
+        element={<APP_CONFIG.PR_C />}
       />
       <Route
         path={RoutesConfiguration.CLIENTS}
-        element={<Clients />}
+        element={<APP_CONFIG.CL_N />}
       />
       <Route
         path={RoutesConfiguration.DOCUMENTATION}
-        element={<Documentation />}
+        element={<APP_CONFIG.DOC_TN />}
       />
       <Route
         path={RoutesConfiguration.RESOURCES}
-        element={<Resources />}
+        element={<APP_CONFIG.RC_S />}
       />
       <Route path="*" element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />} />
     </Routes>
@@ -152,10 +146,10 @@ function App() {
     <div>
     <Router>
       <AppRoutes />
-      {/* Ensure the FloatingDockDemo is fixed at the bottom-right of the screen */}
-      <div className='fixed bottom-0 right-0 -mb-40 z-50 mr-4'>
+      {/* //TODO */}
+      {/* <div className='fixed bottom-0 right-0 -mb-40 z-50 mr-4'>
         <FloatingDockDemo />
-      </div>
+      </div> */}
     </Router>
     <ToastContainer />
     <Toaster />
