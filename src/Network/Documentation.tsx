@@ -43,7 +43,7 @@ const Documentation = (props: Props) => {
    
   </Helmet>
   <h1>Mavexa | Products Page</h1>
-  <h6>Product Descriptions</h6>
+  <h6>Documentation Descriptions</h6>
   </div>
   )
 }
