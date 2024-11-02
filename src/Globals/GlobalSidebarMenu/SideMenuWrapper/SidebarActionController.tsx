@@ -17,6 +17,7 @@ import { ThemeSchema } from "@/Global/GlobalSiteNavigators/NavigationState/Const
 import ImageContainer from "@/Components/Images/ImageContainer";
 import { RoutesConfiguration } from "@/Constants/structure";
 import { APP_CONFIG } from "@/index";
+import Workflows from "@/Network/Workflows/Workflows";
 
 export function SidebarDemo() {
   const links = [
@@ -50,19 +51,19 @@ export function SidebarDemo() {
   const renderContent = () => {
     switch (selectedOption) {
       case capitalizeFirst(RoutesConfiguration.DASHBOARD.substring(1)):
-        return <APP_CONFIG.DOC_TN/>;
+        return <APP_CONFIG.DOC_TN />;
       case capitalizeFirst(RoutesConfiguration.WORKFLOWS.substring(1)):
-        return <APP_CONFIG.CL_N/>;
+        return <APP_CONFIG.CL_N />;
       case capitalizeFirst(RoutesConfiguration.CONNECTIONS.substring(1)):
-        return <APP_CONFIG.PR_S/>;
+        return <APP_CONFIG.PR_S />;
       case capitalizeFirst(RoutesConfiguration.TEMPLATES.substring(1)):
-        return <APP_CONFIG.PR_C/>;
+        return <APP_CONFIG.PR_C />;
       case capitalizeFirst(RoutesConfiguration.ENTERPRISE.substring(1)):
-        return <APP_CONFIG.EN_TP/>;
+        return <APP_CONFIG.EN_TP />;
       case capitalizeFirst(RoutesConfiguration.LOGS.substring(1)):
-        return <APP_CONFIG.RC_S/>;
+        return <APP_CONFIG.RC_S />;
       case "Logout":
-        return <APP_CONFIG.DSH/>;
+        return <Workflows/>
       default:
         return <p>Select an option from the sidebar.</p>;
     }
@@ -90,7 +91,11 @@ export function SidebarDemo() {
                 <SidebarLink
                   key={idx}
                   link={link}
-                  onClick={() => setSelectedOption(link.label)}
+                  onClick={() => {
+                    setSelectedOption(link.label)
+                    setOpen(false)
+                  }
+                  }
                 />
               ))}
             </div>

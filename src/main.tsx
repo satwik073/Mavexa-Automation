@@ -8,20 +8,25 @@ import { ThemeProvider } from 'next-themes';
 import { ThemeProviderOptions } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure.ts';
 import ThemeUpdater from './Hooks/useThemeProvider.tsx';
 import { HelmetProvider } from 'react-helmet-async';
-import { FloatingDockDemo } from './Components/DockContainer/FloatingDock.tsx';
+import ModalProvider from './providers/ModalValueProvider.tsx';
+
 const container = document.getElementById('root');
 createRoot(container!).render(
   <StrictMode>
     <Provider store={store}>
       <HelmetProvider>
-      <CustomFontProvider>
-        <ThemeProvider attribute="class" defaultTheme={ThemeProviderOptions.DARK_TH} themes={[ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH , ThemeProviderOptions.DEFAULT]}>
-         <ThemeUpdater/>
-          <App />
-          
-        </ThemeProvider>
-       
-      </CustomFontProvider>
+        <CustomFontProvider>
+          <ThemeProvider 
+            attribute="class" 
+            defaultTheme={ThemeProviderOptions.DARK_TH} 
+            themes={[ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH , ThemeProviderOptions.DEFAULT]}
+          >
+            <ThemeUpdater />
+            <ModalProvider>
+              <App />
+            </ModalProvider>
+          </ThemeProvider>
+        </CustomFontProvider>
       </HelmetProvider>
     </Provider>
   </StrictMode>
