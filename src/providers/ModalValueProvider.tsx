@@ -33,14 +33,15 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 
   const setOpen = async (
     modal: React.ReactNode,
-    // fetchData?: () => Promise<any>
+    fetchData?: () => Promise<any> 
   ) => {
     if (modal) {
-      // if (fetchData) {
-      //   setData({ ...data, ...(await fetchData()) } || {})
-      // }
-      setShowingModal(modal)
-      setIsOpen(true)
+      let fetchedData = fetchData ? await fetchData() : null;
+      if (fetchedData && Object.keys(fetchedData).length > 0) {
+        setData({ ...data, ...fetchedData });
+      }
+      setShowingModal(modal);
+      setIsOpen(true);
     }
   }
 
@@ -62,7 +63,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 export const useModal = () => {
   const context = useContext(ModalContext)
   if (!context) {
-    throw new Error('useModal must be used within the modal provider')
+    throw new Error('useModal must be used within the ModalProvider')
   }
   return context
 }

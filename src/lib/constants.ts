@@ -1,9 +1,16 @@
+import { z } from "zod";
+
 export const clients = Array.from({ length: 10 }, (_, index) => ({
     href: `/${index + 1}.png`
 }));
 export const clients_inverted = Array.from({length : 10}, (_ , index) =>({
   href: `/image${index}.png`
 }))
+
+export const WorkflowFormSchema = z.object({
+  name: z.string().min(1, 'Required'),
+  description: z.string().min(1, 'Required'),
+})
 export const products = [
     {
       title: 'Moonbeam',

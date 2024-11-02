@@ -7,11 +7,17 @@ import { clients, clients_inverted } from './lib/constants';
 import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators/NavigationState/Constants/structure';
 import { Helmet } from 'react-helmet-async'
 import { FloatingDockDemo } from './Components/DockContainer/FloatingDock';
+import SEO_Module_Optimizer from './providers/SEO_Optimizer';
+import { APP_CONFIG } from '.';
 const TransientLight = lazy(() => import('@/Pages/SpotLightCombined/SpotLightModuler').then(module => ({ default: module.SpotlightPreview })));
 const GlobalAnnotations = lazy(() => import('@/Globals/GlobalSiteFooter/FooterAttributesWrapping/Components/PrimarySiteFooter'));
 const PeriodicNavigation = lazy(() => import('@/Global/GlobalSiteNavigators/NavigationState/PrimarySiteNavigator'));
 const AlignedGridConstants = lazy(() => import('@/Pages/GridContainer/GridTerminalLayout').then(module => ({ default: module.FeaturedSectionDemo })));
 const PricingAndBillingAnnotations = lazy(() => import('@/Pages/CardWrapper/CardFlexContainers'));
+const { VITE_APP_PRODUCT } = import.meta.env
+const { VITE_APP_DEFAULT_IMAGE } = import.meta.env
+const { VITE_APP_JSON_LD_ORG } = import.meta.env
+const{ VITE_APP_HOSTED_SERVER } = import.meta.env
 
 type Props = {};
 
@@ -68,63 +74,12 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
   }, [clientRenderingItems]);
 
   return (
-    <>
-      <Helmet>
-        {/* Standard Meta Tags */}
-        <title>Mavexa - Leading SaaS Automation Platform for Business</title>
-
-        <meta name="description" content="Mavexa offers innovative SaaS automation solutions to streamline business processes, boost operational efficiency, and scale with ease." />
-
-   
-        <meta property="og:title" content="Mavexa - SaaS Automation Solutions for Business Efficiency" />
-        <meta property="og:description" content="Transform your business operations with Mavexa's SaaS automation tools. Get insights, automate workflows, and scale efficiently." />
-        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
-        <meta property="og:url" content="https://mavexa.vercel.app" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Mavexa" />
-        <meta property="og:locale" content="en_US" />
-
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Mavexa - Leading SaaS Automation Platform" />
-        <meta name="twitter:description" content="Boost your business with Mavexa's leading SaaS automation platform. Automate, optimize, and scale seamlessly with real-time insights." />
-        <meta name="twitter:image" content="https://mavexa.vercel.app/test2.png" />
-        <meta name="twitter:site" content="@mavexa" />
-        <meta name="twitter:creator" content="@mavexa" />
-
-        <meta property="og:title" content="Mavexa - SaaS Automation Platform" />
-        <meta property="og:description" content="Streamline your business operations with Mavexa's cutting-edge SaaS automation platform." />
-        <meta property="og:image" content="https://mavexa.vercel.app/test2.png" />
-        <meta property="og:url" content="https://mavexa.vercel.app" />
-        <meta property="og:type" content="website" />
-
-
-        <meta name="robots" content="index, follow" />
-        <meta name="keywords" content="SaaS automation, business automation, workflow automation, streamline business processes, real-time insights, scale business, Mavexa" />
-
-        <link rel="canonical" href="https://mavexa.vercel.app" />
-
-      </Helmet>
-      {/* <SEO_Module_Optimizer
-        primaryTitle="Amazing Product - Mavexa"
-        primaryDescription="Discover Mavexa's latest amazing product that can transform your life."
-        canonicalURL="https://www.mavexa.com/amazing-product"
-        metaImageURL="https://www.mavexa.com/images/amazing-product.jpg"
-        additionalKeywords="Mavexa, amazing product, life transformation, innovation"
-        schemaEntityType="Product"
-        contentAuthor="John Doe"
-        contentPublisher="Mavexa Inc."
-        publicationDate="2024-10-29"
-        lastModifiedDate="2024-10-29"
-        localizedLanguageRegion="en_US"
-        twitterHandleAlias="@mavexa"
-        facebookApplicationID="1234567890" */}
-      {/* /> */}
-      {/* <SEO_Module_Optimizer
-        primaryTitle="Welcome to Mavexa"
+    <React.Fragment>
+      <APP_CONFIG.SEO_OPT
+        primaryTitle={`${VITE_APP_PRODUCT} - Leading SaaS Automation Platform for Business`}
         primaryDescription="Mavexa is your top destination for quality tech solutions."
-        canonicalURL="https://mavexa.com"
-        metaImageURL="https://mavexa.com/logo.png"
+        canonicalURL={VITE_APP_HOSTED_SERVER}
+        metaImageURL= {VITE_APP_DEFAULT_IMAGE}
         additionalKeywords="tech, solutions, Mavexa"
         schemaEntityType="Organization"
         contentAuthor="John Doe"
@@ -134,7 +89,7 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
         localizedLanguageRegion="en_US"
         twitterHandleAlias="@mavexa"
         facebookApplicationID="1234567890"
-      /> */}
+      />
       <Suspense fallback={FallbackComponentProgress}>
         <MemoizedNavigation />
         <MemoizedLight />
@@ -142,10 +97,9 @@ const ModeratorLazyLoader: React.FC<Props> = () => {
         <MemoizedGridConstants />
         <MemoizedPricing />
         <MemoizedAnnotations />
-        {/* <FloatingDockDemo/> */}
       </Suspense>
- 
-    </>
+
+    </React.Fragment>
   );
 };
 
