@@ -18,6 +18,8 @@ import ImageContainer from "@/Components/Images/ImageContainer";
 import { RoutesConfiguration } from "@/Constants/structure";
 import { APP_CONFIG } from "@/index";
 import Workflows from "@/Network/Workflows/Workflows";
+import EditorCanvas from "@/Network/EditorCanvas/Components/EditorCanvas";
+import Canvas from "@/Network/EditorCanvas/Canvas";
 
 export function SidebarDemo() {
   const links = [
@@ -63,7 +65,7 @@ export function SidebarDemo() {
       case capitalizeFirst(RoutesConfiguration.LOGS.substring(1)):
         return <APP_CONFIG.RC_S />;
       case "Logout":
-        return <Workflows/>
+        return <Canvas/>
       default:
         return <p>Select an option from the sidebar.</p>;
     }

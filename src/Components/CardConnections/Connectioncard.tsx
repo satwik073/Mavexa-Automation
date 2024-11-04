@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from '@/Components/Images/External/UI/card'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 
 type Props = {
   type: string,
@@ -28,7 +28,7 @@ const ConnectionCard = ({
     <Card className="flex w-full items-center justify-between">
       <CardHeader className="flex flex-col gap-4">
         <div className="flex flex-row gap-2">
-          <Image
+          <img
             src={icon}
             alt={title}
             height={30}
@@ -48,7 +48,7 @@ const ConnectionCard = ({
           </div>
         ) : (
           <Link
-            href={
+            to={
               title == 'Discord'
                 ? "#"
                 : title == 'Notion'

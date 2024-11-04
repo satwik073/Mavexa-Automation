@@ -17,11 +17,27 @@ import { LGN_STY } from './Constants/layout';
 import { MESSAGE_HANDLER_SONNER, MessageConfiguration } from '@/Events/SonnerMessageDispatch';
 import { useTheme } from 'next-themes';
 import CustomBox from '@/@types/Comp_BX';
-
+import { makeStyles } from '@mui/styles';
 const queryClient = new QueryClient();
 
 interface ResponseData { Details?: string; }
 export interface CredentialKeys { registered_user_email: string; registered_user_password: string; }
+
+
+const useStyles = makeStyles((_theme: any) => ({
+  container_values: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh', 
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    padding: '1.5rem',
+    '@media (min-width: 768px)': { 
+      flexDirection: 'row',
+    },
+  }
+}));
 
 const REQUEST_LOGIN_EXECUTION = async (payload: CredentialKeys) => {
   const loginRequestPayload = await LOGIN_SESSION(payload);
@@ -31,7 +47,7 @@ const REQUEST_LOGIN_EXECUTION = async (payload: CredentialKeys) => {
 const UserAuthProviderComponent: FC = () => {
   const navigate = useNavigate(), { theme: runtimeTheme } = useTheme(), dispatch = useDispatch();
   const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL), [isLoading, setIsLoading] = useState(false);
-
+  const classes =  useStyles()
   const defaultValues: CredentialKeys = { registered_user_email: '', registered_user_password: '' };
   const validationSchema = Yup.object({
     registered_user_email: Yup.string().email('Invalid email').required('Email is required'),
@@ -65,7 +81,7 @@ const UserAuthProviderComponent: FC = () => {
   const handleSubmit = (values: CredentialKeys) => mutation.mutate(values);
 
   return (
-    <CustomBox className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
+    <CustomBox className={classes.container_values}>
       <CustomBox className='max-w-xl'>
         <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
         <DynamicForm
