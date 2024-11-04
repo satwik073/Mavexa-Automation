@@ -1,5 +1,5 @@
 
-'use server'
+
 import { Option } from '@/Hooks/useGlobal'
 // import { db } from '@/lib/db'
 // import { auth, currentUser } from '@clerk/nextjs'

@@ -1,4 +1,4 @@
-'use server'
+
 
 // import { db } from '@/lib/db'
 // import { currentUser } from '@clerk/nextjs'
@@ -12,7 +12,7 @@ export const onNotionConnect = async (
   database_id: string,
   id: string
 ) => {
-  'use server'
+  
   let db = ''
   if (access_token) {
     //check if notion is connected
