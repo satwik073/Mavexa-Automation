@@ -30,23 +30,26 @@ const WorkflowButton = (props: Props) => {
   return (
     <CustomBox >
 
-    <Button
-      size="icon"
-      onClick={credits > 0 ? handleClick : undefined}
-      disabled={credits <= 0}
-    >
-      <Plus />
-     
-    </Button>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={' Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus facilis quo eius eveniet veritatis voluptas aliquam odio est ex repellendus.'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
-    <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null}/>
+      <Button
+        size="icon"
+        onClick={credits > 0 ? handleClick : undefined}
+        disabled={credits <= 0}
+      >
+        <Plus />
+
+      </Button>
+      <CustomBox className='overflow-y-auto'>
+
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={true} />
+        <Workflow name={'Test'} description={' Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus facilis quo eius eveniet veritatis voluptas aliquam odio est ex repellendus.'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+        <Workflow name={'Test'} description={'Testing things'} id={'1'} publish={null} />
+      </CustomBox>
     </CustomBox>
   )
 }

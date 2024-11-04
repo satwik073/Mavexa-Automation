@@ -14,6 +14,7 @@ import { ThemeProviderOptions, ThemeSchema } from './Global/GlobalSiteNavigators
 import { Toaster } from './Components/Images/External/UI/toaster';
 import CustomBox from './@types/Comp_BX';
 import ModalProvider from './providers/ModalValueProvider';
+import Canvas from './Network/EditorCanvas/Canvas';
 
 
 
@@ -42,7 +43,7 @@ const AppRoutes = () => {
     else if (isUserAuthenticated && !isUserVerified && location.pathname !== RoutesConfiguration.VERIFICATION) {
       navigate(RoutesConfiguration.VERIFICATION, { replace: true });
     }
-    else if (!isUserAuthenticated && ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION, RoutesConfiguration.CLIENTS, RoutesConfiguration.RESOURCES, RoutesConfiguration.DOCUMENTATION, RoutesConfiguration.PRICING, RoutesConfiguration.LOGIN, RoutesConfiguration.ENTERPRISE, RoutesConfiguration.PRODUCTS].includes(location.pathname)) {
+    else if (!isUserAuthenticated && ![RoutesConfiguration.DEFAULT_PATH, ROUTES_EXT.DEFAULT.PATH, '/', RoutesConfiguration.REGISTRATION, RoutesConfiguration.CLIENTS, RoutesConfiguration.RESOURCES, RoutesConfiguration.DOCUMENTATION, RoutesConfiguration.PRICING, RoutesConfiguration.LOGIN, RoutesConfiguration.ENTERPRISE, RoutesConfiguration.PRODUCTS , '/testing-route'].includes(location.pathname)) {
       navigate(RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH, { replace: true });
     }
   }, [isUserAuthenticated, isUserVerified, location.pathname, navigate]);
@@ -122,6 +123,7 @@ const AppRoutes = () => {
       )}
 
       <Route path="*" element={<Navigate to={RoutesConfiguration.DEFAULT_PATH || ROUTES_EXT.DEFAULT.PATH} />} />
+      <Route path="/testing-route" element={<Canvas/>}  />
     </Routes>
   );
 };

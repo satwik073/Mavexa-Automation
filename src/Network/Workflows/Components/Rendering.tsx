@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/Components/Images/External/UI/card'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { Label } from '@/Components/Images/External/UI/label'
 import { Switch } from '@/Components/ui/switch'
 
@@ -26,9 +26,9 @@ const Workflow = ({ description, id, name, publish }: Props) => {
 //     )
 //     if (response) toast.message(response)
 //   }
-
+const navigate = useNavigate()
   return (
-    <Card className="flex w-[600px] items-center justify-between">
+    <Card className="flex w-[600px] items-center justify-between " onClick={() => navigate('/testing-route')}>
       <CardHeader className="flex flex-col gap-4">
         <Link to={`/workflows/editor/${id}`}>
           <div className="flex flex-row gap-2">

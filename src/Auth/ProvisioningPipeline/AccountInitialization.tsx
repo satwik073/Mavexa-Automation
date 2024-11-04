@@ -14,12 +14,10 @@ import DynamicForm from '@/Forms/DynamicAtttributes/DynamicReducer';
 import * as Yup from 'yup';
 import { Box, useMediaQuery, useTheme as useMUITheme } from '@mui/material';
 import { useTheme } from 'next-themes'
-import ImageContainer from '@/Components/Images/ImageContainer';
-import { InfiniteMovingCards } from '@/Animations/MovingCardsGlobalState';
-import { clients } from '@/lib/constants';
 import { PRODUCTS_CONFIGURATIONS } from '@/Global/GlobalSiteNavigators/NavigationState/Constants';
 import { LOGIN_CONFIG } from '../AuthTokenHandler/Constants';
 import { LGN_STY } from '../AuthTokenHandler/Constants/layout';
+import { makeStyles } from '@mui/styles';
 const queryClient = new QueryClient();
 
 interface ErrorResponse {
@@ -30,6 +28,21 @@ export interface LoginCredentialProps {
   registered_user_email: string;
   registered_user_password: string;
 }
+
+const useStyles = makeStyles((_theme: any) => ({
+  container_values: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100vh', 
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    padding: '1.5rem',
+    '@media (min-width: 768px)': { 
+      flexDirection: 'row',
+    },
+  }
+}));
 
 const REGISTRATION_CALLER = async (payload: LoginCredentialProps) => {
   console.time('RegistrationCallerExecutionTime');
@@ -42,6 +55,7 @@ const REGISTRATION_CALLER = async (payload: LoginCredentialProps) => {
 const UserRegistrationEnabled: FC = () => {
   const navigate = useNavigate();
   const { theme } = useTheme();
+  const classes = useStyles()
   const muiTheme = useMUITheme()
   const [logoColor, setLogoColor] = useState<string>(ThemeSchema.BLK_CL);
   const is_small_screen = useMediaQuery(muiTheme.breakpoints.down('sm'))
@@ -120,7 +134,7 @@ const UserRegistrationEnabled: FC = () => {
 
   return (
     <React.Fragment>
-      <Box className='flex flex-col md:flex-row h-screen items-center justify-center w-full lg:p-6'>
+      <Box className={classes.container_values}>
         <Box className='max-w-lg'>
           <PRODUCTS_CONFIGURATIONS.LOGO_SETTINGS.product_display />
           <DynamicForm
