@@ -111,8 +111,7 @@ const EditorCanvas = (props: Props) => {
         position,
         data: {
           title: type,
-          description: 'hi',
-        //   EditorCanvasDefaultCardTypes[type].description,
+          description: EditorCanvasDefaultCardTypes[type].description,
           completed: false,
           current: false,
           metadata: {},
@@ -137,6 +136,7 @@ const EditorCanvas = (props: Props) => {
             metadata: {},
             title: '',
             type: 'Trigger',
+            // animated: true
           },
           id: '',
           position: { x: 0, y: 0 },

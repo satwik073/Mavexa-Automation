@@ -65,7 +65,7 @@ export function SidebarDemo() {
       case capitalizeFirst(RoutesConfiguration.LOGS.substring(1)):
         return <APP_CONFIG.RC_S />;
       case "Logout":
-        return <Canvas/>
+        return <Workflows/>
       default:
         return <p>Select an option from the sidebar.</p>;
     }
