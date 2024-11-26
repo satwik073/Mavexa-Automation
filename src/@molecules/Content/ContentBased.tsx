@@ -69,8 +69,9 @@ const ContentBasedOnTitle = ({
   }, [])
 
   // @ts-ignore
-  const nodeConnectionType: any = nodeConnection[nodeMapper[title]]
-  if (!nodeConnectionType) return <p>Not connected</p>
+  const nodeConnectionType: any = true
+  // const nodeConnectionType: any = nodeConnection[nodeMapper[title]]
+  if (nodeConnectionType) return <p>Not connected</p>
 
   const isConnected =
     title === 'Google Drive'
