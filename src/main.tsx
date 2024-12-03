@@ -11,7 +11,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import ModalProvider from './providers/ModalValueProvider.tsx';
 import { initializeFaro, createReactRouterV6DataOptions, ReactIntegration, getWebInstrumentations } from '@grafana/faro-react';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
-import { matchRoutes } from 'react-router-dom';
+import { matchRoutes } from 'react-router-dom'; 
 
 initializeFaro({
   url: import.meta.env.VITE_API_KEY_GRAFANA,
