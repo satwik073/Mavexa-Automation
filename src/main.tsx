@@ -12,6 +12,7 @@ import ModalProvider from './providers/ModalValueProvider.tsx';
 import { initializeFaro, createReactRouterV6DataOptions, ReactIntegration, getWebInstrumentations } from '@grafana/faro-react';
 import { TracingInstrumentation } from '@grafana/faro-web-tracing';
 import { matchRoutes } from 'react-router-dom'; 
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 initializeFaro({
   url: import.meta.env.VITE_API_KEY_GRAFANA,
@@ -39,12 +40,13 @@ createRoot(container!).render(
         <CustomFontProvider>
           <ThemeProvider 
             attribute="class" 
-            defaultTheme={ThemeProviderOptions.DARK_TH} 
+            defaultTheme={ThemeProviderOptions.DEFAULT} 
             themes={[ThemeProviderOptions.DARK_TH, ThemeProviderOptions.LIGHT_TH , ThemeProviderOptions.DEFAULT]}
           >
             <ThemeUpdater />
             <ModalProvider>
               <App />
+              <SpeedInsights/>
             </ModalProvider>
           </ThemeProvider>
         </CustomFontProvider>

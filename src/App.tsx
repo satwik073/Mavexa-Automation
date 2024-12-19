@@ -130,7 +130,7 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <div>
+    <div className='demo-push'>
         <ModalProvider>
       <Router>
           <AppRoutes />
